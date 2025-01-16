@@ -13,8 +13,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/leynnnnnn0/itracking-filament.git
-cd itracking-filament
+git clone https://github.com/leynnnnnn0/progress-tracker.git
+cd progress-tracker
 ```
 
 ### 2. Install Dependencies
@@ -42,7 +42,7 @@ php artisan key:generate
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=itracking_filament
+DB_DATABASE=progress_tracker
 DB_USERNAME=your_username or root
 DB_PASSWORD=your_password or leave as empty
 ```
