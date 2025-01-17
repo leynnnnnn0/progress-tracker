@@ -1,10 +1,12 @@
 <script setup>
-defineProps({
+const { offices } = defineProps({
     offices: {
         type: Object,
         required: true,
     },
 });
+
+
 </script>
 <template>
     <MainLayout>
