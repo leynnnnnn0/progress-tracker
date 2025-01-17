@@ -1,12 +1,10 @@
 <script setup>
-const { offices } = defineProps({
-    offices: {
+const { users } = defineProps({
+    users: {
         type: Object,
         required: true,
     },
 });
-
-console.log(offices);
 </script>
 <template>
     <MainLayout>
@@ -15,15 +13,16 @@ console.log(offices);
             <Table>
                 <TableHead>
                     <TH>Id</TH>
-                    <TH>Name</TH>
-                    <TH>Remarks</TH>
-                    <TH>Action</TH>
+                    <TH>Full Name</TH>
+                    <TH>Email</TH>
+                    <TH>Phone Number</TH>
                 </TableHead>
                 <TableBody>
-                    <tr v-for="office in offices.data">
-                        <TD>{{ office.id }}</TD>
-                        <TD>{{ office.name }}</TD>
-                        <TD>{{ office.remarks ?? "N/a" }}</TD>
+                    <tr v-for="user in users.data">
+                        <TD>{{ user.id }}</TD>
+                        <TD>{{ user.full_name }}</TD>
+                        <TD>{{ user.email }}</TD>
+                        <TD>{{ user.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton />
@@ -32,7 +31,7 @@ console.log(offices);
                     </tr>
                 </TableBody>
             </Table>
-            <Pagination :data="offices" />
+            <Pagination :data="users" />
         </TableContainer>
     </MainLayout>
 </template>

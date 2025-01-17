@@ -29,6 +29,7 @@ import {
 import ShowButton from "./Components/button/ShowButton.vue";
 import EditButton from "./Components/button/EditButton.vue";
 import DeleteButton from "./Components/button/DeleteButton.vue";
+import Heading from "./Components/text/Heading.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -57,6 +58,7 @@ createInertiaApp({
             .component("ShowButton", ShowButton)
             .component("DeleteButton", DeleteButton)
             .component("EditButton", EditButton)
+            .component("Heading", Heading)
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);

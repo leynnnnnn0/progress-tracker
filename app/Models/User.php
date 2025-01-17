@@ -21,10 +21,12 @@ class User extends Authenticatable
         'first_name',
         'middle_name',
         'last_name',
-        'work_phone',
-        'work_email',
+        'phone_number',
+        'email',
         'password',
     ];
+
+    protected $appends = ['full_name'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,5 +49,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }

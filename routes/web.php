@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +23,11 @@ Route::get('/offices', function () {
 Route::controller(OfficeController::class)->prefix('offices')->name('offices.')->group(function(){
     route::get('/', 'index')->name('index');
 });
+
+Route::controller(UserController::class)->prefix('users')->name('users.')->group(function(){
+    route::get('/', 'index')->name('index');
+});
+
 
 
 
