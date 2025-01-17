@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,10 @@ Route::get('/users', function () {
 Route::get('/offices', function () {
     return Inertia::render('Dashboard');
 })->name('offices.index');
+
+Route::controller(OfficeController::class)->prefix('offices')->name('offices.')->group(function(){
+    route::get('/', 'index')->name('index');
+});
 
 
 
