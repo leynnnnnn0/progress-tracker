@@ -1,4 +1,5 @@
 <script setup>
+import DivFlexCol from "@/Components/div/DivFlexCol.vue";
 import Logo from "../../images/mainLogo.png";
 import NavLink from "@/Components/NavLink.vue";
 import { Home, UsersRound, Warehouse } from "lucide-vue-next";
@@ -43,8 +44,8 @@ import { Home, UsersRound, Warehouse } from "lucide-vue-next";
                 </div>
             </div>
         </div>
-        <main class="p-10">
+        <DivFlexCol class="p-10 gap-5">
             <slot></slot>
-        </main>
+        </DivFlexCol>
     </div>
 </template>
