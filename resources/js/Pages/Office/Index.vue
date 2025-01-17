@@ -6,7 +6,7 @@ const { offices } = defineProps({
     },
 });
 
-
+console.log(offices);
 </script>
 <template>
     <MainLayout>
