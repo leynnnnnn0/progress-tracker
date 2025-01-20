@@ -10,7 +10,14 @@ console.log(offices);
 </script>
 <template>
     <MainLayout>
-        <Heading>Offices</Heading>
+        <DivFlexCenter class="justify-between">
+            <Heading>Offices</Heading>
+            <Link
+                :href="route('offices.create')"
+                class="text-white bg-slate-900 px-4 py-2 rounded-lg text-sm"
+                >Create New Office</Link
+            >
+        </DivFlexCenter>
         <TableContainer>
             <Table>
                 <TableHead>

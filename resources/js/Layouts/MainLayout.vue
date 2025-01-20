@@ -2,10 +2,14 @@
 import DivFlexCol from "@/Components/div/DivFlexCol.vue";
 import Logo from "../../images/mainLogo.png";
 import NavLink from "@/Components/NavLink.vue";
+import ConfirmDialog from "primevue/confirmdialog";
+import Toast from "primevue/toast";
 import { Home, UsersRound, Warehouse } from "lucide-vue-next";
 </script>
 
 <template>
+    <Toast />
+    <ConfirmDialog></ConfirmDialog>
     <div
         class="grid min-h-screen max-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden"
     >

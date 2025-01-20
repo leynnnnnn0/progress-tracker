@@ -16,4 +16,9 @@ class OfficeController extends Controller
             'offices' => $offices
         ]);
     }
+
+    public function create()
+    {
+        return Inertia::render('Office/Create');
+    }
 }

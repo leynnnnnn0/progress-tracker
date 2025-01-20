@@ -19,9 +19,13 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@primevue/themes": "^4.2.5",
+        "@vueuse/core": "^12.4.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-vue-next": "^0.471.0",
+        "primeicons": "^7.0.0",
+        "primevue": "^4.2.5",
         "radix-vue": "^1.9.12",
         "tailwind-merge": "^2.6.0",
         "tailwindcss-animate": "^1.0.7"

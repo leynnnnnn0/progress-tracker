@@ -15,6 +15,8 @@ import TH from "./Components/table/TH.vue";
 import TableHead from "./Components/table/TableHead.vue";
 import TableBody from "./Components/table/TableBody.vue";
 import Pagination from "./Components/table/Pagination.vue";
+import Label from "./Components/ui/label/Label.vue";
+import { Button } from "./Components/ui/button";
 import {
     Filter,
     Eye,
@@ -26,10 +28,19 @@ import {
     MonitorCog,
     Download,
 } from "lucide-vue-next";
+import { Textarea } from "./Components/ui/textarea";
 import ShowButton from "./Components/button/ShowButton.vue";
 import EditButton from "./Components/button/EditButton.vue";
 import DeleteButton from "./Components/button/DeleteButton.vue";
 import Heading from "./Components/text/Heading.vue";
+import { Input } from "@/components/ui/input";
+import { Link } from "@inertiajs/vue3";
+import InputContainer from "./Components/form/InputContainer.vue";
+import InputLabel from "./Components/form/InputLabel.vue";
+import PrimeVue from "primevue/config";
+import Aura from "@primevue/themes/aura";
+import ToastService from "primevue/toastservice";
+import ConfirmationService from "primevue/confirmationservice";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -59,8 +70,28 @@ createInertiaApp({
             .component("DeleteButton", DeleteButton)
             .component("EditButton", EditButton)
             .component("Heading", Heading)
+            .component("Button", Button)
+            .component("Input", Input)
+            .component("Link", Link)
+            .component("InputContainer", InputContainer)
+            .component("InputLabel", InputLabel)
+            .component("Label", Label)
+            .component("Textarea", Textarea)
+            .use(ToastService)
+            .use(ConfirmationService)
+            .use(PrimeVue, {
+                theme: {
+                    preset: Aura,
+                    options: {
+                        prefix: "p",
+                        darkModeSelector: false || "none",
+                        cssLayer: false,
+                    },
+                },
+            })
             .use(plugin)
             .use(ZiggyVue)
+
             .mount(el);
     },
     progress: {

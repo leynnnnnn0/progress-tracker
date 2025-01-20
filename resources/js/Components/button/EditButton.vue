@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 <template>
     <Component
-        :is="isLink ? 'Link' : 'Button'"
+        :is="isLink ? 'Link' : 'button'"
         class="cursor-pointer text-blue-500 p-0 sm:mr-3 size-5"
         variant="link"
     >

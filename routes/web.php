@@ -20,11 +20,12 @@ Route::get('/offices', function () {
     return Inertia::render('Dashboard');
 })->name('offices.index');
 
-Route::controller(OfficeController::class)->prefix('offices')->name('offices.')->group(function(){
+Route::controller(OfficeController::class)->prefix('offices')->name('offices.')->group(function () {
     route::get('/', 'index')->name('index');
+    route::get('/create', 'create')->name('create');
 });
 
-Route::controller(UserController::class)->prefix('users')->name('users.')->group(function(){
+Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
     route::get('/', 'index')->name('index');
 });
 
