@@ -23,6 +23,7 @@ Route::get('/offices', function () {
 Route::controller(OfficeController::class)->prefix('offices')->name('offices.')->group(function () {
     route::get('/', 'index')->name('index');
     route::get('/create', 'create')->name('create');
+    route::post('/store', 'store')->name('store');
 });
 
 Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {

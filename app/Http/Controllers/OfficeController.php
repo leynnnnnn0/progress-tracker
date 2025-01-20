@@ -10,7 +10,7 @@ class OfficeController extends Controller
 {
     public function index()
     {
-        $offices = Office::paginate(10);
+        $offices = Office::latest()->paginate(10);
 
         return Inertia::render('Office/Index', [
             'offices' => $offices
@@ -20,5 +20,17 @@ class OfficeController extends Controller
     public function create()
     {
         return Inertia::render('Office/Create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'unique:offices,name'],
+            'remarks' => ['nullable']
+        ]);
+
+        Office::create($validated);
+
+        return to_route('offices.index');
     }
 }

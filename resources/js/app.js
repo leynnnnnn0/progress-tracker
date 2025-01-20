@@ -1,5 +1,6 @@
 import "../css/app.css";
 import "./bootstrap";
+import "primeicons/primeicons.css";
 
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
@@ -41,6 +42,7 @@ import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
+import FormError from "./Components/form/FormError.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -77,6 +79,7 @@ createInertiaApp({
             .component("InputLabel", InputLabel)
             .component("Label", Label)
             .component("Textarea", Textarea)
+            .component("FormError", FormError)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {
