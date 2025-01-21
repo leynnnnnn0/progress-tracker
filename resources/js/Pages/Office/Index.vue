@@ -71,7 +71,10 @@ const deleteModel = (route) => {
                         <TD>{{ office.remarks ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
-                            <EditButton />
+                            <EditButton
+                                :isLink="true"
+                                :href="route('offices.edit', office.id)"
+                            />
                             <DeleteButton
                                 @click="
                                     deleteModel(

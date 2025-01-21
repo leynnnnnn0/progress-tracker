@@ -30,6 +30,27 @@ class OfficeController extends Controller
         return Inertia::render('Office/Create');
     }
 
+    public function edit($id)
+    {
+        $office = Office::findOrFail($id);
+        return Inertia::render('Office/Edit', [
+            'office' => $office
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'unique:offices,name,' . $id],
+            'remarks' => ['nullable']
+        ]);
+
+        $office = Office::findOrFail($id);
+        $office->update($validated);
+
+        return to_route('offices.index');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
