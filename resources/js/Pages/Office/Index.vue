@@ -1,4 +1,7 @@
 <script setup>
+import { router } from "@inertiajs/vue3";
+import useAlert from "../../Composables/useAlert.js";
+const { confirm, toast } = useAlert();
 const { offices } = defineProps({
     offices: {
         type: Object,
@@ -6,7 +9,42 @@ const { offices } = defineProps({
     },
 });
 
-console.log(offices);
+const deleteModel = (route) => {
+    confirm.require({
+        message: "Are you sure you want to delete this office?",
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        rejectProps: {
+            label: "Cancel",
+            severity: "secondary",
+            outlined: true,
+        },
+        acceptProps: {
+            label: "Confirm",
+            severity: "danger",
+        },
+        accept: () => {
+            router.delete(route, {
+                onSuccess: () => {
+                    toast.add({
+                        severity: "success",
+                        summary: "Success",
+                        detail: "Office Deleted Successfully.",
+                        life: 5000,
+                    });
+                },
+                onError: () => {
+                    toast.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "An error occured while trying to delete this office.",
+                        life: 5000,
+                    });
+                },
+            });
+        },
+    });
+};
 </script>
 <template>
     <MainLayout>
@@ -34,7 +72,13 @@ console.log(offices);
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton />
-                            <DeleteButton />
+                            <DeleteButton
+                                @click="
+                                    deleteModel(
+                                        route('offices.destroy', office.id)
+                                    )
+                                "
+                            />
                         </TD>
                     </tr>
                 </TableBody>

@@ -17,6 +17,14 @@ class OfficeController extends Controller
         ]);
     }
 
+    public function destroy($id)
+    {
+        $office = Office::findOrFail($id);
+        $office->delete();
+
+        return back();
+    }
+
     public function create()
     {
         return Inertia::render('Office/Create');

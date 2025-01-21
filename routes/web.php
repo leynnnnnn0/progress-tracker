@@ -20,18 +20,11 @@ Route::get('/offices', function () {
     return Inertia::render('Dashboard');
 })->name('offices.index');
 
-Route::controller(OfficeController::class)->prefix('offices')->name('offices.')->group(function () {
-    route::get('/', 'index')->name('index');
-    route::get('/create', 'create')->name('create');
-    route::post('/store', 'store')->name('store');
-});
+Route::resource('offices', OfficeController::class);
 
 Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
     route::get('/', 'index')->name('index');
 });
-
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
