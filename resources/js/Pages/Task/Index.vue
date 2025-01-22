@@ -3,9 +3,7 @@
     <MainLayout>
         <DivFlexCol class="gap-5">
             <DivFlexCol class="items-center justify-center gap-3">
-                <h1 class="font-bold">
-                    INDIVIDUAL PERFORMANCE COMMITMENT AND REVIEW
-                </h1>
+                <H1Bold> INDIVIDUAL PERFORMANCE COMMITMENT AND REVIEW </H1Bold>
                 <SpanXS
                     >I, FULL NAME HERE, POSITION and OFFICIAL DESIGNATION of the
                     OFFICE NAME, commit to deliver and agree to be rated on the

@@ -44,6 +44,8 @@ import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 import FormError from "./Components/form/FormError.vue";
 import SpanXS from "./Components/text/SpanXS.vue";
+import H1Bold from "./Components/text/H1Bold.vue";
+import TableDiv from "./Components/div/TableDiv.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -82,6 +84,8 @@ createInertiaApp({
             .component("Textarea", Textarea)
             .component("FormError", FormError)
             .component("SpanXS", SpanXS)
+            .component("H1Bold", H1Bold)
+            .component("TableDiv", TableDiv)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {
