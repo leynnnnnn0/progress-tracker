@@ -6,7 +6,7 @@ const form = useForm({
     remarks: null,
 });
 
-
+const { store } = useStore(form, route("offices.store"), "Office");
 </script>
 
 <template>
