@@ -1,48 +1,12 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import useAlert from "../../Composables/useAlert.js";
-const { confirm, toast } = useAlert();
+import useStore from "@/Composables/useStore";
 const form = useForm({
     name: null,
     remarks: null,
 });
 
-const store = () => {
-    confirm.require({
-        message: "Are you sure you want to create this office?",
-        header: "Confirmation",
-        icon: "pi pi-exclamation-triangle",
-        rejectProps: {
-            label: "Cancel",
-            severity: "secondary",
-            outlined: true,
-        },
-        acceptProps: {
-            label: "Confirm",
-            severity: "success",
-        },
-        accept: () => {
-            form.post(route("offices.store"), {
-                onSuccess: () => {
-                    toast.add({
-                        severity: "success",
-                        summary: "Success",
-                        detail: "Office Created Successfully.",
-                        life: 5000,
-                    });
-                },
-                onError: () => {
-                    toast.add({
-                        severity: "error",
-                        summary: "Error",
-                        detail: "An error occured while trying to create an office.",
-                        life: 5000,
-                    });
-                },
-            });
-        },
-    });
-};
+const { store } = useStore(form, route("offices.store"), "Office");
 </script>
 
 <template>
