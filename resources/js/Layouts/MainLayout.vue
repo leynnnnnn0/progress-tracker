@@ -4,7 +4,7 @@ import Logo from "../../images/mainLogo.png";
 import NavLink from "@/Components/NavLink.vue";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
-import { Home, UsersRound, Warehouse } from "lucide-vue-next";
+import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
 </script>
 
 <template>
@@ -43,6 +43,9 @@ import { Home, UsersRound, Warehouse } from "lucide-vue-next";
                         </NavLink>
                         <NavLink href="/offices" :icon="Warehouse">
                             Offices
+                        </NavLink>
+                        <NavLink href="/tasks" :icon="ListCheck">
+                            Tasks
                         </NavLink>
                     </nav>
                 </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::get('/offices', function () {
 })->name('offices.index');
 
 Route::resource('offices', OfficeController::class);
+Route::resource('tasks', TaskController::class);
 
 Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
     route::get('/', 'index')->name('index');

@@ -43,6 +43,7 @@ import Aura from "@primevue/themes/aura";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 import FormError from "./Components/form/FormError.vue";
+import SpanXS from "./Components/text/SpanXS.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -80,6 +81,7 @@ createInertiaApp({
             .component("Label", Label)
             .component("Textarea", Textarea)
             .component("FormError", FormError)
+            .component("SpanXS", SpanXS)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {
