@@ -10,6 +10,7 @@ const { office } = defineProps({
 });
 const form = useForm({
     name: office.name,
+    office_code: office.office_code,
     remarks: office.remarks,
 });
 
@@ -28,6 +29,11 @@ const { update } = useUpdate(
                 <InputLabel label="Name" />
                 <Input v-model="form.name" />
                 <FormError>{{ form.errors.name }}</FormError>
+            </InputContainer>
+            <InputContainer>
+                <InputLabel label="Office Code" />
+                <Input v-model="form.office_code" />
+                <FormError>{{ form.errors.office_code }}</FormError>
             </InputContainer>
             <InputContainer>
                 <InputLabel label="Remarks" :isRequired="false" />

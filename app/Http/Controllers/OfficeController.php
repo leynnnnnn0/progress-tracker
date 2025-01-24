@@ -42,6 +42,7 @@ class OfficeController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'unique:offices,name,' . $id],
+            'office_code' => ['required', 'unique:offices,office_code,' . $id],
             'remarks' => ['nullable']
         ]);
 
@@ -55,6 +56,7 @@ class OfficeController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'unique:offices,name'],
+            'office_code' => ['required', 'unique:offices,office_code'],
             'remarks' => ['nullable']
         ]);
 
