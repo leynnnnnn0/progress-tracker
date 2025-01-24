@@ -182,8 +182,42 @@
                             <TD colspan="4"></TD>
                         </tr>
                     </TableBody>
+
+                    <tr class="divide-x divide-gray-300">
+                        <TD colspan="7"></TD>
+                        <TD colspan="4">Core: </TD>
+                        <TD colspan="4"></TD>
+                    </tr>
+                    <tr class="divide-x divide-gray-300">
+                        <TD colspan="7"></TD>
+                        <TD colspan="4">Strategic: </TD>
+                        <TD colspan="4"></TD>
+                    </tr>
+                    <tr class="divide-x divide-gray-300">
+                        <TD colspan="7"></TD>
+                        <TD colspan="4">Support: </TD>
+                        <TD colspan="4"></TD>
+                    </tr>
+                    <tr class="divide-x divide-gray-300">
+                        <TD colspan="7"></TD>
+                        <TD colspan="4">Final Ave: </TD>
+                        <TD colspan="4"></TD>
+                    </tr>
                 </Table>
             </TableContainer>
+
+            <DivFlexCenter class="justify-between">
+                <DivFlexCol class="gap-1 w-full">
+                    <SpanXS>Name and Signature of Ratee:</SpanXS>
+                    <SpanXS>Position:</SpanXS>
+                    <SpanXS>Date:</SpanXS>
+                </DivFlexCol>
+                <DivFlexCol class="gap-1 w-full">
+                    <SpanXS>Final Rating by:</SpanXS>
+                    <SpanXS>Position:</SpanXS>
+                    <SpanXS>Date:</SpanXS>
+                </DivFlexCol>
+            </DivFlexCenter>
         </DivFlexCol>
     </MainLayout>
 </template>
