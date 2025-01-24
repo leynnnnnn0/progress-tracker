@@ -25,6 +25,7 @@ const { deleteModel } = useDelete("Office");
                 <TableHead>
                     <TH>Id</TH>
                     <TH>Name</TH>
+                    <TH>Code</TH>
                     <TH>Remarks</TH>
                     <TH>Action</TH>
                 </TableHead>
@@ -32,6 +33,7 @@ const { deleteModel } = useDelete("Office");
                     <tr v-for="office in offices.data">
                         <TD>{{ office.id }}</TD>
                         <TD>{{ office.name }}</TD>
+                        <TD>{{ office.office_code }}</TD>
                         <TD>{{ office.remarks ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
