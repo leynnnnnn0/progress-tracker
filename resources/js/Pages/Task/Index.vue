@@ -36,19 +36,153 @@
             </DivFlexCenter>
 
             <TableContainer>
-                <TableHead>
-                    <TH>PROGRAMS, PROJECTS, ACTIVITIES</TH>
-                    <TH>PERFORMANCE INDICATORS</TH>
-                    <TH>TARGET NUMBER</TH>
-                    <TH>SUCCESS INDICATORS (TARGETS + MEASURES)</TH>
-                    <TH>INDIVIDUAL ACCOUNTABLE</TH>
-                    <TH>ACTUAL ACCOMPLISHMENTS</TH>
-                    <TH>RATING</TH>
-                    <TH>REMARK</TH>
-                    <TH>LINK TO EVIDENCE</TH>
-                    <TH>PMT REMARK</TH>
-                    <TH>ACTION</TH>
-                </TableHead>
+                <Table>
+                    <TableHead>
+                        <TH>PROGRAMS, PROJECTS, ACTIVITIES</TH>
+                        <TH>PERFORMANCE INDICATORS</TH>
+                        <TH>TARGET NUMBER</TH>
+                        <TH>SUCCESS INDICATORS (TARGETS + MEASURES)</TH>
+                        <TH>INDIVIDUAL ACCOUNTABLE</TH>
+                        <TH>ACTUAL ACCOMPLISHMENTS NUMBER</TH>
+                        <TH>ACTUAL ACCOMPLISHMENTS</TH>
+                        <TH colspan="4" class="divide-x-2 divide-gray-300">
+                            RATING
+                            <TH>Q</TH>
+                            <TH>T</TH>
+                            <TH>E</TH>
+                            <TH>AVE</TH>
+                        </TH>
+                        <TH>REMARK</TH>
+                        <TH>LINK TO EVIDENCE</TH>
+                        <TH>PMT REMARK</TH>
+                        <TH>ACTION</TH>
+                    </TableHead>
+                    <TableHead>
+                        <TH colspan="12">
+                            CORE FUNCTIONS (90%) RESEARCH AND EXTENSION
+                        </TH>
+                    </TableHead>
+                    <TableHead>
+                        <TH colspan="12">
+                            Development Goal 1: Challenge Innovation by
+                            Expanding Academic and Research Programs
+                        </TH>
+                    </TableHead>
+                    <TableHead>
+                        <TH colspan="12">
+                            Objective 2. (Research). Objective 2. (Research) To
+                            Enchance Research Productivity Contributing To
+                            Sustaianable Development
+                        </TH>
+                    </TableHead>
+                    <TableBody>
+                        <tr class="divide-x divide-gray-300">
+                            <TD rowspan="2" class="border-r border-gray-300"
+                                >Packaging of Gender Sensitive and Smart
+                                Research Proposals for Approval and
+                                Implementation</TD
+                            >
+                            <TD
+                                >Package (No.) study Proposals and Submit for
+                                Internal Funding within the rating period.</TD
+                            >
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </tr>
+                        <tr class="divide-x divide-gray-300">
+                            <TD
+                                >Conduct one Training Needs Assessment as
+                                reference for Needs Based training Program
+                                within the year</TD
+                            >
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </tr>
+                        <tr class="divide-x divide-gray-300">
+                            <TD colspan="7"></TD>
+                            <TD colspan="4">SUBRATING: </TD>
+                            <TD colspan="4"></TD>
+                        </tr>
+                    </TableBody>
+
+                    <TableHead>
+                        <TH colspan="12"> STRATEGIC FUNCTIONS (20%) </TH>
+                    </TableHead>
+
+                    <TableBody>
+                        <tr class="divide-x divide-gray-300 h-24">
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </tr>
+                        <tr class="divide-x divide-gray-300">
+                            <TD colspan="7"></TD>
+                            <TD colspan="4">SUBRATING: </TD>
+                            <TD colspan="4"></TD>
+                        </tr>
+                    </TableBody>
+
+                    <TableHead>
+                        <TH colspan="12"> STRATEGIC FUNCTIONS (10%) </TH>
+                    </TableHead>
+
+                    <TableBody>
+                        <tr class="divide-x divide-gray-300 h-24">
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </tr>
+                        <tr class="divide-x divide-gray-300">
+                            <TD colspan="7"></TD>
+                            <TD colspan="4">SUBRATING: </TD>
+                            <TD colspan="4"></TD>
+                        </tr>
+                    </TableBody>
+                </Table>
             </TableContainer>
         </DivFlexCol>
     </MainLayout>

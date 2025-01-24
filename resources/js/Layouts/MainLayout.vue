@@ -11,8 +11,9 @@ import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
     <Toast />
     <ConfirmDialog></ConfirmDialog>
     <div
-        class="grid min-h-screen max-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden"
+        class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden"
     >
+        <!-- Sidebar -->
         <div class="hidden border-r bg-muted/40 md:block overflow-hidden">
             <div class="flex h-full max-h-screen flex-col gap-2">
                 <div
@@ -51,8 +52,9 @@ import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
                 </div>
             </div>
         </div>
+        <!-- Main -->
         <DivFlexCol
-            class="p-10 gap-5 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
+            class="min-h-fit p-10 gap-5 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
         >
             <slot></slot>
         </DivFlexCol>
