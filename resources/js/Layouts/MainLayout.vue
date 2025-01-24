@@ -51,7 +51,9 @@ import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
                 </div>
             </div>
         </div>
-        <DivFlexCol class="p-10 gap-5">
+        <DivFlexCol
+            class="p-10 gap-5 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
+        >
             <slot></slot>
         </DivFlexCol>
     </div>

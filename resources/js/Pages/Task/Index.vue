@@ -34,6 +34,22 @@
                     </DivFlexCol>
                 </DivFlexCol>
             </DivFlexCenter>
+
+            <TableContainer>
+                <TableHead>
+                    <TH>PROGRAMS, PROJECTS, ACTIVITIES</TH>
+                    <TH>PERFORMANCE INDICATORS</TH>
+                    <TH>TARGET NUMBER</TH>
+                    <TH>SUCCESS INDICATORS (TARGETS + MEASURES)</TH>
+                    <TH>INDIVIDUAL ACCOUNTABLE</TH>
+                    <TH>ACTUAL ACCOMPLISHMENTS</TH>
+                    <TH>RATING</TH>
+                    <TH>REMARK</TH>
+                    <TH>LINK TO EVIDENCE</TH>
+                    <TH>PMT REMARK</TH>
+                    <TH>ACTION</TH>
+                </TableHead>
+            </TableContainer>
         </DivFlexCol>
     </MainLayout>
 </template>
