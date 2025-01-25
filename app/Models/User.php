@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return "{$this->first_name} {$this->last_name}";
     }
+
+    public function offices()
+    {
+        return $this->belongsToMany(Office::class, 'users_offices');
+    }
 }

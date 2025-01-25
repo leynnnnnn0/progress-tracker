@@ -15,4 +15,8 @@ class Office extends Model
         'office_code',
         'remarks'
     ];
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_offices');
+    }
 }
