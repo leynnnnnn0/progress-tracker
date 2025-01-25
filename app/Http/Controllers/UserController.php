@@ -66,4 +66,13 @@ class UserController extends Controller
 
         return to_route('users.index');
     }
+
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return Inertia::render('User/Show', [
+            'user' => $user
+        ]);
+    }
 }

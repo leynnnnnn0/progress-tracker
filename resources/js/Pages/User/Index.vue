@@ -35,7 +35,10 @@ const { deleteModel } = useDelete("User");
                         <TD>{{ user.email }}</TD>
                         <TD>{{ user.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <ShowButton />
+                            <ShowButton
+                                :isLink="true"
+                                :href="route('users.show', user.id)"
+                            />
                             <EditButton
                                 :isLink="true"
                                 :href="route('users.edit', user.id)"

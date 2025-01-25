@@ -20,6 +20,7 @@ import Label from "./Components/ui/label/Label.vue";
 import { Button } from "./Components/ui/button";
 import FormContainer from "./Components/form/FormContainer.vue";
 import FormFooter from "./Components/form/FormFooter.vue";
+import SpanBold from "./Components/text/SpanBold.vue";
 import {
     Filter,
     Eye,
@@ -49,6 +50,7 @@ import SpanXS from "./Components/text/SpanXS.vue";
 import H1Bold from "./Components/text/H1Bold.vue";
 import TableDiv from "./Components/div/TableDiv.vue";
 import FormInput from "./Components/form/FormInput.vue";
+import Infolist from "./Components/form/Infolist.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -92,6 +94,8 @@ createInertiaApp({
             .component("FormContainer", FormContainer)
             .component("FormFooter", FormFooter)
             .component("FormInput", FormInput)
+            .component("SpanBold", SpanBold)
+            .component("Infolist", Infolist)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

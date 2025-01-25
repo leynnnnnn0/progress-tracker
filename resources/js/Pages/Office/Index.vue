@@ -26,7 +26,6 @@ const { deleteModel } = useDelete("Office");
                     <TH>Id</TH>
                     <TH>Name</TH>
                     <TH>Code</TH>
-                    <TH>Remarks</TH>
                     <TH>Action</TH>
                 </TableHead>
                 <TableBody>
@@ -34,7 +33,6 @@ const { deleteModel } = useDelete("Office");
                         <TD>{{ office.id }}</TD>
                         <TD>{{ office.name }}</TD>
                         <TD>{{ office.office_code }}</TD>
-                        <TD>{{ office.remarks ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton
