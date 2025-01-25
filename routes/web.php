@@ -13,14 +13,7 @@ Route::get('/', function () {
 })->name('dashboard');
 
 
-Route::get('/users', function () {
-    return Inertia::render('Dashboard');
-})->name('users.index');
-
-Route::get('/offices', function () {
-    return Inertia::render('Dashboard');
-})->name('offices.index');
-
+Route::resource('users', UserController::class);
 Route::resource('offices', OfficeController::class);
 Route::resource('tasks', TaskController::class);
 

@@ -18,6 +18,8 @@ import TableBody from "./Components/table/TableBody.vue";
 import Pagination from "./Components/table/Pagination.vue";
 import Label from "./Components/ui/label/Label.vue";
 import { Button } from "./Components/ui/button";
+import FormContainer from "./Components/form/FormContainer.vue";
+import FormFooter from "./Components/form/FormFooter.vue";
 import {
     Filter,
     Eye,
@@ -46,6 +48,7 @@ import FormError from "./Components/form/FormError.vue";
 import SpanXS from "./Components/text/SpanXS.vue";
 import H1Bold from "./Components/text/H1Bold.vue";
 import TableDiv from "./Components/div/TableDiv.vue";
+import FormInput from "./Components/form/FormInput.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -86,6 +89,9 @@ createInertiaApp({
             .component("SpanXS", SpanXS)
             .component("H1Bold", H1Bold)
             .component("TableDiv", TableDiv)
+            .component("FormContainer", FormContainer)
+            .component("FormFooter", FormFooter)
+            .component("FormInput", FormInput)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

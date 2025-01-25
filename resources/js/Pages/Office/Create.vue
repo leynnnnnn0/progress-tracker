@@ -13,7 +13,7 @@ const { store } = useStore(form, route("offices.store"), "Office");
 <template>
     <MainLayout>
         <Heading>Create New Office</Heading>
-        <section class="rounded-lg grid grid-cols-2 gap-5 border-2 p-5">
+        <FormContainer>
             <InputContainer>
                 <InputLabel label="Name" />
                 <Input v-model="form.name" />
@@ -29,9 +29,9 @@ const { store } = useStore(form, route("offices.store"), "Office");
                 <Textarea v-model="form.remarks" />
                 <FormError>{{ form.errors.remarks }}</FormError>
             </InputContainer>
-            <DivFlexCenter class="justify-end col-span-2">
+            <FormFooter>
                 <Button class="text-white w-fit" @click="store">Create</Button>
-            </DivFlexCenter>
-        </section>
+            </FormFooter>
+        </FormContainer>
     </MainLayout>
 </template>
