@@ -43,4 +43,27 @@ class UserController extends Controller
         $user->delete();
         return to_route('users.index');
     }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return Inertia::render('User/Edit', [
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'first_name' => ['required'],
+            'middle_name' => ['nullable'],
+            'last_name' => ['required'],
+            'phone_number' => ['required', 'numeric'],
+            'email' => ['required', 'email', 'unique:users,email,' . $id]
+        ]);
+        $user = User::findOrFail($id);
+        $user->update($validated);
+
+        return to_route('users.index');
+    }
 }

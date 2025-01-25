@@ -36,7 +36,10 @@ const { deleteModel } = useDelete("User");
                         <TD>{{ user.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
-                            <EditButton />
+                            <EditButton
+                                :isLink="true"
+                                :href="route('users.edit', user.id)"
+                            />
                             <DeleteButton
                                 @click="
                                     deleteModel(route('users.destroy', user.id))
