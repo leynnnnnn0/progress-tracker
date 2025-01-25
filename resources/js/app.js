@@ -51,6 +51,7 @@ import H1Bold from "./Components/text/H1Bold.vue";
 import TableDiv from "./Components/div/TableDiv.vue";
 import FormInput from "./Components/form/FormInput.vue";
 import Infolist from "./Components/form/Infolist.vue";
+import BackButton from "./Components/BackButton.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -96,6 +97,7 @@ createInertiaApp({
             .component("FormInput", FormInput)
             .component("SpanBold", SpanBold)
             .component("Infolist", Infolist)
+            .component("BackButton", BackButton)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

@@ -17,5 +17,6 @@ const { user } = defineProps({
             <Infolist label="Phone Number" :value="user.phone_number" />
             <Infolist label="Email" :value="user.email" />
         </FormContainer>
+        <BackButton />
     </MainLayout>
 </template>
