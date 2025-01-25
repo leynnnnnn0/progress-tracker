@@ -1,10 +1,13 @@
 <script setup>
+import useDelete from "@/Composables/useDelete.js";
 const { users } = defineProps({
     users: {
         type: Object,
         required: true,
     },
 });
+
+const { deleteModel } = useDelete("User");
 </script>
 <template>
     <MainLayout>
@@ -34,7 +37,11 @@ const { users } = defineProps({
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton />
-                            <DeleteButton />
+                            <DeleteButton
+                                @click="
+                                    deleteModel(route('users.destroy', user.id))
+                                "
+                            />
                         </TD>
                     </tr>
                 </TableBody>
