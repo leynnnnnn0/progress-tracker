@@ -8,7 +8,7 @@ const { users } = defineProps({
 </script>
 <template>
     <MainLayout>
-        <Heading>Offices</Heading>
+        <Heading>Users</Heading>
         <TableContainer>
             <Table>
                 <TableHead>
