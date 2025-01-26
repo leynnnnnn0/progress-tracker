@@ -26,7 +26,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'offices_array'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -54,6 +54,11 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function getOfficesArrayAttribute()
+    {
+        return $this->offices->pluck('id')->toArray();
     }
 
     public function offices()

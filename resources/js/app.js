@@ -52,6 +52,7 @@ import TableDiv from "./Components/div/TableDiv.vue";
 import FormInput from "./Components/form/FormInput.vue";
 import Infolist from "./Components/form/Infolist.vue";
 import BackButton from "./Components/BackButton.vue";
+import Checkbox from "primevue/checkbox";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -98,6 +99,7 @@ createInertiaApp({
             .component("SpanBold", SpanBold)
             .component("Infolist", Infolist)
             .component("BackButton", BackButton)
+            .component("Checkbox", Checkbox)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

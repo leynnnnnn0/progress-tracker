@@ -2,6 +2,14 @@
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
 
+
+const { offices } = defineProps({
+    offices: {
+        type: Array,
+        required: true,
+    },
+});
+
 const form = useForm({
     first_name: null,
     middle_name: null,
@@ -9,6 +17,7 @@ const form = useForm({
     phone_number: null,
     email: null,
     password: null,
+    assignedOffices: [],
 });
 
 const { store } = useStore(form, route("users.store"), "User");
@@ -43,6 +52,30 @@ const { store } = useStore(form, route("users.store"), "User");
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
             </FormInput>
+
+            <InputContainer class="col-span-2 gap-2">
+                <InputLabel label="Assigned Offices" />
+
+                <div
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                >
+                    <div
+                        v-for="office in offices"
+                        :key="office.value"
+                        class="flex items-center space-x-2"
+                    >
+                        <Checkbox
+                            v-model="form.assignedOffices"
+                            :value="office.value"
+                            name="assignedOffices[]"
+                        />
+                        <label class="text-xs text-gray-600">
+                            {{ office.label }}
+                        </label>
+                    </div>
+                </div>
+                <FormError>{{ form.errors.assignedOffices }}</FormError>
+            </InputContainer>
 
             <FormFooter>
                 <Button class="text-white" @click="store">Create</Button>

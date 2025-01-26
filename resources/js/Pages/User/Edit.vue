@@ -2,9 +2,13 @@
 import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
 
-const { user } = defineProps({
+const { user, offices } = defineProps({
     user: {
         type: Object,
+        required: true,
+    },
+    offices: {
+        type: Array,
         required: true,
     },
 });
@@ -14,7 +18,10 @@ const form = useForm({
     last_name: user.last_name,
     phone_number: user.phone_number,
     email: user.email,
+    assignedOffices: user.offices_array,
 });
+
+console.log(form.assignedOffices);
 
 const { update } = useUpdate(form, route("users.update", user.id), "User");
 </script>
@@ -48,6 +55,30 @@ const { update } = useUpdate(form, route("users.update", user.id), "User");
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
             </FormInput>
+
+            <InputContainer class="col-span-2 gap-2">
+                <InputLabel label="Assigned Offices" />
+
+                <div
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                >
+                    <div
+                        v-for="office in offices"
+                        :key="office.value"
+                        class="flex items-center space-x-2"
+                    >
+                        <Checkbox
+                            v-model="form.assignedOffices"
+                            :value="office.value"
+                            name="assignedOffices[]"
+                        />
+                        <label class="text-xs text-gray-600">
+                            {{ office.label }}
+                        </label>
+                    </div>
+                </div>
+                <FormError>{{ form.errors.assignedOffices }}</FormError>
+            </InputContainer>
 
             <FormFooter>
                 <Button class="text-white" @click="update">Update</Button>

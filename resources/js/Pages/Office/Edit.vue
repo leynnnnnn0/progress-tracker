@@ -14,6 +14,8 @@ const form = useForm({
     remarks: office.remarks,
 });
 
+console.log(offices);
+
 const { update } = useUpdate(
     form,
     route("offices.update", office.id),

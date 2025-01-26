@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Office;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -19,7 +22,11 @@ class UserController extends Controller
 
     public function create()
     {
-        return Inertia::render('User/Create');
+        $offices = Office::getOptions();
+
+        return Inertia::render('User/Create', [
+            'offices' => $offices
+        ]);
     }
 
     public function store(Request $request)
@@ -29,10 +36,15 @@ class UserController extends Controller
             'middle_name' => ['nullable'],
             'last_name' => ['required'],
             'phone_number' => ['required', 'numeric'],
-            'email' => ['required', 'email', 'unique:users,email']
+            'email' => ['required', 'email', 'unique:users,email'],
+            'assignedOffices' => ['required', 'array']
         ]);
         $validated['password'] = Hash::make('password');
-        User::create($validated);
+
+        DB::beginTransaction();
+        $user = User::create(Arr::except($validated, 'assignedOffices'));
+        $user->offices()->attach($validated['assignedOffices']);
+        DB::commit();
 
         return to_route('users.index');
     }
@@ -46,9 +58,11 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('offices')->findOrFail($id);
+        $offices = Office::getOptions();
         return Inertia::render('User/Edit', [
-            'user' => $user
+            'user' => $user,
+            'offices' => $offices
         ]);
     }
 
@@ -59,10 +73,14 @@ class UserController extends Controller
             'middle_name' => ['nullable'],
             'last_name' => ['required'],
             'phone_number' => ['required', 'numeric'],
-            'email' => ['required', 'email', 'unique:users,email,' . $id]
+            'email' => ['required', 'email', 'unique:users,email,' . $id],
+            'assignedOffices' => ['required', 'array']
         ]);
         $user = User::findOrFail($id);
-        $user->update($validated);
+        DB::beginTransaction();
+        $user->update(Arr::except($validated, 'assignedOffices'));
+        $user->offices()->sync($validated['assignedOffices']);
+        DB::commit();
 
         return to_route('users.index');
     }
