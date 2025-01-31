@@ -26,11 +26,9 @@ class OfficeController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Office $office)
     {
-        $office = Office::findOrFail($id);
         $office->delete();
-
         return back();
     }
 
@@ -39,17 +37,16 @@ class OfficeController extends Controller
         return Inertia::render('Office/Create');
     }
 
-    public function edit($id)
+    public function edit(Office $office)
     {
-        $office = Office::findOrFail($id);
         return Inertia::render('Office/Edit', [
             'office' => $office
         ]);
     }
 
-    public function update(UpdateOfficeRequest $request, $id)
+    public function update(UpdateOfficeRequest $request, Office $office)
     {
-        $this->officeService->updateOffice($request->validated(), $id);
+        $this->officeService->updateOffice($request->validated(), $office);
         return to_route('offices.index');
     }
 

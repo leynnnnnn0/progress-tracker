@@ -12,9 +12,8 @@ class OfficeService
         return Office::create($data);
     }
 
-    public function updateOffice(array $data, $id)
+    public function updateOffice(array $data, Office $office)
     {
-        $office = Office::findOrFail($id);
         return $office->update($data);
     }
 }

@@ -22,8 +22,8 @@ class UpdateOfficeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'unique:offices,name,' . $this->office],
-            'office_code' => ['required', 'unique:offices,office_code,' . $this->office],
+            'name' => ['required', 'unique:offices,name,' . $this->office->id],
+            'office_code' => ['required', 'unique:offices,office_code,' . $this->office->id],
             'remarks' => ['nullable']
         ];
     }
