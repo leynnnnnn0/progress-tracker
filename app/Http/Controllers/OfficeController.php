@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Office\StoreOfficeRequest;
+use App\Http\Requests\Office\UpdateOfficeRequest;
+use App\Http\Services\OfficeService;
 use App\Models\Office;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class OfficeController extends Controller
 {
+    protected $officeService;
+
+    public function __construct(OfficeService $officeService)
+    {
+        $this->officeService = $officeService;
+    }
     public function index()
     {
         $offices = Office::latest()->paginate(10);
@@ -38,30 +47,15 @@ class OfficeController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateOfficeRequest $request, $id)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'unique:offices,name,' . $id],
-            'office_code' => ['required', 'unique:offices,office_code,' . $id],
-            'remarks' => ['nullable']
-        ]);
-
-        $office = Office::findOrFail($id);
-        $office->update($validated);
-
+        $this->officeService->updateOffice($request->validated(), $id);
         return to_route('offices.index');
     }
 
-    public function store(Request $request)
+    public function store(StoreOfficeRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'unique:offices,name'],
-            'office_code' => ['required', 'unique:offices,office_code'],
-            'remarks' => ['nullable']
-        ]);
-
-        Office::create($validated);
-
+        $this->officeService->createOffice($request->validated());
         return to_route('offices.index');
     }
 }
