@@ -12,6 +12,7 @@ class AnswerableList extends Model
 
 
     protected $fillable = [
+        'sub_target_id',
         'success_indicators',
         'individual_accountable',
         'actual_accomplishments_number',

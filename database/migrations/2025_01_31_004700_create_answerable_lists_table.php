@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('answerable_lists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('sub_target_id')->constrained()->cascadeOnDelete();
             $table->string('success_indicators');
             $table->string('invididual_accountable');
             $table->integer('actual_accomplishments_number');
