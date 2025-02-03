@@ -11,4 +11,9 @@ class TargetController extends Controller
     {
         return Inertia::render('Target/Index');
     }
+
+    public function create()
+    {
+        return Inertia::render('Target/Create');
+    }
 }
