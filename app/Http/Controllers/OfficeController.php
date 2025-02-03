@@ -17,10 +17,10 @@ class OfficeController extends Controller
     {
         $this->officeService = $officeService;
     }
+
     public function index()
     {
         $offices = Office::latest()->paginate(10);
-
         return Inertia::render('Office/Index', [
             'offices' => $offices
         ]);
@@ -28,7 +28,7 @@ class OfficeController extends Controller
 
     public function destroy(Office $office)
     {
-        $office->delete();
+        $this->officeService->deleteOffice($office);
         return back();
     }
 

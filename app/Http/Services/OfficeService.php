@@ -6,7 +6,6 @@ use App\Models\Office;
 
 class OfficeService
 {
-
     public function createOffice(array $data)
     {
         return Office::create($data);
@@ -15,5 +14,10 @@ class OfficeService
     public function updateOffice(array $data, Office $office)
     {
         return $office->update($data);
+    }
+
+    public function deleteOffice(Office $office)
+    {
+        return $office->delete();
     }
 }

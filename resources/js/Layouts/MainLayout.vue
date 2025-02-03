@@ -48,6 +48,9 @@ import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
                         <NavLink href="/tasks" :icon="ListCheck">
                             Tasks
                         </NavLink>
+                        <NavLink href="/targets" :icon="ListCheck">
+                            Targets
+                        </NavLink>
                     </nav>
                 </div>
             </div>
