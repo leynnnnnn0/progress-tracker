@@ -14,7 +14,7 @@ class Target extends Model
         'description',
     ];
 
-    public function subTargets()
+    public function sub_targets()
     {
         return $this->hasMany(SubTarget::class);
     }

@@ -1,10 +1,11 @@
 <script setup>
 import Dialog from "primevue/dialog";
+import useStore from "@/Composables/useStore";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
 const form = useForm({
-    name: null,
+    description: null,
     sub_targets: [],
 });
 
@@ -24,14 +25,16 @@ const addToSubTasks = () => {
     isSubTaskModalOpen.value = false;
     subTarget.value = null;
 };
+
+const { store } = useStore(form, route("targets.store"), "Target");
 </script>
 
 <template>
     <MainLayout>
         <Heading>Create New Target</Heading>
         <FormContainer>
-            <FormInput label="Name" class="col-span-2">
-                <Input v-model="form.name" />
+            <FormInput label="Description" class="col-span-2">
+                <Input v-model="form.description" />
             </FormInput>
         </FormContainer>
         <TableContainer>
@@ -58,6 +61,9 @@ const addToSubTasks = () => {
                 </TableBody>
             </Table>
         </TableContainer>
+        <DivFlexCenter class="justify-end">
+            <Button @click="store" class="text-white">Create</Button>
+        </DivFlexCenter>
 
         <Dialog
             v-model:visible="isSubTaskModalOpen"
