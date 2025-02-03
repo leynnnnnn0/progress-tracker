@@ -11,7 +11,10 @@ class TargetController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Target/Index');
+        $targets = Target::latest()->paginate(10);
+        return Inertia::render('Target/Index', [
+            'targets' => $targets
+        ]);
     }
 
     public function create()

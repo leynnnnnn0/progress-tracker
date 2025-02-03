@@ -1,4 +1,11 @@
-<script setup></script>
+<script setup>
+defineProps({
+    targets: {
+        type: Object,
+        required: true,
+    },
+});
+</script>
 
 <template>
     <MainLayout>
@@ -11,6 +18,20 @@
             >
         </DivFlexCenter>
 
-  
+        <TableContainer>
+            <Table>
+                <TableHead>
+                    <TH>ID</TH>
+                    <TH>Description</TH>
+                </TableHead>
+                <TableBody>
+                    <tr v-for="target in targets.data">
+                        <TD>{{ target.id }}</TD>
+                        <TD>{{ target.description }}</TD>
+                    </tr>
+                </TableBody>
+            </Table>
+            <Pagination :data="targets" />
+        </TableContainer>
     </MainLayout>
 </template>
