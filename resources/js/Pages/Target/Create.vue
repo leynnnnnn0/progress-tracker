@@ -13,6 +13,7 @@ const isSubTaskModalOpen = ref(false);
 const openSubTaskModal = () => {
     isSubTaskModalOpen.value = true;
 };
+
 const subTarget = ref("");
 
 const addToSubTasks = () => {
@@ -24,6 +25,28 @@ const addToSubTasks = () => {
     });
     isSubTaskModalOpen.value = false;
     subTarget.value = null;
+};
+
+const deleteSubTarget = (id) => {
+    form.sub_targets = form.sub_targets.filter((item) => item.id != id);
+};
+
+const isSubTaskEditModalOpen = ref(false);
+const subTargetId = ref(null);
+const editSubTarget = (id) => {
+    subTargetId.value = id;
+    isSubTaskEditModalOpen.value = true;
+    const target = form.sub_targets.find((item) => item.id == id);
+    subTarget.value = target.description;
+};
+
+const updateSubTarget = () => {
+    const index = form.sub_targets.findIndex(
+        (item) => item.id == subTargetId.value
+    );
+    form.sub_targets[index].description = subTarget.value;
+    isSubTaskEditModalOpen.value = false;
+    subTarget.value = "";
 };
 
 const { store } = useStore(form, route("targets.store"), "Target");
@@ -53,8 +76,10 @@ const { store } = useStore(form, route("targets.store"), "Target");
                         <TD>{{ target.description }}</TD>
                         <TD>
                             <DivFlexCenter class="gap-2">
-                                <EditButton />
-                                <DeleteButton />
+                                <EditButton @click="editSubTarget(target.id)" />
+                                <DeleteButton
+                                    @click="deleteSubTarget(target.id)"
+                                />
                             </DivFlexCenter>
                         </TD>
                     </tr>
@@ -78,6 +103,24 @@ const { store } = useStore(form, route("targets.store"), "Target");
             </DivFlexCol>
             <DivFlexCenter class="justify-end">
                 <Button @click="addToSubTasks" class="text-white">Add</Button>
+            </DivFlexCenter>
+        </Dialog>
+
+        <Dialog
+            v-model:visible="isSubTaskEditModalOpen"
+            modal
+            :style="{ width: '30rem' }"
+        >
+            <template #header>Sub-Target</template>
+            <DivFlexCol>
+                <FormInput label="Description">
+                    <Input v-model="subTarget" />
+                </FormInput>
+            </DivFlexCol>
+            <DivFlexCenter class="justify-end">
+                <Button @click="updateSubTarget" class="text-white"
+                    >Update</Button
+                >
             </DivFlexCenter>
         </Dialog>
     </MainLayout>
