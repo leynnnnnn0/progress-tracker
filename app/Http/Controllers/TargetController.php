@@ -43,4 +43,14 @@ class TargetController extends Controller
 
         return to_route('targets.index');
     }
+
+    public function edit()
+    {
+        return Inertia::render('Target/Edit');
+    }
+
+    public function update()
+    {
+        
+    }
 }

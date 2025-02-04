@@ -23,11 +23,20 @@ defineProps({
                 <TableHead>
                     <TH>ID</TH>
                     <TH>Description</TH>
+                    <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
                     <tr v-for="target in targets.data">
                         <TD>{{ target.id }}</TD>
                         <TD>{{ target.description }}</TD>
+                        <TD>
+                            <DivFlexCenter class="gap-2">
+                                <EditButton
+                                    :isLink="true"
+                                    :href="route('targets.edit', target.id)"
+                                />
+                            </DivFlexCenter>
+                        </TD>
                     </tr>
                 </TableBody>
             </Table>

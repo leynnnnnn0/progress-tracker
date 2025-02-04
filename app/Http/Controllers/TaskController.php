@@ -10,7 +10,9 @@ class TaskController extends Controller
 {
     public function index()
     {
-       
+
         return Inertia::render('Task/Index');
     }
+
+    
 }
