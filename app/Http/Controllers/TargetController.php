@@ -44,13 +44,34 @@ class TargetController extends Controller
         return to_route('targets.index');
     }
 
-    public function edit()
+    public function edit(Target $target)
     {
-        return Inertia::render('Target/Edit');
+        $target->load(['sub_targets']);
+        return Inertia::render('Target/Edit', [
+            'target' => $target
+        ]);
     }
 
-    public function update()
+    public function update(Request $request, Target $target)
     {
-        
+        $validated = $request->validate([
+            'description' => ['required'],
+            'sub_targets' => ['required'],
+        ]);
+        DB::beginTransaction();
+        $target->update($validated);
+        foreach ($validated['sub_targets'] as $subTarget) {
+            $target->sub_targets()->updateOrCreate(
+                [
+                    'id' => $subTarget['id']
+                ],
+                [
+                    'description' => $subTarget['description'],
+                    'target_number' => 90
+                ]
+            );
+        }
+        DB::commit();
+        return to_route('targets.index');
     }
 }

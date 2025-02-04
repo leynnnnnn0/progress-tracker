@@ -4,8 +4,15 @@ import useUpdate from "@/Composables/useUpdate";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
+const { target } = defineProps({
+    target: {
+        type: Object,
+        required: true,
+    },
+});
+
 const form = useForm({
-    description: null,
+    description: target.description,
     sub_targets: [],
 });
 
@@ -26,7 +33,18 @@ const addToSubTasks = () => {
     subTarget.value = null;
 };
 
-const { update } = useUpdate(form, route("targets.update"), "Target");
+target.sub_targets.map((item) => {
+    form.sub_targets.push({
+        id: item.id,
+        description: item.description,
+    });
+});
+
+const { update } = useUpdate(
+    form,
+    route("targets.update", target.id),
+    "Target"
+);
 </script>
 
 <template>
