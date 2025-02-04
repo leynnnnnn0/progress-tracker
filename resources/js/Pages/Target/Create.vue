@@ -52,12 +52,14 @@ const updateSubTarget = () => {
 const { store } = useStore(form, route("targets.store"), "Target");
 </script>
 
+
+
 <template>
     <MainLayout>
         <Heading>Create New Target</Heading>
         <FormContainer>
             <FormInput label="Description" class="col-span-2">
-                <Input v-model="form.description" />
+                <Textarea v-model="form.description" />
             </FormInput>
         </FormContainer>
         <TableContainer>
@@ -98,7 +100,7 @@ const { store } = useStore(form, route("targets.store"), "Target");
             <template #header>Sub-Target</template>
             <DivFlexCol>
                 <FormInput label="Description">
-                    <Input v-model="subTarget" />
+                    <Textarea v-model="subTarget" />
                 </FormInput>
             </DivFlexCol>
             <DivFlexCenter class="justify-end">
@@ -114,7 +116,7 @@ const { store } = useStore(form, route("targets.store"), "Target");
             <template #header>Sub-Target</template>
             <DivFlexCol>
                 <FormInput label="Description">
-                    <Input v-model="subTarget" />
+                    <Textarea v-model="subTarget" />
                 </FormInput>
             </DivFlexCol>
             <DivFlexCenter class="justify-end">
