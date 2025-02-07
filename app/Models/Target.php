@@ -11,6 +11,7 @@ class Target extends Model
     use HasFactory;
 
     protected $fillable = [
+        'percentage_group',
         'description',
     ];
 

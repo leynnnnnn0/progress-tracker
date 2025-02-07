@@ -1,4 +1,13 @@
 <script setup>
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import Dialog from "primevue/dialog";
 import useStore from "@/Composables/useStore";
 import { ref } from "vue";
@@ -6,6 +15,7 @@ import { useForm } from "@inertiajs/vue3";
 
 const form = useForm({
     description: null,
+    percentage_group: null,
     sub_targets: [],
 });
 
@@ -52,14 +62,33 @@ const updateSubTarget = () => {
 const { store } = useStore(form, route("targets.store"), "Target");
 </script>
 
-
-
 <template>
     <MainLayout>
         <Heading>Create New Target</Heading>
         <FormContainer>
-            <FormInput label="Description" class="col-span-2">
+            <FormInput
+                label="Description"
+                :errorMessage="form.errors.description"
+            >
                 <Textarea v-model="form.description" />
+            </FormInput>
+            <FormInput
+                label="Percentage Group"
+                :errorMessage="form.errors.percentage_group"
+            >
+                <Select>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select a fruit" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Fruits</SelectLabel>
+                            <SelectItem value="75"> 75 </SelectItem>
+                            <SelectItem value="15"> 15 </SelectItem>
+                            <SelectItem value="10"> 10 </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </FormInput>
         </FormContainer>
         <TableContainer>
