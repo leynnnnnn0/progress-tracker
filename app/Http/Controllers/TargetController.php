@@ -32,13 +32,12 @@ class TargetController extends Controller
 
         DB::beginTransaction();
         $target = Target::create([
-            'percentage_grou' => $validated['percentage_group'],
+            'percentage_group' => $validated['percentage_group'],
             'description' => $validated['description']
         ]);
         foreach ($validated['sub_targets'] as $subTarget) {
             $target->sub_targets()->create([
                 'description' => $subTarget['description'],
-                'target_number' => 90
             ]);
         }
         DB::commit();
@@ -69,7 +68,6 @@ class TargetController extends Controller
                 ],
                 [
                     'description' => $subTarget['description'],
-                    'target_number' => 90
                 ]
             );
         }

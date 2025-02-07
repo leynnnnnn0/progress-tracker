@@ -10,9 +10,10 @@ class TaskController extends Controller
 {
     public function index()
     {
+        $targets = Target::with('sub_targets')->get()->groupBy('percentage_group');
 
-        return Inertia::render('Task/Index');
+        return Inertia::render('Task/Index', [
+            'targets' => $targets
+        ]);
     }
-
-    
 }

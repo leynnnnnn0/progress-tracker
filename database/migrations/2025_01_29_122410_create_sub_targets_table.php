@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('target_id')->constrained()->cascadeOnDelete();
             $table->string('description');
-            $table->integer('target_number');
             $table->timestamps();
         });
     }

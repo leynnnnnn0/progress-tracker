@@ -76,7 +76,7 @@ const { store } = useStore(form, route("targets.store"), "Target");
                 label="Percentage Group"
                 :errorMessage="form.errors.percentage_group"
             >
-                <Select>
+                <Select v-model="form.percentage_group">
                     <SelectTrigger>
                         <SelectValue placeholder="Select a fruit" />
                     </SelectTrigger>

@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+const { targets } = defineProps({
+    targets: {
+        type: Object,
+        required: true,
+    },
+});
+console.log(targets[75]);
+</script>
 <template>
     <MainLayout>
         <DivFlexCol class="gap-5">
@@ -59,7 +67,7 @@
                     </TableHead>
                     <TableHead>
                         <TH colspan="12">
-                            CORE FUNCTIONS (90%) RESEARCH AND EXTENSION
+                            CORE FUNCTIONS (75%) RESEARCH AND EXTENSION
                         </TH>
                     </TableHead>
                     <TableHead>
@@ -75,51 +83,37 @@
                             Sustaianable Development
                         </TH>
                     </TableHead>
+
+                    <TableBody v-for="target in targets[75]">
+                        <tr>
+                            <TD
+                                :rowspan="target.sub_targets.length + 1"
+                                class="border-r border-gray-300"
+                                >{{ target.description }}</TD
+                            >
+                        </tr>
+                        <tr
+                            v-for="sub_target in target.sub_targets"
+                            class="divide-x divide-gray-300"
+                        >
+                            <TD>{{ sub_target.description }}</TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </tr>
+                    </TableBody>
+
                     <TableBody>
-                        <tr class="divide-x divide-gray-300">
-                            <TD rowspan="2" class="border-r border-gray-300"
-                                >Packaging of Gender Sensitive and Smart
-                                Research Proposals for Approval and
-                                Implementation</TD
-                            >
-                            <TD
-                                >Package (No.) study Proposals and Submit for
-                                Internal Funding within the rating period.</TD
-                            >
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                        </tr>
-                        <tr class="divide-x divide-gray-300">
-                            <TD
-                                >Conduct one Training Needs Assessment as
-                                reference for Needs Based training Program
-                                within the year</TD
-                            >
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                        </tr>
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
                             <TD colspan="4">SUBRATING: </TD>
@@ -128,12 +122,22 @@
                     </TableBody>
 
                     <TableHead>
-                        <TH colspan="12"> STRATEGIC FUNCTIONS (20%) </TH>
+                        <TH colspan="12"> STRATEGIC FUNCTIONS (15%) </TH>
                     </TableHead>
 
-                    <TableBody>
-                        <tr class="divide-x divide-gray-300 h-24">
-                            <TD></TD>
+                    <TableBody v-for="target in targets[15]">
+                        <tr>
+                            <TD
+                                :rowspan="target.sub_targets.length + 1"
+                                class="border-r border-gray-300"
+                                >{{ target.description }}</TD
+                            >
+                        </tr>
+                        <tr
+                            v-for="sub_target in target.sub_targets"
+                            class="divide-x divide-gray-300"
+                        >
+                            <TD>{{ sub_target.description }}</TD>
                             <TD></TD>
                             <TD></TD>
                             <TD></TD>
@@ -148,6 +152,9 @@
                             <TD></TD>
                             <TD></TD>
                         </tr>
+                    </TableBody>
+
+                    <TableBody>
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
                             <TD colspan="4">SUBRATING: </TD>
@@ -159,9 +166,19 @@
                         <TH colspan="12"> STRATEGIC FUNCTIONS (10%) </TH>
                     </TableHead>
 
-                    <TableBody>
-                        <tr class="divide-x divide-gray-300 h-24">
-                            <TD></TD>
+                    <TableBody v-for="target in targets[10]">
+                        <tr>
+                            <TD
+                                :rowspan="target.sub_targets.length + 1"
+                                class="border-r border-gray-300"
+                                >{{ target.description }}</TD
+                            >
+                        </tr>
+                        <tr
+                            v-for="sub_target in target.sub_targets"
+                            class="divide-x divide-gray-300"
+                        >
+                            <TD>{{ sub_target.description }}</TD>
                             <TD></TD>
                             <TD></TD>
                             <TD></TD>
@@ -176,13 +193,15 @@
                             <TD></TD>
                             <TD></TD>
                         </tr>
+                    </TableBody>
+
+                    <TableBody>
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
                             <TD colspan="4">SUBRATING: </TD>
                             <TD colspan="4"></TD>
                         </tr>
                     </TableBody>
-
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
                         <TD colspan="4">Core: </TD>

@@ -13,7 +13,6 @@ class SubTarget extends Model
     protected $fillable = [
         'target_id',
         'description',
-        'target_number',
     ];
 
     public function target()
