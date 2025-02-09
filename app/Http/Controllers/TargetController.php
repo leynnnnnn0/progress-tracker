@@ -11,9 +11,15 @@ class TargetController extends Controller
 {
     public function index()
     {
-        $targets = Target::latest()->paginate(10);
+        $search = request('search');
+        $query = Target::query();
+        if ($search)
+            $query->where('description', 'like', "%$search%");
+        $targets = $query->latest()->paginate(10);
+
         return Inertia::render('Target/Index', [
-            'targets' => $targets
+            'targets' => $targets,
+            'filters' => request()->only(['search'])
         ]);
     }
 

@@ -1,10 +1,12 @@
 <script setup>
+import { useSearch } from "@/Composables/useSearch";
 defineProps({
     targets: {
         type: Object,
         required: true,
     },
 });
+const { search } = useSearch("targets.index");
 </script>
 
 <template>
@@ -19,6 +21,15 @@ defineProps({
         </DivFlexCenter>
 
         <TableContainer>
+            <TableHeader>
+                <SearchBar>
+                    <Input
+                        v-model="search"
+                        class="pl-10"
+                        placeholder="Search..."
+                    />
+                </SearchBar>
+            </TableHeader>
             <Table>
                 <TableHead>
                     <TH>ID</TH>
