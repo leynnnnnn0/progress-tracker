@@ -20,9 +20,14 @@ class OfficeController extends Controller
 
     public function index()
     {
-        $offices = Office::latest()->paginate(10);
+        $search = request('search');
+        $query = Office::query();
+        if ($search)
+            $query->whereAny(['name', 'office_code'], 'like', "%$search%");
+        $offices = $query->latest()->paginate(10);
         return Inertia::render('Office/Index', [
-            'offices' => $offices
+            'offices' => $offices,
+            'filters' => request()->only(['search'])
         ]);
     }
 
