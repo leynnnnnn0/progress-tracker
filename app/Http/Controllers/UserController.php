@@ -14,6 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
+    
         $users = User::latest()->paginate(10)->withQueryString();
         return Inertia::render('User/Index', [
             'users' => $users

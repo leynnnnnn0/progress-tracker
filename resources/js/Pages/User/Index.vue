@@ -1,4 +1,5 @@
 <script setup>
+import { useSearch } from "@/Composables/useSearch";
 import useDelete from "@/Composables/useDelete.js";
 const { users } = defineProps({
     users: {
@@ -6,7 +7,7 @@ const { users } = defineProps({
         required: true,
     },
 });
-
+const { search } = useSearch("users.index");
 const { deleteModel } = useDelete("User");
 </script>
 <template>
@@ -20,6 +21,15 @@ const { deleteModel } = useDelete("User");
             >
         </DivFlexCenter>
         <TableContainer class="p-5">
+            <TableHeader>
+                <SearchBar>
+                    <Input
+                        v-model="search"
+                        class="pl-10"
+                        placeholder="Search..."
+                    />
+                </SearchBar>
+            </TableHeader>
             <Table>
                 <TableHead>
                     <TH>Id</TH>

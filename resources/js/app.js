@@ -54,6 +54,7 @@ import Infolist from "./Components/form/Infolist.vue";
 import BackButton from "./Components/BackButton.vue";
 import TableHeader from "./Components/table/TableHeader.vue";
 import Checkbox from "primevue/checkbox";
+import SearchBar from "./Components/table/SearchBar.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -102,6 +103,7 @@ createInertiaApp({
             .component("BackButton", BackButton)
             .component("TableHeader", TableHeader)
             .component("Checkbox", Checkbox)
+            .component("SearchBar", SearchBar)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {
