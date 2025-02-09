@@ -65,4 +65,18 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Office::class, 'users_offices');
     }
+
+    public function sub_target()
+    {
+        return $this->hasMany(SubTarget::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $subTasks = SubTarget::pluck('id')->toArray();
+            foreach ($subTasks as $task) {
+            }
+        });
+    }
 }

@@ -19,4 +19,9 @@ class SubTarget extends Model
     {
         return $this->belongsTo(Target::class);
     }
+
+    public function user_task()
+    {
+        return $this->hasMany(UserTask::class);
+    }
 }

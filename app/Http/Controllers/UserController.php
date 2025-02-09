@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Office;
+use App\Models\SubTarget;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -14,6 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
+
         $search = request('search');
         $query = User::query();
         if ($search)
