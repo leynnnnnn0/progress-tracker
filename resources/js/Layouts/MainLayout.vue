@@ -4,7 +4,18 @@ import Logo from "../../images/mainLogo.png";
 import NavLink from "@/Components/NavLink.vue";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
-import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
+import {
+    Home,
+    ListCheck,
+    UsersRound,
+    Warehouse,
+    LogOut,
+} from "lucide-vue-next";
+import { router } from "@inertiajs/vue3";
+
+const logout = () => {
+    router.post("/logout");
+};
 </script>
 
 <template>
@@ -33,25 +44,34 @@ import { Home, ListCheck, UsersRound, Warehouse } from "lucide-vue-next";
                     </Button> -->
                 </div>
                 <div
-                    class="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
+                    class="flex flex-col flex-1 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
                 >
-                    <nav class="grid items-start pl-4 text-sm font-medium">
-                        <NavLink :href="route('dashboard')" :icon="Home">
-                            Dashboard
-                        </NavLink>
-                        <NavLink href="/users" :icon="UsersRound">
-                            Users
-                        </NavLink>
-                        <NavLink href="/offices" :icon="Warehouse">
-                            Offices
-                        </NavLink>
-                        <NavLink href="/tasks" :icon="ListCheck">
-                            Tasks
-                        </NavLink>
-                        <NavLink href="/targets" :icon="ListCheck">
-                            Targets
-                        </NavLink>
-                    </nav>
+                    <section class="flex-1">
+                        <nav class="grid items-start pl-4 text-sm font-medium">
+                            <NavLink :href="route('dashboard')" :icon="Home">
+                                Dashboard
+                            </NavLink>
+                            <NavLink href="/users" :icon="UsersRound">
+                                Users
+                            </NavLink>
+                            <NavLink href="/offices" :icon="Warehouse">
+                                Offices
+                            </NavLink>
+                            <NavLink href="/tasks" :icon="ListCheck">
+                                Tasks
+                            </NavLink>
+                            <NavLink href="/targets" :icon="ListCheck">
+                                Targets
+                            </NavLink>
+                        </nav>
+                    </section>
+                    <button
+                        @click="logout"
+                        class="flex items-center gap-2 px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                    >
+                        <LogOut class="size-5" />
+                        Logout
+                    </button>
                 </div>
             </div>
         </div>
