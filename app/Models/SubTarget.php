@@ -24,4 +24,18 @@ class SubTarget extends Model
     {
         return $this->hasMany(UserTask::class);
     }
+
+    // protected static function boooted()
+    // {
+    //     static::created(function ($sub_target) {
+    //         $users = User::pluck('id')->toArray();
+
+    //         foreach ($users as $user) {
+    //             UserTask::create([
+    //                 'sub_target_id' => $sub_target->id,
+    //                 'user_id' => $user
+    //             ]);
+    //         }
+    //     });
+    // }
 }

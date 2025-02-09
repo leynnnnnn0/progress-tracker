@@ -19,4 +19,19 @@ class Target extends Model
     {
         return $this->hasMany(SubTarget::class);
     }
+
+    // protected static function booted()
+    // {
+    //     static::created(function ($target) {
+    //         foreach ($target->sub_targets as $sub_target) {
+    //             $users = User::pluck('id')->toArray();
+    //             foreach ($users as $user) {
+    //                 UserTask::create([
+    //                     'sub_target_id' => $sub_target->id,
+    //                     'user_id' => $user
+    //                 ]);
+    //             }
+    //         }
+    //     });
+    // }
 }

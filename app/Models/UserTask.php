@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserTask extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserTaskFactory> */
+    use HasFactory;
+
     protected $fillable = [
-        'sub_task_id',
+        'sub_target_id',
         'user_id',
         'target_number',
         'success_indicator',

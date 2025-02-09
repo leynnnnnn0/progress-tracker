@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Target;
+use App\Models\User;
+use App\Models\UserTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -36,15 +38,25 @@ class TargetController extends Controller
             'sub_targets' => ['required'],
         ]);
 
+
         DB::beginTransaction();
         $target = Target::create([
             'percentage_group' => $validated['percentage_group'],
             'description' => $validated['description']
         ]);
         foreach ($validated['sub_targets'] as $subTarget) {
-            $target->sub_targets()->create([
+            $data =  $target->sub_targets()->create([
                 'description' => $subTarget['description'],
             ]);
+
+            $users = User::pluck('id')->toArray();
+
+            foreach ($users as $user) {
+                UserTask::create([
+                    'sub_target_id' => $data->id,
+                    'user_id' => $user
+                ]);
+            }
         }
         DB::commit();
 
@@ -65,10 +77,11 @@ class TargetController extends Controller
             'description' => ['required'],
             'sub_targets' => ['required'],
         ]);
+
         DB::beginTransaction();
         $target->update($validated);
         foreach ($validated['sub_targets'] as $subTarget) {
-            $target->sub_targets()->updateOrCreate(
+            $subTarget = $target->sub_targets()->updateOrCreate(
                 [
                     'id' => $subTarget['id']
                 ],
