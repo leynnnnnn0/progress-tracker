@@ -1,11 +1,8 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import Checkbox from "@/Components/Checkbox.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import { Link, useForm } from "@inertiajs/vue3";
 
 defineProps({
     canResetPassword: {
@@ -17,84 +14,97 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
 });
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+    form.post(route("login"), {
+        onFinish: () => form.reset("password"),
     });
 };
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Log in" />
+    <div
+        class="grid lg:grid-cols-2 gap-10 min-h-screen max-h-screen items-center sm:p-20 p-5 grid-cols-1"
+    >
+        <h1>LOGO</h1>
+        <section
+            class="border border-gray-300 rounded-lg sm:p-10 sm:space-y-5 space-y-3 p-5"
+        >
+            <h1 class="sm:text-lg text-sm sm:mb-5 text-black">
+                Welcome to BSU System!
+            </h1>
+            <h1 class="sm:text-2xl text-lg font-bold text-black">
+                Sign in to your account
+            </h1>
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
+            <form class="space-y-5" @submit.prevent="submit">
+                <div>
+                    <InputLabel for="email" value="Email" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+                    <Input
+                        id="email"
+                        type="email"
+                        class="mt-1 block w-full sm:h-12"
+                        v-model="form.email"
+                        required
+                        autofocus
+                        autocomplete="username"
+                        placeholder="Enter your email"
+                    />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+                    <InputError class="mt-2" :message="form.errors.email" />
+                </div>
 
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+                <div class="mt-4">
+                    <InputLabel for="password" value="Password" />
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                    <Input
+                        id="password"
+                        type="password"
+                        class="mt-1 block w-full sm:h-12"
+                        v-model="form.password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                    />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
+                    <InputError class="mt-2" :message="form.errors.password" />
+                </div>
 
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+                <div class="flex items-center justify-between">
+                    <div class="block">
+                        <label class="flex items-center">
+                            <Checkbox
+                                name="remember"
+                                v-model:checked="form.remember"
+                            />
+                            <span class="ms-2 sm:text-sm text-xs text-gray-600"
+                                >Remember me</span
+                            >
+                        </label>
+                    </div>
 
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
-                        >Remember me</span
+                    <!-- <Link
+                        v-if="canResetPassword"
+                        :href="route('password.request')"
+                        class="rounded-md sm:text-sm text-xs text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                </label>
-            </div>
+                        Forgot your password?
+                    </Link> -->
+                </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
+                <Button
+                    class="w-full h-12 bg-black font-bold text-lg text-white"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
+                </Button>
+            </form>
+        </section>
+    </div>
 </template>
