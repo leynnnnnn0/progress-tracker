@@ -23,7 +23,7 @@ class SubTarget extends Model
         return $this->belongsTo(Target::class);
     }
 
-    public function user_task()
+    public function user_tasks()
     {
         return $this->hasMany(UserTask::class);
     }

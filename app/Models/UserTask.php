@@ -16,6 +16,7 @@ class UserTask extends Model
         'target_number',
         'success_indicator',
         'individual_accountable',
+        'actual_accomplishments',
         'actual_accomplishments_number',
         'q',
         't',
