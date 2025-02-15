@@ -1,5 +1,8 @@
 <script setup>
-const { targets } = defineProps({
+import { router } from "@inertiajs/vue3";
+import { watch, ref } from "vue";
+
+const { targets, offices, filters } = defineProps({
     targets: {
         type: Object,
         required: true,
@@ -8,18 +11,31 @@ const { targets } = defineProps({
         type: Object,
         required: true,
     },
+    filters: {
+        type: Object,
+        required: true,
+    },
+});
+const office = ref(filters.office ?? offices[0].value.toString());
+watch(office, (value) => {
+    router.get(route("tasks.index"), {
+        office: value,
+    });
 });
 </script>
 <template>
     <MainLayout>
-        <Select>
+        <Select v-model="office">
             <SelectTrigger>
                 <SelectValue placeholder="Select an office" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Offices</SelectLabel>
-                    <SelectItem v-for="office in offices" :value="office.value">
+                    <SelectItem
+                        v-for="office in offices"
+                        :value="office.value.toString()"
+                    >
                         {{ office.label }}
                     </SelectItem>
                 </SelectGroup>

@@ -17,7 +17,8 @@ class TaskController extends Controller
 
         return Inertia::render('Task/Index', [
             'targets' => $targets,
-            'offices' => $offices
+            'offices' => $offices,
+            'filters' => request()->only(['office'])
         ]);
     }
 }
