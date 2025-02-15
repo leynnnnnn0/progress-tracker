@@ -12,8 +12,7 @@ class UserTask extends Model
 
     protected $fillable = [
         'sub_target_id',
-        'user_id',
-        'office_id',
+        'users_offices_id',
         'target_number',
         'success_indicator',
         'individual_accountable',
@@ -38,6 +37,12 @@ class UserTask extends Model
 
     public function office()
     {
-        return $this->belongsTo(Office::class);
+        return $this->belongTo(Office::class);
     }
+
+    public function users_offices()
+    {
+        return $this->belongsTo(UsersOffices::class);
+    }
+
 }

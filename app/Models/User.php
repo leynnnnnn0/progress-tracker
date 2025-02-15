@@ -69,6 +69,6 @@ class User extends Authenticatable
 
     public function user_tasks()
     {
-        return $this->hasMany(UserTask::class);
+        return $this->hasManyThrough(UserTask::class, UsersOffices::class);
     }
 }

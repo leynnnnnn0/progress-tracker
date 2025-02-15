@@ -17,4 +17,9 @@ class UsersOffices extends Model
         'user_id',
         'office_id'
     ];
+
+    public function user_tasks()
+    {
+        return $this->hasMany(UserTask::class);
+    }
 }

@@ -15,14 +15,13 @@ class SubTargetObserver
      */
     public function created(SubTarget $subTarget): void
     {
-        $data = UsersOffices::select(['user_id', 'office_id'])->get();
+        $items = UsersOffices::select(['id'])->get();
 
         DB::beginTransaction();
-        foreach ($data as $user) {
+        foreach ($items as $item) {
             UserTask::create([
                 'sub_target_id' => $subTarget->id,
-                'user_id' => $user->user_id,
-                'office_id' => $user->office_id
+                'users_offices_id' => $item->id
             ]);
         }
         DB::commit();

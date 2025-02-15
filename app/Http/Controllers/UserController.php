@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\User;
+use App\Models\UsersOffices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,12 @@ class UserController extends Controller
 
         DB::beginTransaction();
         $user = User::create(Arr::except($validated, 'assignedOffices'));
-        $user->offices()->attach($validated['assignedOffices']);
+        foreach ($validated['assignedOffices'] as $officeId) {
+            UsersOffices::create([
+                'user_id' => $user->id,
+                'office_id' => $officeId
+            ]);
+        }
         DB::commit();
 
         return to_route('users.index');
@@ -85,7 +91,22 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         DB::beginTransaction();
         $user->update(Arr::except($validated, 'assignedOffices'));
-        $user->offices()->sync($validated['assignedOffices']);
+
+        $currentOfficeIds = $user->offices()->pluck('office_id')->toArray();
+
+        $officesToAdd = array_diff($validated['assignedOffices'], $currentOfficeIds);
+        $officesToRemove = array_diff($currentOfficeIds, $validated['assignedOffices']);
+
+        UsersOffices::where('user_id', $user->id)
+            ->whereIn('office_id', $officesToRemove)
+            ->delete();
+
+        foreach ($officesToAdd as $officeId) {
+            UsersOffices::create([
+                'user_id' => $user->id,
+                'office_id' => $officeId
+            ]);
+        }
         DB::commit();
 
         return to_route('users.index');
