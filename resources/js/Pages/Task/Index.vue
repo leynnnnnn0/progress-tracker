@@ -2,45 +2,82 @@
 import { router } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
 
-const { targets, offices, filters } = defineProps({
+const { targets, offices, filters, users } = defineProps({
     targets: {
         type: Object,
         required: true,
     },
     offices: {
         type: Object,
-        required: true,
+        required: false,
     },
     filters: {
         type: Object,
         required: true,
     },
+    users: {
+        type: Object,
+        required: false,
+    },
 });
-const office = ref(filters.office ?? offices[0].value.toString());
+const office = ref(
+    offices.length > 0 ? filters.office ?? offices[0].value.toString() : null
+);
+const user = ref(
+    users.length > 0 ? filters.user ?? users[0].value.toString() : null
+);
+
 watch(office, (value) => {
     router.get(route("tasks.index"), {
         office: value,
+        user: user.value,
+    });
+});
+
+watch(user, (value) => {
+    router.get(route("tasks.index"), {
+        office: offices[0].value.toString(),
+        user: value,
     });
 });
 </script>
 <template>
     <MainLayout>
-        <Select v-model="office">
-            <SelectTrigger>
-                <SelectValue placeholder="Select an office" />
-            </SelectTrigger>
-            <SelectContent>
-                <SelectGroup>
-                    <SelectLabel>Offices</SelectLabel>
-                    <SelectItem
-                        v-for="office in offices"
-                        :value="office.value.toString()"
-                    >
-                        {{ office.label }}
-                    </SelectItem>
-                </SelectGroup>
-            </SelectContent>
-        </Select>
+        <DivFlexCenter class="gap-2">
+            <Select v-if="users.length > 0" v-model="user">
+                <SelectTrigger>
+                    <SelectValue placeholder="Select a user" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        <SelectLabel>Users</SelectLabel>
+                        <SelectItem
+                            v-for="user in users"
+                            :value="user.value.toString()"
+                        >
+                            {{ user.label }}
+                        </SelectItem>
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
+
+            <Select v-model="office">
+                <SelectTrigger>
+                    <SelectValue placeholder="Select an office" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        <SelectLabel>Offices</SelectLabel>
+                        <SelectItem
+                            v-for="office in offices"
+                            :value="office.value.toString()"
+                        >
+                            {{ office.label }}
+                        </SelectItem>
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
+        </DivFlexCenter>
 
         <DivFlexCol class="gap-5">
             <!-- <DivFlexCol class="items-center justify-center gap-3">

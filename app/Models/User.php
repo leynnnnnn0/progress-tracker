@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -70,5 +73,17 @@ class User extends Authenticatable
     public function user_tasks()
     {
         return $this->hasManyThrough(UserTask::class, UsersOffices::class);
+    }
+
+    public function scopeGetOptions(Builder $query)
+    {
+
+        return Auth::user()->is_admin ?  $query->where('is_admin', false)->get()->map(function ($user) {
+            if (!$user) return null;
+            return [
+                'value' => $user->id,
+                'label' => $user->full_name
+            ];
+        })->filter() : null;
     }
 }

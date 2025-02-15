@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Office;
 use App\Models\Target;
+use App\Models\User;
 use App\Models\UsersOffices;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -14,20 +15,42 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $offices = Office::getOptions();
-        $office = request('office') ?? $offices->first()['value'];
+        $users = User::getOptions();
+
+
+
 
         $query = Target::query()->with(['sub_targets.user_tasks']);
 
-        $usersOfficesId = UsersOffices::where('user_id', Auth::id())->where('office_id', $office)->first()->id;
 
-        $query->whereHas('user_tasks', function (Builder $query) use ($usersOfficesId) {
-            $query->where('users_offices_id', $usersOfficesId);
-        });
+
+
+        if ($users->count() > 0) {
+
+            $user = request('user') ?? $users->first()['value'];
+
+            $offices = Office::getOptions($user);
+            $office = request('office') ?? $offices->first()['value'];
+
+            $usersOfficesId = Auth::user()->is_admin ? UsersOffices::where('user_id', $user)->where('office_id', $office)->first()->id :  UsersOffices::where('user_id', Auth::id())->where('office_id', $office)->first()->id;
+
+
+            $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($usersOfficesId) {
+                $query->where('users_offices_id', $usersOfficesId);
+            });
+
+            $query->with(['sub_targets.user_tasks' => function ($query) use ($usersOfficesId) {
+                $query->where('users_offices_id', $usersOfficesId);
+            }]);
+        }
+
 
         $targets = $query->get()->map(function ($item) {
             $sub_targets = $item->sub_targets->map(function ($item) {
                 $user_task = $item->user_tasks->first();
+
+                if (!$user_task) return [];
+
                 return [
                     'sub_target_id' => $item->id,
                     'description' => $item->description,
@@ -61,8 +84,9 @@ class TaskController extends Controller
 
         return Inertia::render('Task/Index', [
             'targets' => $targets,
-            'offices' => $offices,
-            'filters' => request()->only(['office'])
+            'offices' => $offices ?? [],
+            'filters' => request()->only(['office', 'user']),
+            'users' => $users
         ]);
     }
 }

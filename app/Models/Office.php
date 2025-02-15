@@ -32,9 +32,9 @@ class Office extends Model
         return "{$this->name} ({$this->office_code})";
     }
 
-    public function scopeGetOptions(Builder $query)
+    public function scopeGetOptions(Builder $query, $id = null)
     {
-        $user = Auth::user();
+        $user = $id ? User::find($id) : Auth::user();
         $user->load(['offices']);
         if (!$user->is_admin) {
             return $user->offices->map(function ($office) {
