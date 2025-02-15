@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Office extends Model
 {
@@ -33,6 +34,17 @@ class Office extends Model
 
     public function scopeGetOptions(Builder $query)
     {
+        $user = Auth::user();
+        $user->load(['offices']);
+        if (!$user->is_admin) {
+            return $user->offices->map(function ($office) {
+                return [
+                    'value' => $office->id,
+                    'label' => $office->display_name
+                ];
+            });
+        }
+
         return $query->select(['id', 'name', 'office_code'])
             ->get()
             ->map(function ($office) {
