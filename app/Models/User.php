@@ -77,12 +77,16 @@ class User extends Authenticatable
     {
         static::created(function ($user) {
             $subTasks = SubTarget::pluck('id')->toArray();
+            $offices = $user->offices->pluck('id')->toArray();
 
             foreach ($subTasks as $task) {
-                UserTask::create([
-                    'sub_target_id' => $task,
-                    'user_id' => $user->id
-                ]);
+                foreach ($offices as $office) {
+                    UserTask::create([
+                        'sub_target_id' => $task,
+                        'user_id' => $user->id,
+                        'office_id' => $office
+                    ]);
+                }
             }
         });
     }

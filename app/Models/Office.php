@@ -21,6 +21,11 @@ class Office extends Model
         return $this->belongsToMany(User::class, 'users_offices');
     }
 
+    public function offices()
+    {
+        return $this->belongsToMany(Office::class);
+    }
+
     public function getDisplayNameAttribute()
     {
         return "{$this->name} ({$this->office_code})";

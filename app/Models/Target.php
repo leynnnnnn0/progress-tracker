@@ -20,6 +20,11 @@ class Target extends Model
         return $this->hasMany(SubTarget::class);
     }
 
+    public function user_tasks()
+    {
+        return $this->hasManyThrough(UserTask::class, SubTarget::class);                                                                                 
+    }
+
     // protected static function booted()
     // {
     //     static::created(function ($target) {

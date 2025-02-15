@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\SubTarget;
 use App\Models\User;
+use App\Models\UsersOffices;
 use App\Models\UserTask;
 use Illuminate\Support\Facades\DB;
 
@@ -14,16 +15,15 @@ class SubTargetObserver
      */
     public function created(SubTarget $subTarget): void
     {
-        $users = User::select(['id', 'is_admin'])->get();
+        $data = UsersOffices::select(['user_id', 'office_id'])->get();
 
         DB::beginTransaction();
-        foreach ($users as $user) {
-            if (!$user->is_admin) {
-                UserTask::create([
-                    'sub_target_id' => $subTarget->id,
-                    'user_id' => $user->id
-                ]);
-            }
+        foreach ($data as $user) {
+            UserTask::create([
+                'sub_target_id' => $subTarget->id,
+                'user_id' => $user->user_id,
+                'office_id' => $user->office_id
+            ]);
         }
         DB::commit();
     }
