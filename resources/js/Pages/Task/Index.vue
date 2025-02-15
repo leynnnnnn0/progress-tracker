@@ -43,7 +43,7 @@ watch(office, (value) => {
         </Select>
 
         <DivFlexCol class="gap-5">
-            <DivFlexCol class="items-center justify-center gap-3">
+            <!-- <DivFlexCol class="items-center justify-center gap-3">
                 <H1Bold> DEPARTMENT PERFORMANCE COMMITMENT AND REVIEW </H1Bold>
                 <SpanXS
                     >I, FULL NAME HERE, POSITION and OFFICIAL DESIGNATION of the
@@ -74,7 +74,7 @@ watch(office, (value) => {
                         <SpanXS>1 - Poor</SpanXS>
                     </DivFlexCol>
                 </DivFlexCol>
-            </DivFlexCenter>
+            </DivFlexCenter> -->
 
             <DivFlexCol
                 class="w-full h-auto rounded-lg border border-gray/20 space-y-5 overflow-auto overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
@@ -260,7 +260,7 @@ watch(office, (value) => {
                 </Table>
             </DivFlexCol>
 
-            <DivFlexCenter class="justify-between">
+            <!-- <DivFlexCenter class="justify-between">
                 <DivFlexCol class="gap-1 w-full">
                     <SpanXS>Name and Signature of Ratee:</SpanXS>
                     <SpanXS>Position:</SpanXS>
@@ -271,7 +271,7 @@ watch(office, (value) => {
                     <SpanXS>Position:</SpanXS>
                     <SpanXS>Date:</SpanXS>
                 </DivFlexCol>
-            </DivFlexCenter>
+            </DivFlexCenter> -->
         </DivFlexCol>
     </MainLayout>
 </template>
