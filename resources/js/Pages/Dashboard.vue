@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import dashboard from "../../images/dashboard.png";
+</script>
 
 <template>
-    <MainLayout> </MainLayout>
+    <MainLayout :isDashboard="true">
+        <img :src="dashboard" class="max-h-screen max-w-screen" />
+    </MainLayout>
 </template>

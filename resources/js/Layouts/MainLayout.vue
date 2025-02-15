@@ -12,6 +12,14 @@ import {
     LogOut,
 } from "lucide-vue-next";
 import { router } from "@inertiajs/vue3";
+import MainContainer from "@/Components/MainContainer.vue";
+
+defineProps({
+    isDashboard: {
+        type: Boolean,
+        default: false,
+    },
+});
 
 const logout = () => {
     router.post("/logout");
@@ -77,7 +85,8 @@ const logout = () => {
         </div>
         <!-- Main -->
         <DivFlexCol
-            class="min-h-fit p-10 gap-5 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
+            class="min-h-fit gap-5 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
+            :class="isDashboard ? 'p-0' : 'p-10'"
         >
             <slot></slot>
         </DivFlexCol>
