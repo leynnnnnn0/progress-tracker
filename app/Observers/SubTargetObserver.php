@@ -3,6 +3,9 @@
 namespace App\Observers;
 
 use App\Models\SubTarget;
+use App\Models\User;
+use App\Models\UserTask;
+use Illuminate\Support\Facades\DB;
 
 class SubTargetObserver
 {
@@ -11,7 +14,16 @@ class SubTargetObserver
      */
     public function created(SubTarget $subTarget): void
     {
-        dd($subTarget);
+        $users = User::pluck('id')->toArray();
+
+        DB::beginTransaction();
+        foreach ($users as $user) {
+            UserTask::create([
+                'sub_target_id' => $subTarget->id,
+                'user_id' => $user
+            ]);
+        }
+        DB::commit();
     }
 
     /**

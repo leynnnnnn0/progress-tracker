@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubTarget;
 use App\Models\Target;
 use App\Models\User;
 use App\Models\UserTask;
@@ -45,18 +46,11 @@ class TargetController extends Controller
             'description' => $validated['description']
         ]);
         foreach ($validated['sub_targets'] as $subTarget) {
-            $data =  $target->sub_targets()->create([
+            SubTarget::create([
+                'target_id' => $target->id,
                 'description' => $subTarget['description'],
             ]);
 
-            $users = User::pluck('id')->toArray();
-
-            foreach ($users as $user) {
-                UserTask::create([
-                    'sub_target_id' => $data->id,
-                    'user_id' => $user
-                ]);
-            }
         }
         DB::commit();
 
