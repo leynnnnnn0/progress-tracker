@@ -165,18 +165,10 @@ watch(office, (value) => {
                             class="divide-x divide-gray-300"
                         >
                             <TD>{{ sub_target.description }}</TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
+                            <TD v-for="user_task in sub_target.user_tasks">{{
+                                user_task
+                            }}</TD>
+
                             <TD></TD>
                         </tr>
                     </TableBody>
@@ -206,18 +198,10 @@ watch(office, (value) => {
                             class="divide-x divide-gray-300"
                         >
                             <TD>{{ sub_target.description }}</TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
-                            <TD></TD>
+                            <TD v-for="user_task in sub_target.user_tasks">{{
+                                user_task
+                            }}</TD>
+
                             <TD></TD>
                         </tr>
                     </TableBody>

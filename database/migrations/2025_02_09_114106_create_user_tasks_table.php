@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('target_number')->default(0);
             $table->string('success_indicator')->nullable();
             $table->string('individual_accountable')->nullable();
+            $table->string('actual_accomplishments')->nullable();
             $table->integer('actual_accomplishments_number')->default(0);
             $table->double('q')->default(0);
             $table->double('t')->default(0);
