@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone_number',
         'email',
         'password',
+        'is_admin'
     ];
 
     protected $appends = ['full_name', 'offices_array'];
@@ -76,8 +77,8 @@ class User extends Authenticatable
     {
         static::created(function ($user) {
             $subTasks = SubTarget::pluck('id')->toArray();
-            foreach ($subTasks as $task) {
 
+            foreach ($subTasks as $task) {
                 UserTask::create([
                     'sub_target_id' => $task,
                     'user_id' => $user->id

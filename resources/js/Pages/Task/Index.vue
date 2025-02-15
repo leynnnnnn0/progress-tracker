@@ -4,11 +4,28 @@ const { targets } = defineProps({
         type: Object,
         required: true,
     },
+    offices: {
+        type: Object,
+        required: true,
+    },
 });
-console.log(targets[75]);
 </script>
 <template>
     <MainLayout>
+        <Select>
+            <SelectTrigger>
+                <SelectValue placeholder="Select an office" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup>
+                    <SelectLabel>Offices</SelectLabel>
+                    <SelectItem v-for="office in offices" :value="office.value">
+                        {{ office.label }}
+                    </SelectItem>
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+
         <DivFlexCol class="gap-5">
             <DivFlexCol class="items-center justify-center gap-3">
                 <H1Bold> DEPARTMENT PERFORMANCE COMMITMENT AND REVIEW </H1Bold>

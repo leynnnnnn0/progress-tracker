@@ -55,6 +55,15 @@ import BackButton from "./Components/BackButton.vue";
 import TableHeader from "./Components/table/TableHeader.vue";
 import Checkbox from "primevue/checkbox";
 import SearchBar from "./Components/table/SearchBar.vue";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -67,6 +76,13 @@ createInertiaApp({
         ),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
+            .component("Select", Select)
+            .component("SelectContent", SelectContent)
+            .component("SelectGroup", SelectGroup)
+            .component("SelectItem", SelectItem)
+            .component("SelectLabel", SelectLabel)
+            .component("SelectTrigger", SelectTrigger)
+            .component("SelectValue", SelectValue)
             .component("MainLayout", MainLayout)
             .component("DivFlexCenter", DivFlexCenter)
             .component("DivFlexCol", DivFlexCol)

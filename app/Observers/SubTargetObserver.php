@@ -14,14 +14,16 @@ class SubTargetObserver
      */
     public function created(SubTarget $subTarget): void
     {
-        $users = User::pluck('id')->toArray();
+        $users = User::select(['id', 'is_admin'])->get();
 
         DB::beginTransaction();
         foreach ($users as $user) {
-            UserTask::create([
-                'sub_target_id' => $subTarget->id,
-                'user_id' => $user
-            ]);
+            if (!$user->is_admin) {
+                UserTask::create([
+                    'sub_target_id' => $subTarget->id,
+                    'user_id' => $user->id
+                ]);
+            }
         }
         DB::commit();
     }
