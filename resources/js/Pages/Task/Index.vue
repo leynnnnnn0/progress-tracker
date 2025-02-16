@@ -1,6 +1,7 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 
 const { targets, offices, filters, users } = defineProps({
     targets: {
@@ -40,8 +41,83 @@ watch(user, (value) => {
         user: value,
     });
 });
+
+const form = useForm({
+    user_task_id: null,
+    target_number: null,
+    success_indicator: null,
+    individual_accountable: null,
+    actual_accomplishments: null,
+    actual_accomplishments_number: null,
+    q: null,
+    t: null,
+    e: null,
+    remark: null,
+    link_to_evidence: null,
+    pmt_remark: null,
+});
+const isEditModalVisible = ref(false);
+const openEditModal = (id) => {
+    form.user_task_id = id;
+    isEditModalVisible.value = true;
+};
 </script>
 <template>
+    <Dialog
+        v-model:visible="isEditModalVisible"
+        modal
+        header="Update Details"
+        :style="{ width: '25rem' }"
+    >
+        <FormInput label="TARGET NUMBER" :errorMessage="form.target_number">
+            <Input v-model="form.target_number" />
+        </FormInput>
+        <FormInput
+            label="SUCCESS INDICATORS (TARGETS + MEASURES)"
+            :errorMessage="form.success_indicator"
+        >
+            <Input v-model="form.success_indicator" />
+        </FormInput>
+        <FormInput
+            label="INDIVIDUAL ACCOUNTABLE"
+            :errorMessage="form.individual_accountable"
+        >
+            <Input v-model="form.individual_accountable" />
+        </FormInput>
+        <FormInput
+            label="ACTUAL ACCOMPLISHMENTS NUMBER"
+            :errorMessage="form.actual_accomplishments_number"
+        >
+            <Input v-model="form.actual_accomplishments_number" />
+        </FormInput>
+        <FormInput
+            label="ACTUAL ACCOMPLISHMENTS"
+            :errorMessage="form.actual_accomplishments"
+        >
+            <Input v-model="form.actual_accomplishments" />
+        </FormInput>
+        <FormInput label="Q" :errorMessage="form.q">
+            <Input v-model="form.q" />
+        </FormInput>
+        <FormInput label="T" :errorMessage="form.t">
+            <Input v-model="form.t" />
+        </FormInput>
+        <FormInput label="E" :errorMessage="form.e">
+            <Input v-model="form.e" />
+        </FormInput>
+        <FormInput label="Remark" :errorMessage="form.remark">
+            <Input v-model="form.remark" />
+        </FormInput>
+        <FormInput
+            label="LINK TO EVIDENCE"
+            :errorMessage="form.link_to_evidence"
+        >
+            <Input v-model="form.link_to_evidence" />
+        </FormInput>
+        <FormInput label="PMT REMARK" :errorMessage="form.pmt_remark">
+            <Input v-model="form.pmt_remark" />
+        </FormInput>
+    </Dialog>
     <MainLayout>
         <DivFlexCenter class="gap-2">
             <Select v-if="users.length > 0" v-model="user">
@@ -173,7 +249,13 @@ watch(user, (value) => {
                                 user_task
                             }}</TD>
 
-                            <TD></TD>
+                            <TD>
+                                <EditButton
+                                    @click="
+                                        openEditModal(sub_target.user_task_id)
+                                    "
+                                />
+                            </TD>
                         </tr>
                     </TableBody>
 

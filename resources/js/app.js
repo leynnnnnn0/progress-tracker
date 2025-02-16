@@ -64,6 +64,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import Dialog from 'primevue/dialog';
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -120,6 +121,7 @@ createInertiaApp({
             .component("TableHeader", TableHeader)
             .component("Checkbox", Checkbox)
             .component("SearchBar", SearchBar)
+            .component("Dialog", Dialog)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

@@ -17,13 +17,7 @@ class TaskController extends Controller
     {
         $users = User::getOptions();
 
-
-
-
         $query = Target::query()->with(['sub_targets.user_tasks']);
-
-
-
 
         if ($users->count() > 0) {
 
