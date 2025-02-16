@@ -2,6 +2,7 @@
 import { router } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
+import axios from "axios";
 
 const { targets, offices, filters, users } = defineProps({
     targets: {
@@ -61,6 +62,45 @@ const openEditModal = (id) => {
     form.user_task_id = id;
     isEditModalVisible.value = true;
 };
+
+watch(
+    () => form.user_task_id,
+    (value) => {
+        if (!value) return;
+
+        axios
+            .get(route("user-tasks.show", value))
+            .then((res) => {
+                const {
+                    actual_accomplishments,
+                    actual_accomplishments_number,
+                    individual_accountable,
+                    link_to_evidence,
+                    pmt_remark,
+                    q,
+                    t,
+                    e,
+                    remark,
+                    success_indicator,
+                    target_number,
+                } = res.data;
+
+                form.target_number = target_number;
+                form.success_indicator = success_indicator;
+                form.individual_accountable = individual_accountable;
+                form.actual_accomplishments = actual_accomplishments;
+                form.actual_accomplishments_number =
+                    actual_accomplishments_number;
+                form.q = q;
+                form.t = t;
+                form.e = e;
+                form.remark = remark;
+                form.link_to_evidence = link_to_evidence;
+                form.pmt_remark = pmt_remark;
+            })
+            .catch((e) => console.log(e));
+    }
+);
 </script>
 <template>
     <Dialog
@@ -69,52 +109,55 @@ const openEditModal = (id) => {
         header="Update Details"
         :style="{ width: '25rem' }"
     >
-        <FormInput label="TARGET NUMBER" :errorMessage="form.target_number">
+        <FormInput
+            label="TARGET NUMBER"
+            :errorMessage="form.errors.target_number"
+        >
             <Input v-model="form.target_number" />
         </FormInput>
         <FormInput
             label="SUCCESS INDICATORS (TARGETS + MEASURES)"
-            :errorMessage="form.success_indicator"
+            :errorMessage="form.errors.success_indicator"
         >
             <Input v-model="form.success_indicator" />
         </FormInput>
         <FormInput
             label="INDIVIDUAL ACCOUNTABLE"
-            :errorMessage="form.individual_accountable"
+            :errorMessage="form.errors.individual_accountable"
         >
             <Input v-model="form.individual_accountable" />
         </FormInput>
         <FormInput
             label="ACTUAL ACCOMPLISHMENTS NUMBER"
-            :errorMessage="form.actual_accomplishments_number"
+            :errorMessage="form.errors.actual_accomplishments_number"
         >
             <Input v-model="form.actual_accomplishments_number" />
         </FormInput>
         <FormInput
             label="ACTUAL ACCOMPLISHMENTS"
-            :errorMessage="form.actual_accomplishments"
+            :errorMessage="form.errors.actual_accomplishments"
         >
             <Input v-model="form.actual_accomplishments" />
         </FormInput>
-        <FormInput label="Q" :errorMessage="form.q">
+        <FormInput label="Q" :errorMessage="form.errors.q">
             <Input v-model="form.q" />
         </FormInput>
-        <FormInput label="T" :errorMessage="form.t">
+        <FormInput label="T" :errorMessage="form.errors.t">
             <Input v-model="form.t" />
         </FormInput>
-        <FormInput label="E" :errorMessage="form.e">
+        <FormInput label="E" :errorMessage="form.errors.e">
             <Input v-model="form.e" />
         </FormInput>
-        <FormInput label="Remark" :errorMessage="form.remark">
+        <FormInput label="Remark" :errorMessage="form.errors.remark">
             <Input v-model="form.remark" />
         </FormInput>
         <FormInput
             label="LINK TO EVIDENCE"
-            :errorMessage="form.link_to_evidence"
+            :errorMessage="form.errors.link_to_evidence"
         >
             <Input v-model="form.link_to_evidence" />
         </FormInput>
-        <FormInput label="PMT REMARK" :errorMessage="form.pmt_remark">
+        <FormInput label="PMT REMARK" :errorMessage="form.errors.pmt_remark">
             <Input v-model="form.pmt_remark" />
         </FormInput>
     </Dialog>
