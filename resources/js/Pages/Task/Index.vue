@@ -1,8 +1,9 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
-import { watch, ref } from "vue";
+import { watch, ref, computed } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
+import useUpdate from "@/Composables/useUpdate";
 
 const { targets, offices, filters, users } = defineProps({
     targets: {
@@ -101,6 +102,20 @@ watch(
             .catch((e) => console.log(e));
     }
 );
+
+const getCurrentTaskUpdateRoute = () => {
+    return route("user-tasks.update", form.user_task_id);
+};
+
+const { update } = useUpdate(form, getCurrentTaskUpdateRoute, "Task");
+
+const updateTask = async () => {
+    const result = await update();
+    if (result) {
+        isEditModalVisible.value = false;
+        form.reset();
+    }
+};
 </script>
 <template>
     <Dialog
@@ -160,6 +175,9 @@ watch(
         <FormInput label="PMT REMARK" :errorMessage="form.errors.pmt_remark">
             <Input v-model="form.pmt_remark" />
         </FormInput>
+        <DivFlexCenter class="justify-end">
+            <Button @click="updateTask" class="text-white">Update</Button>
+        </DivFlexCenter>
     </Dialog>
     <MainLayout>
         <DivFlexCenter class="gap-2">

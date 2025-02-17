@@ -13,6 +13,7 @@ import useStore from "@/Composables/useStore";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
+
 const form = useForm({
     description: null,
     percentage_group: null,
