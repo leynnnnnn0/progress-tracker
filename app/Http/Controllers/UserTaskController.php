@@ -29,6 +29,6 @@ class UserTaskController extends Controller
         ]);
 
         $userTask->update($validated);
-        return to_route('tasks.index');
+        return back();
     }
 }
