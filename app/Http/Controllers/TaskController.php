@@ -18,8 +18,9 @@ class TaskController extends Controller
         $users = User::getOptions();
 
         $query = Target::query()->with(['sub_targets.user_tasks']);
+        $userId = $users->count() > 0 ? $users->first()['value'] : null;
+        $user = request('user') ?? $userId;
 
-        $user = request('user') ?? $users->count()  > 0 ? $users->first()['value'] : null;
         $offices = Office::getOptions($user);
         $office = request('office') ?? $offices->first()['value'];
 

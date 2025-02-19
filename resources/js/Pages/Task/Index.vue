@@ -39,7 +39,7 @@ watch(office, (value) => {
 
 watch(user, (value) => {
     router.get(route("tasks.index"), {
-        office: offices[0].value.toString(),
+        office: null,
         user: value,
     });
 });

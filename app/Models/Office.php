@@ -37,8 +37,10 @@ class Office extends Model
     {
         $user = $id ? User::find($id) : Auth::user();
 
+
         $user->load(['offices']);
         if (!$user->is_admin) {
+
             return $user->offices->map(function ($office) {
                 return [
                     'value' => $office->id,
