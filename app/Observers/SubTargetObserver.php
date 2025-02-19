@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\User;
 use App\Models\UsersOffices;
@@ -15,13 +16,13 @@ class SubTargetObserver
      */
     public function created(SubTarget $subTarget): void
     {
-        $items = UsersOffices::select(['id'])->get();
+        $offices = Office::select('id')->pluck('id');
 
         DB::beginTransaction();
-        foreach ($items as $item) {
+        foreach ($offices as $office) {
             UserTask::create([
                 'sub_target_id' => $subTarget->id,
-                'users_offices_id' => $item->id
+                'office_id' => $office->id
             ]);
         }
         DB::commit();

@@ -12,7 +12,7 @@ class UserTask extends Model
 
     protected $fillable = [
         'sub_target_id',
-        'users_offices_id',
+        'office_id',
         'target_number',
         'success_indicator',
         'individual_accountable',

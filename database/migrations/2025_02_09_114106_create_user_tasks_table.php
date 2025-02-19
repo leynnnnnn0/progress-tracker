@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_offices_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('office_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sub_target_id')->constrained()->cascadeOnDelete();
             $table->integer('target_number')->nullable();
             $table->string('success_indicator')->nullable();

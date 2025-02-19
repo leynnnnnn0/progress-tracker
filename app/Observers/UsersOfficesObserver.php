@@ -17,7 +17,7 @@ class UsersOfficesObserver
         foreach ($subTasks as $task) {
             UserTask::create([
                 'sub_target_id' => $task,
-                'users_offices_id' => $usersOffices->id
+                'office_id' => $usersOffices->office_id
             ]);
         }
     }
