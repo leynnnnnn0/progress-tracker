@@ -23,9 +23,16 @@ class TaskController extends Controller
         $offices = Office::getOptions($user);
         $office = request('office') ?? $offices->first()['value'];
 
+
+
         $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
             $query->where('office_id', $office);
         });
+
+        $query->with(['sub_targets.user_tasks' => function ($query) use ($office) {
+            $query->where('office_id', $office);
+        }]);
+
 
         $targets = $query->get()->map(function ($item) {
             $sub_targets = $item->sub_targets->map(function ($item) {

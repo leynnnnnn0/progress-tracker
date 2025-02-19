@@ -22,9 +22,10 @@ class Office extends Model
         return $this->belongsToMany(User::class, 'users_offices');
     }
 
-    public function offices()
+
+    public function user_tasks()
     {
-        return $this->belongsToMany(Office::class);
+        return $this->hasMany(UserTask::class);
     }
 
     public function getDisplayNameAttribute()
@@ -35,6 +36,7 @@ class Office extends Model
     public function scopeGetOptions(Builder $query, $id = null)
     {
         $user = $id ? User::find($id) : Auth::user();
+
         $user->load(['offices']);
         if (!$user->is_admin) {
             return $user->offices->map(function ($office) {
