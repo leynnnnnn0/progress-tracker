@@ -45,5 +45,4 @@ class UserTask extends Model
     {
         return $this->belongsTo(UsersOffices::class);
     }
-
 }

@@ -17,12 +17,11 @@ class SubTargetObserver
     public function created(SubTarget $subTarget): void
     {
         $offices = Office::select('id')->pluck('id');
-
         DB::beginTransaction();
         foreach ($offices as $office) {
             UserTask::create([
                 'sub_target_id' => $subTarget->id,
-                'office_id' => $office->id
+                'office_id' => $office
             ]);
         }
         DB::commit();

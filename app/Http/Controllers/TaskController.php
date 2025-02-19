@@ -19,25 +19,13 @@ class TaskController extends Controller
 
         $query = Target::query()->with(['sub_targets.user_tasks']);
 
-        if ($users->count() > 0) {
+        $user = request('user') ?? $users->count()  > 0 ? $users->first()['value'] : null;
+        $offices = Office::getOptions($user);
+        $office = request('office') ?? $offices->first()['value'];
 
-            $user = request('user') ?? $users->first()['value'];
-
-            $offices = Office::getOptions($user);
-            $office = request('office') ?? $offices->first()['value'];
-
-            $usersOfficesId = Auth::user()->is_admin ? UsersOffices::where('user_id', $user)->where('office_id', $office)->first()->id :  UsersOffices::where('user_id', Auth::id())->where('office_id', $office)->first()->id;
-
-
-            $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($usersOfficesId) {
-                $query->where('users_offices_id', $usersOfficesId);
-            });
-
-            $query->with(['sub_targets.user_tasks' => function ($query) use ($usersOfficesId) {
-                $query->where('users_offices_id', $usersOfficesId);
-            }]);
-        }
-
+        $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
+            $query->where('office_id', $office);
+        });
 
         $targets = $query->get()->map(function ($item) {
             $sub_targets = $item->sub_targets->map(function ($item) {
@@ -83,6 +71,4 @@ class TaskController extends Controller
             'users' => $users
         ]);
     }
-
-    
 }

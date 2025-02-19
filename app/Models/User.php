@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function user_tasks()
     {
-        return $this->hasManyThrough(UserTask::class, UsersOffices::class);
+        return $this->hasManyThrough(UserTask::class, Office::class);
     }
 
     public function scopeGetOptions(Builder $query)
