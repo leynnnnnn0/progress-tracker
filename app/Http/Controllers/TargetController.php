@@ -72,6 +72,16 @@ class TargetController extends Controller
         ]);
 
         DB::beginTransaction();
+
+        $submittedSubTargetIds = collect($validated['sub_targets'])
+            ->pluck('id')
+            ->filter()
+            ->toArray();
+
+        $target->sub_targets()
+            ->whereNotIn('id', $submittedSubTargetIds)
+            ->delete();
+
         $target->update($validated);
         foreach ($validated['sub_targets'] as $subTarget) {
             $subTarget = $target->sub_targets()->updateOrCreate(
