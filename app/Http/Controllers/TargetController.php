@@ -50,7 +50,6 @@ class TargetController extends Controller
                 'target_id' => $target->id,
                 'description' => $subTarget['description'],
             ]);
-
         }
         DB::commit();
 
