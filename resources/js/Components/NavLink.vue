@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 
 const isActive = (route) => {
-    return usePage().url.includes(route);
+    return usePage().url.startsWith(route);
 };
 
 defineProps({
@@ -15,8 +15,6 @@ defineProps({
         required: true,
     },
 });
-
-
 </script>
 
 <template>
