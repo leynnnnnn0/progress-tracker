@@ -349,7 +349,13 @@ const updateTask = async () => {
                                 user_task
                             }}</TD>
 
-                            <TD></TD>
+                            <TD>
+                                <EditButton
+                                    @click="
+                                        openEditModal(sub_target.user_task_id)
+                                    "
+                                />
+                            </TD>
                         </tr>
                     </TableBody>
 
@@ -382,7 +388,13 @@ const updateTask = async () => {
                                 user_task
                             }}</TD>
 
-                            <TD></TD>
+                            <TD>
+                                <EditButton
+                                    @click="
+                                        openEditModal(sub_target.user_task_id)
+                                    "
+                                />
+                            </TD>
                         </tr>
                     </TableBody>
 
