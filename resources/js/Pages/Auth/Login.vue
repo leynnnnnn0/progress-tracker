@@ -28,11 +28,10 @@ const submit = () => {
 
 <template>
     <div
-        class="grid lg:grid-cols-2 gap-10 min-h-screen max-h-screen items-center sm:p-20 p-5 grid-cols-1"
+        class="flex items-center justify-center min-h-screen max-h-screen sm:p-20 p-5 grid-cols-1"
     >
-        <h1>LOGO</h1>
         <section
-            class="border border-gray-300 rounded-lg sm:p-10 sm:space-y-5 space-y-3 p-5"
+            class="w-[500px] border border-gray-300 rounded-lg sm:p-10 sm:space-y-5 space-y-3 p-5"
         >
             <h1 class="sm:text-lg text-sm sm:mb-5 text-black">
                 Welcome to BSU System!
