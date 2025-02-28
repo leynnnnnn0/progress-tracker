@@ -13,13 +13,7 @@ class UsersOfficesObserver
      */
     public function created(UsersOffices $usersOffices): void
     {
-        $subTasks = SubTarget::pluck('id')->toArray();
-        foreach ($subTasks as $task) {
-            UserTask::create([
-                'sub_target_id' => $task,
-                'office_id' => $usersOffices->office_id
-            ]);
-        }
+      
     }
 
     /**

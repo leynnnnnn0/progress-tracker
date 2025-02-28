@@ -16,6 +16,7 @@ class SubTargetObserver
      */
     public function created(SubTarget $subTarget): void
     {
+
         $offices = Office::select('id')->pluck('id');
         DB::beginTransaction();
         foreach ($offices as $office) {
