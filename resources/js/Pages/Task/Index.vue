@@ -420,7 +420,7 @@ const updateTask = async () => {
                         <TD colspan="4">Support: </TD>
                         <TD colspan="4"></TD>
                     </tr>
-                    <tr class="divide-x divide-gray-300">
+                    <tr class="divide-x divide-gray-300">  
                         <TD colspan="7"></TD>
                         <TD colspan="4">Final Ave: </TD>
                         <TD colspan="4"></TD>
