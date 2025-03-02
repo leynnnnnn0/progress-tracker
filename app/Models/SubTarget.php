@@ -6,12 +6,13 @@ use App\Observers\SubTargetObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
 #[ObservedBy([SubTargetObserver::class])]
-class SubTarget extends Model
+class SubTarget extends Model implements Auditable
 {
     /** @use HasFactory<\Database\Factories\SubTargetFactory> */
-    use HasFactory;
+    use HasFactory, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'target_id',
