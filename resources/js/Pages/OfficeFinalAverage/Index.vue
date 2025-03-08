@@ -29,16 +29,14 @@ console.log(targets);
                     <TH>ID</TH>
                     <TH>Office</TH>
                     <TH>Office Code</TH>
-                    <TH v-for="subTarget in targets"> {{ subTarget }} </TH>
+                    <TH> Final Average </TH>
                 </TableHead>
                 <TableBody>
                     <tr v-for="office in offices.data">
                         <TD>{{ office.id }}</TD>
                         <TD>{{ office.name }}</TD>
                         <TD>{{ office.office_code }}</TD>
-                        <TD v-for="user_task in office.user_tasks">
-                            {{ user_task.average }}
-                        </TD>
+                        <TD>TBD</TD>
                     </tr>
                 </TableBody>
             </Table>
