@@ -55,7 +55,7 @@ class TaskController extends Controller
                         "t" => $user_task->t,
                         "e" => $user_task->e,
                         'ave' => number_format(($user_task->q + $user_task->t + $user_task->e) / 3, 2),
-                        "remark" => $user_task->remarks,
+                        "remark" => $user_task->remark,
                         "link_to_evidence" => $user_task->link_to_evidence,
                         "pmt_remark" => $user_task->pmt_remark
                     ],
