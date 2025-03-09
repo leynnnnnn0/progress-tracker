@@ -1,18 +1,12 @@
 <script setup>
 import Pagination from "@/Components/table/Pagination.vue";
 
-const { offices, targets } = defineProps({
+const { offices } = defineProps({
     offices: {
         type: Object,
         required: true,
     },
-    targets: {
-        type: Object,
-        required: true,
-    },
 });
-
-console.log(targets);
 </script>
 
 <template>
@@ -36,10 +30,10 @@ console.log(targets);
                         <TD>{{ office.id }}</TD>
                         <TD>{{ office.name }}</TD>
                         <TD>{{ office.office_code }}</TD>
-                        <TD>TBD</TD>
+                        <TD>{{ office.final_average }}</TD>
                     </tr>
                 </TableBody>
-            </Table> 
+            </Table>
 
             <Pagination :data="offices" />
         </TableContainer>
