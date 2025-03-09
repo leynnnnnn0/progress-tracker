@@ -39,7 +39,7 @@ console.log(targets);
                         <TD>TBD</TD>
                     </tr>
                 </TableBody>
-            </Table>
+            </Table> 
 
             <Pagination :data="offices" />
         </TableContainer>

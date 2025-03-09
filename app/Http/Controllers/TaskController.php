@@ -54,7 +54,7 @@ class TaskController extends Controller
                         "q" => $user_task->q,
                         "t" => $user_task->t,
                         "e" => $user_task->e,
-                        'ave' => 0,
+                        'ave' => number_format(($user_task->q + $user_task->t + $user_task->e) / 3, 2),
                         "remark" => $user_task->remarks,
                         "link_to_evidence" => $user_task->link_to_evidence,
                         "pmt_remark" => $user_task->pmt_remark
@@ -69,6 +69,8 @@ class TaskController extends Controller
             ];
         })
             ->groupBy('percentage_group');
+
+
 
 
 

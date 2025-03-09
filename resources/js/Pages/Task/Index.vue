@@ -307,7 +307,7 @@ const updateTask = async () => {
                         >
                             <TD>{{ sub_target.description }}</TD>
                             <TD v-for="user_task in sub_target.user_tasks">{{
-                                user_task
+                                user_task 
                             }}</TD>
 
                             <TD>
@@ -420,7 +420,7 @@ const updateTask = async () => {
                         <TD colspan="4">Support: </TD>
                         <TD colspan="4"></TD>
                     </tr>
-                    <tr class="divide-x divide-gray-300">  
+                    <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
                         <TD colspan="4">Final Ave: </TD>
                         <TD colspan="4"></TD>
