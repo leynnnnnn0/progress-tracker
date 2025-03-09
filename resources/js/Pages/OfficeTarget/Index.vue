@@ -9,6 +9,8 @@ defineProps({
         required: true,
     },
 });
+
+const updateTarget = (id, sub_target) => {};
 </script>
 
 <template>
@@ -41,7 +43,11 @@ defineProps({
                         <TD>
                             {{ sub_target.description }}
                         </TD>
-                        <TD v-for="office in offices"> </TD>
+                        <TD
+                            v-for="(office, key) in offices"
+                            @click="updateTarget(key, sub_target.sub_target_id)"
+                        >
+                        </TD>
                     </tr>
                 </TableBody>
             </Table>
