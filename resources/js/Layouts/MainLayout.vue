@@ -68,8 +68,14 @@ const logout = () => {
                             <NavLink href="/tasks" :icon="ListCheck">
                                 Tasks
                             </NavLink>
-                            <NavLink href="/offices-final-average" :icon="ListCheck">
+                            <NavLink
+                                href="/offices-final-average"
+                                :icon="ListCheck"
+                            >
                                 Offices Final Average
+                            </NavLink>
+                            <NavLink href="/offices-target" :icon="ListCheck">
+                                Offices Target
                             </NavLink>
                             <NavLink href="/targets" :icon="ListCheck">
                                 Targets

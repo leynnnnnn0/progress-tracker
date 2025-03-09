@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeFinalAverageController;
+use App\Http\Controllers\OfficeTargetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TargetController;
 use App\Http\Controllers\TaskController;
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('targets', TargetController::class);
     Route::resource('user-tasks', UserTaskController::class);
     Route::resource('offices-final-average', OfficeFinalAverageController::class);
+    Route::resource('offices-target', OfficeTargetController::class);
 });
 
 Route::middleware('auth')->group(function () {

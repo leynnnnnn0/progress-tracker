@@ -4,34 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Office;
 use App\Models\Target;
-use App\Models\User;
-use App\Models\UsersOffices;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class TaskController extends Controller
+class OfficeTargetController extends Controller
 {
     public function index()
     {
-        $users = User::getOptions();
+        $offices = Office::select(['office_code', 'id'])->pluck('office_code', 'id');
 
         $query = Target::query()->with(['sub_targets.user_tasks']);
-        $userId = $users->count() > 0 ? $users->first()['value'] : null;
-        $user = request('user') ?? $userId;
-
-        $offices = Office::getOptions($user);
-        $office = request('office') ?? $offices->first()['value'];
-
-        $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
-            $query->where('office_id', $office);
-        });
-
-        $query->with(['sub_targets.user_tasks' => function ($query) use ($office) {
-            $query->where('office_id', $office);
-        }]);
-
 
         $targets = $query->get()->map(function ($item) {
             $sub_targets = $item->sub_targets->map(function ($item) {
@@ -65,18 +47,12 @@ class TaskController extends Controller
                 'percentage_group' => $item->percentage_group,
                 'sub_targets' => $sub_targets
             ];
-        })
-            ->groupBy('percentage_group');
+        });
 
 
-
-
-
-        return Inertia::render('Task/Index', [
+        return Inertia::render('OfficeTarget/Index', [
+            'offices' => $offices,
             'targets' => $targets,
-            'offices' => $offices ?? [],
-            'filters' => request()->only(['office', 'user']),
-            'users' => $users
         ]);
     }
 }
