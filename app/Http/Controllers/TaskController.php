@@ -38,6 +38,10 @@ class TaskController extends Controller
                 $user_task = $item->user_tasks->first();
 
                 if (!$user_task) return [];
+                $count = 0;
+                if ($user_task->q > 0) $count++;
+                if ($user_task->t > 0) $count++;
+                if ($user_task->e > 0) $count++;
 
                 return [
                     'sub_target_id' => $item->id,
@@ -52,7 +56,7 @@ class TaskController extends Controller
                         "q" => $user_task->q,
                         "t" => $user_task->t,
                         "e" => $user_task->e,
-                        'ave' => number_format(($user_task->q + $user_task->t + $user_task->e) / 3, 2),
+                        'ave' => $count > 0 ? number_format(($user_task->q + $user_task->t + $user_task->e) / $count, 2) : null,
                         "remark" => $user_task->remark,
                         "link_to_evidence" => $user_task->link_to_evidence,
                         "pmt_remark" => $user_task->pmt_remark
