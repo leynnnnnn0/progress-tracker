@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Office;
+use App\Models\SubTarget;
 use App\Models\Target;
+use App\Models\UserTask;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -54,5 +56,21 @@ class OfficeTargetController extends Controller
             'offices' => $offices,
             'targets' => $targets,
         ]);
+    }
+
+    public function updateTargetNumber(Request $request)
+    {
+        $validated = $request->validate([
+            'sub_target_id' => ['required'],
+            'office_id' => ['required'],
+            'target_number' => ['required']
+        ]);
+        UserTask::where('office_id', $validated['office_id'])
+            ->where('sub_target_id', $validated['sub_target_id'])
+            ->update([
+                'target_number' => $validated['target_number']
+            ]);
+
+        return back();
     }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import useUpdate from "@/Composables/useUpdate";
 defineProps({
     offices: {
         type: Object,
@@ -10,7 +11,27 @@ defineProps({
     },
 });
 
-const updateTarget = (id, sub_target) => {};
+import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
+
+const visible = ref(false);
+const updateTarget = (office_id, sub_target_id) => {
+    form.office_id = office_id;
+    form.sub_target_id = sub_target_id;
+    visible.value = true;
+};
+
+const form = useForm({
+    office_id: null,
+    sub_target_id: null,
+    target_number: null,
+});
+
+const { update } = useUpdate(
+    form,
+    route("offices-target.update-target-number"),
+    "User"
+);
 </script>
 
 <template>
@@ -52,5 +73,22 @@ const updateTarget = (id, sub_target) => {};
                 </TableBody>
             </Table>
         </DivFlexCol>
+
+        <Dialog
+            v-model:visible="visible"
+            header="Update Target Number"
+            :style="{ width: '25rem' }"
+        >
+            <FormInput
+                label="Target Number"
+                :errorMessage="form.errors.target_number"
+            >
+                <Input v-model="form.target_number" type="number" />
+            </FormInput>
+
+            <section class="flex justify-end mt-5">
+                <Button @click="update" class="text-white">Update</Button>
+            </section>
+        </Dialog>
     </MainLayout>
 </template>

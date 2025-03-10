@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::put('/offices-target/update-target-number', [OfficeTargetController::class, 'updateTargetNumber'])->name('offices-target.update-target-number');
+
     Route::resource('users', UserController::class);
     Route::resource('offices', OfficeController::class);
     Route::resource('tasks', TaskController::class);
