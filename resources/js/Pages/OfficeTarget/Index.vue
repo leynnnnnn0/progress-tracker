@@ -16,6 +16,8 @@ import { useForm } from "@inertiajs/vue3";
 
 const visible = ref(false);
 const updateTarget = (office_id, sub_target_id) => {
+    console.log(office_id);
+    console.log(sub_target_id);
     form.office_id = office_id;
     form.sub_target_id = sub_target_id;
     visible.value = true;
@@ -30,8 +32,13 @@ const form = useForm({
 const { update } = useUpdate(
     form,
     route("offices-target.update-target-number"),
-    "User"
+    "Target Number"
 );
+
+const updateTargetNumber = () => {
+    update();
+    visible.value = false;
+};
 </script>
 
 <template>
@@ -65,9 +72,15 @@ const { update } = useUpdate(
                             {{ sub_target.description }}
                         </TD>
                         <TD
-                            v-for="(office, key) in offices"
-                            @click="updateTarget(key, sub_target.sub_target_id)"
+                            v-for="target_number in sub_target.offices_target"
+                            @click="
+                                updateTarget(
+                                    target_number.office_id,
+                                    sub_target.sub_target_id
+                                )
+                            "
                         >
+                            {{ target_number.target_number }}
                         </TD>
                     </tr>
                 </TableBody>
@@ -87,7 +100,9 @@ const { update } = useUpdate(
             </FormInput>
 
             <section class="flex justify-end mt-5">
-                <Button @click="update" class="text-white">Update</Button>
+                <Button @click="updateTargetNumber" class="text-white"
+                    >Update</Button
+                >
             </section>
         </Dialog>
     </MainLayout>
