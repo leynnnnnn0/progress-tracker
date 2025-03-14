@@ -35,9 +35,9 @@ const { update } = useUpdate(
     "Target Number"
 );
 
-const updateTargetNumber = () => {
-    update();
-    visible.value = false;
+const updateTargetNumber = async () => {
+    const result = await update();
+    result ? (visible.value = false) : (visible.value = true);
 };
 </script>
 
@@ -96,7 +96,11 @@ const updateTargetNumber = () => {
                 label="Target Number"
                 :errorMessage="form.errors.target_number"
             >
-                <Input v-model="form.target_number" type="number" />
+                <Input
+                    v-model="form.target_number"
+                    type="number"
+                    onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
+                />
             </FormInput>
 
             <section class="flex justify-end mt-5">

@@ -146,7 +146,11 @@ const updateTask = async () => {
             label="ACTUAL ACCOMPLISHMENTS NUMBER"
             :errorMessage="form.errors.actual_accomplishments_number"
         >
-            <Input v-model="form.actual_accomplishments_number" />
+            <Input
+                v-model="form.actual_accomplishments_number"
+                type="number"
+                onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
+            />
         </FormInput>
         <FormInput
             label="ACTUAL ACCOMPLISHMENTS"
@@ -155,13 +159,25 @@ const updateTask = async () => {
             <Input v-model="form.actual_accomplishments" />
         </FormInput>
         <FormInput label="Q" :errorMessage="form.errors.q">
-            <Input v-model="form.q" />
+            <Input
+                v-model="form.q"
+                type="number"
+                onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
+            />
         </FormInput>
         <FormInput label="T" :errorMessage="form.errors.t">
-            <Input v-model="form.t" />
+            <Input
+                v-model="form.t"
+                type="number"
+                onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
+            />
         </FormInput>
         <FormInput label="E" :errorMessage="form.errors.e">
-            <Input v-model="form.e" />
+            <Input
+                v-model="form.e"
+                type="number"
+                onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
+            />
         </FormInput>
         <FormInput label="Remark" :errorMessage="form.errors.remark">
             <Input v-model="form.remark" />

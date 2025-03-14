@@ -31,6 +31,7 @@ export default function useUpdate(form, getRoute, model) {
                                 life: 5000,
                             });
                             resolve(true);
+                            return true;
                         },
                         onError: () => {
                             toast.add({
@@ -40,11 +41,12 @@ export default function useUpdate(form, getRoute, model) {
                                 life: 5000,
                             });
                             resolve(false);
+                            return false;
                         },
                     });
                 },
                 reject: () => {
-                    resolve(false); 
+                    resolve(false);
                 },
             });
         });

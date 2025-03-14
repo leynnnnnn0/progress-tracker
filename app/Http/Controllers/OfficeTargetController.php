@@ -51,7 +51,7 @@ class OfficeTargetController extends Controller
         $validated = $request->validate([
             'sub_target_id' => ['required'],
             'office_id' => ['required'],
-            'target_number' => ['required']
+            'target_number' => ['required', 'numeric', 'min:1']
         ]);
         UserTask::where('office_id', $validated['office_id'])
             ->where('sub_target_id', $validated['sub_target_id'])
