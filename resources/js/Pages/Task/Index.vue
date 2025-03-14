@@ -116,8 +116,102 @@ const updateTask = async () => {
         form.reset();
     }
 };
+
+const isPdfModalOpen = ref(false);
+
+const pdfDownloadOptions = [
+    {
+        key: 1,
+        value: "PROGRAMS, PROJECTS, ACTIVITIES",
+    },
+    {
+        key: 2,
+        value: "PERFORMANCE INDICATORS",
+    },
+    {
+        key: 3,
+        value: "TARGET NUMBER",
+    },
+    {
+        key: 4,
+        value: "SUCCESS INDICATORS (TARGETS + MEASURES)",
+    },
+    {
+        key: 5,
+        value: "INDIVIDUAL ACCOUNTABLE",
+    },
+    {
+        key: 6,
+        value: "ACTUAL ACCOMPLISHMENTS NUMBER",
+    },
+    {
+        key: 7,
+        value: "Q",
+    },
+    {
+        key: 8,
+        value: "T",
+    },
+    {
+        key: 9,
+        value: "E",
+    },
+    {
+        key: 10,
+        value: "AVE",
+    },
+    {
+        key: 11,
+        value: "REMARK",
+    },
+    {
+        key: 12,
+        value: "LINK TO EVIDENCE",
+    },
+    {
+        key: 13,
+        value: "PMT REMARK",
+    },
+];
+
+const pdfForm = useForm({
+    selectedColumns: [],
+});
+
+const openPdfModal = () => {
+    isPdfModalOpen.value = true;
+};
 </script>
 <template>
+    <!-- Pdf Modal -->
+    <Dialog
+        v-model:visible="isPdfModalOpen"
+        modal
+        header="Export To PDF"
+        :style="{ width: '50rem' }"
+    >
+        <FormContainer>
+            <SpanXS class="col-span-2">Columns to include</SpanXS>
+            <div
+                v-for="option in pdfDownloadOptions"
+                class="flex items-center gap-2"
+            >
+                <Checkbox
+                    v-model="pdfForm.selectedColumns"
+                    :value="option.key"
+                    name="selectedColumns[]"
+                />
+                <label class="text-xs text-gray-600">
+                    {{ option.value }}
+                </label>
+            </div>
+        </FormContainer>
+        <div class="flex justify-end mt-3">
+            <Button class="text-white">Download</Button>
+        </div>
+    </Dialog>
+
+    <!-- Edit Task Modal -->
     <Dialog
         v-model:visible="isEditModalVisible"
         modal
@@ -196,6 +290,7 @@ const updateTask = async () => {
         </DivFlexCenter>
     </Dialog>
     <MainLayout>
+        <Button class="text-white" @click="openPdfModal">Export To PDF</Button>
         <DivFlexCenter class="gap-2">
             <Select v-if="users.length > 0" v-model="user">
                 <SelectTrigger>
