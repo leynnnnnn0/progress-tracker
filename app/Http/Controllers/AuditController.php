@@ -18,8 +18,11 @@ class AuditController extends Controller
         ]);
     }
 
-    public function show()
+    public function show($id)
     {
-        return Inertia::render('Audit/Show');
+        $audit = AuditableModel::with('user')->findOrFail($id);
+        return Inertia::render('Audit/Show', [
+            'audit' => $audit
+        ]);
     }
 }
