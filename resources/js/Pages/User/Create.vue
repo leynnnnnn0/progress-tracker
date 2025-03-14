@@ -13,7 +13,7 @@ const form = useForm({
     first_name: null,
     middle_name: null,
     last_name: null,
-    phone_number: null,
+    phone_number: "",
     email: null,
     password: null,
     assignedOffices: [],
@@ -47,7 +47,7 @@ const { store } = useStore(form, route("users.store"), "User");
                 :errorMessage="form.errors.phone_number"
             >
                 <Input
-                    type="number"
+                    type="tel"
                     v-model="form.phone_number"
                     onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
                 />
