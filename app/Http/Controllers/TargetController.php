@@ -103,4 +103,12 @@ class TargetController extends Controller
         $target->delete();
         return back();
     }
+
+    public function show($id)
+    {
+        $target = Target::with('sub_targets')->findOrFail($id);
+        return Inertia::render('Target/Show', [
+            'target' => $target
+        ]);
+    }
 }

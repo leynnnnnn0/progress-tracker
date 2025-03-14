@@ -44,6 +44,10 @@ const { deleteModel } = useDelete("Target");
                         <TD>{{ target.description }}</TD>
                         <TD>
                             <DivFlexCenter class="gap-2">
+                                <ShowButton
+                                    :isLink="true"
+                                    :href="route('targets.show', target.id)"
+                                />
                                 <EditButton
                                     :isLink="true"
                                     :href="route('targets.edit', target.id)"
