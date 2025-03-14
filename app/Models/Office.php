@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\OfficeObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditable;
 
+#[ObservedBy([OfficeObserver::class])]
 class Office extends Model implements Auditable
 {
     /** @use HasFactory<\Database\Factories\OfficeFactory> */

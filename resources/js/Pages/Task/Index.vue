@@ -145,20 +145,8 @@ const pdfDownloadOptions = [
         value: "ACTUAL ACCOMPLISHMENTS NUMBER",
     },
     {
-        key: 7,
-        value: "Q",
-    },
-    {
-        key: 8,
-        value: "T",
-    },
-    {
-        key: 9,
-        value: "E",
-    },
-    {
         key: 10,
-        value: "AVE",
+        value: "RATING",
     },
     {
         key: 11,
