@@ -128,7 +128,7 @@ const updateTask = async () => {
             label="TARGET NUMBER"
             :errorMessage="form.errors.target_number"
         >
-            <Input v-model="form.target_number" />
+            <Input v-model="form.target_number" disabled />
         </FormInput>
         <FormInput
             label="SUCCESS INDICATORS (TARGETS + MEASURES)"
@@ -307,7 +307,7 @@ const updateTask = async () => {
                         >
                             <TD>{{ sub_target.description }}</TD>
                             <TD v-for="user_task in sub_target.user_tasks">{{
-                                user_task 
+                                user_task
                             }}</TD>
 
                             <TD>

@@ -86,10 +86,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'first_name' => ['required'],
-            'middle_name' => ['nullable'],
-            'last_name' => ['required'],
-            'phone_number' => ['required', 'numeric'],
+            'first_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
+            'middle_name' => ['nullable', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
+            'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
+            'phone_number' => [
+                'required',
+                'numeric',
+                'digits:11',
+                'regex:/^09\d{9}$/'
+            ],
             'email' => ['required', 'email', 'unique:users,email,' . $id],
             'assignedOffices' => ['required', 'array']
         ]);
