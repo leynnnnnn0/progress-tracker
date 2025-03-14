@@ -30,7 +30,10 @@ defineProps({
                         <TD>{{ audit.auditable_type }}</TD>
                         <TD>{{ audit.dateAndTime }}</TD>
                         <TD>
-                            <ShowButton />
+                            <ShowButton
+                                :isLink="true"
+                                :href="route('audits.show', audit.id)"
+                            />
                         </TD>
                     </tr>
                 </TableBody>

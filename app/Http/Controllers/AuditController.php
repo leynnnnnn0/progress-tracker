@@ -17,4 +17,9 @@ class AuditController extends Controller
             'audits' => $audits
         ]);
     }
+
+    public function show()
+    {
+        return Inertia::render('Audit/Show');
+    }
 }
