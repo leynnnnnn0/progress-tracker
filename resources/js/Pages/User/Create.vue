@@ -2,7 +2,6 @@
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
 
-
 const { offices } = defineProps({
     offices: {
         type: Array,
@@ -47,7 +46,11 @@ const { store } = useStore(form, route("users.store"), "User");
                 label="Phone Number"
                 :errorMessage="form.errors.phone_number"
             >
-                <Input v-model="form.phone_number" type="number" />
+                <Input
+                    type="number"
+                    v-model="form.phone_number"
+                    onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
+                />
             </FormInput>
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
