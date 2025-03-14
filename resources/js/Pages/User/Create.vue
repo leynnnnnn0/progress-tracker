@@ -49,6 +49,8 @@ const { store } = useStore(form, route("users.store"), "User");
                 <Input
                     type="tel"
                     v-model="form.phone_number"
+                    minlength="11"
+                    maxlength="11"
                     onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
                 />
             </FormInput>
