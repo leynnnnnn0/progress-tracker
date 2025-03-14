@@ -1,5 +1,6 @@
 <script setup>
 import useUpdate from "@/Composables/useUpdate";
+import { watch } from "vue";
 defineProps({
     offices: {
         type: Object,
@@ -39,6 +40,11 @@ const updateTargetNumber = async () => {
     const result = await update();
     result ? (visible.value = false) : (visible.value = true);
 };
+
+watch(visible, (value) => {
+    if (!value) form.target_number = null;
+    console.log(value);
+});
 </script>
 
 <template>
