@@ -1,5 +1,6 @@
 <script setup>
-import { useSearch } from "@/Composables/useSearch";
+import { useSearch } from "@/Composables/useSearch.js";
+import useDelete from "@/Composables/useDelete.js";
 defineProps({
     targets: {
         type: Object,
@@ -7,6 +8,7 @@ defineProps({
     },
 });
 const { search } = useSearch("targets.index");
+const { deleteModel } = useDelete("Target");
 </script>
 
 <template>
@@ -45,6 +47,13 @@ const { search } = useSearch("targets.index");
                                 <EditButton
                                     :isLink="true"
                                     :href="route('targets.edit', target.id)"
+                                />
+                                <DeleteButton
+                                    @click="
+                                        deleteModel(
+                                            route('targets.destroy', target.id)
+                                        )
+                                    "
                                 />
                             </DivFlexCenter>
                         </TD>

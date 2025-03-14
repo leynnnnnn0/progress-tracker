@@ -96,4 +96,11 @@ class TargetController extends Controller
         DB::commit();
         return to_route('targets.index');
     }
+
+    public function destroy($id)
+    {
+        $target = Target::findOrFail($id);
+        $target->delete();
+        return back();
+    }
 }
