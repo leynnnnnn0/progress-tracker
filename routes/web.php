@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeFinalAverageController;
 use App\Http\Controllers\OfficeTargetController;
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('user-tasks', UserTaskController::class);
     Route::resource('offices-final-average', OfficeFinalAverageController::class);
     Route::resource('offices-target', OfficeTargetController::class);
+    Route::resource('audits', AuditController::class);
 });
 
 Route::middleware('auth')->group(function () {

@@ -80,6 +80,9 @@ const logout = () => {
                             <NavLink href="/targets" :icon="ListCheck">
                                 Targets
                             </NavLink>
+                            <NavLink href="/audits" :icon="ListCheck">
+                                Audit
+                            </NavLink>
                         </nav>
                     </section>
                     <button
