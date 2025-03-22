@@ -63,6 +63,9 @@ const { update } = useUpdate(form, route("users.update", user.id), "User");
             <FormInput
                 label="Office Phone Number"
                 :errorMessage="form.errors.phone_number"
+                minlength="11"
+                maxlength="11"
+                onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
             >
                 <Input v-model="form.phone_number" type="number" />
             </FormInput>

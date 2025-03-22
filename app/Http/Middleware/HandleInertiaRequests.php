@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Inertia\Middleware;
 
@@ -34,6 +35,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'is_admin' => Auth::user()->is_admin,
+                'is_active' => Auth::user()->is_active
             ],
             'previous' => fn() => URL::previous()
         ];

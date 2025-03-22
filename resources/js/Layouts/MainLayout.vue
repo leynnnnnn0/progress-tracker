@@ -13,8 +13,8 @@ import {
 } from "lucide-vue-next";
 import { router } from "@inertiajs/vue3";
 import MainContainer from "@/Components/MainContainer.vue";
-
-defineProps({
+import { usePage } from "@inertiajs/vue3";
+const { auth } = defineProps({
     isDashboard: {
         type: Boolean,
         default: false,
@@ -24,6 +24,8 @@ defineProps({
 const logout = () => {
     router.post("/logout");
 };
+
+const is_admin = usePage().props.auth.is_admin;
 </script>
 
 <template>
@@ -59,10 +61,18 @@ const logout = () => {
                             <NavLink :href="route('dashboard')" :icon="Home">
                                 Dashboard
                             </NavLink>
-                            <NavLink href="/users" :icon="UsersRound">
+                            <NavLink
+                                href="/users"
+                                :icon="UsersRound"
+                                v-if="is_admin"
+                            >
                                 Users
                             </NavLink>
-                            <NavLink href="/offices" :icon="Warehouse">
+                            <NavLink
+                                href="/offices"
+                                :icon="Warehouse"
+                                v-if="is_admin"
+                            >
                                 Offices
                             </NavLink>
                             <NavLink href="/tasks" :icon="ListCheck">
@@ -71,16 +81,25 @@ const logout = () => {
                             <NavLink
                                 href="/offices-final-average"
                                 :icon="ListCheck"
+                                v-if="is_admin"
                             >
                                 Offices Final Average
                             </NavLink>
-                            <NavLink href="/offices-target" :icon="ListCheck">
+                            <NavLink
+                                href="/offices-target"
+                                :icon="ListCheck"
+                                v-if="is_admin"
+                            >
                                 Offices Target
                             </NavLink>
                             <NavLink href="/targets" :icon="ListCheck">
                                 Targets
                             </NavLink>
-                            <NavLink href="/audits" :icon="ListCheck">
+                            <NavLink
+                                href="/audits"
+                                :icon="ListCheck"
+                                v-if="is_admin"
+                            >
                                 Audits
                             </NavLink>
                         </nav>

@@ -94,9 +94,8 @@ class UserController extends Controller
             'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
             'phone_number' => [
                 'required',
-                'numeric',
-                'digits:11',
-                'regex:/^09\d{9}$/'
+                'digits:10',
+                // 'regex:/^09\d{9}$/'
             ],
             'is_admin' => ['required'],
             'is_active' => ['required'],
