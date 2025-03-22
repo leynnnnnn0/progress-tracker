@@ -48,8 +48,11 @@ class UserController extends Controller
                 'digits:11',
                 'regex:/^09\d{9}$/'
             ],
+            'is_admin' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
             'assignedOffices' => ['required', 'array']
+        ], [
+            'is_admin.required' => 'The role field is required.'
         ]);
         $validated['password'] = Hash::make('password');
 
@@ -95,8 +98,11 @@ class UserController extends Controller
                 'digits:11',
                 'regex:/^09\d{9}$/'
             ],
+            'is_admin' => ['required'],
             'email' => ['required', 'email', 'unique:users,email,' . $id],
             'assignedOffices' => ['required', 'array']
+        ], [
+            'is_admin.required' => 'The role field is required.'
         ]);
         $user = User::findOrFail($id);
         DB::beginTransaction();

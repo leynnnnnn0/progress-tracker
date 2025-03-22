@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
+import Select from "primevue/select";
 
 const { offices } = defineProps({
     offices: {
@@ -15,10 +16,15 @@ const form = useForm({
     last_name: null,
     phone_number: "",
     email: null,
+    is_admin: null,
     password: null,
     assignedOffices: [],
 });
 
+const roles = [
+    { value: 1, label: "Admin" },
+    { value: 0, label: "User" },
+];
 const { store } = useStore(form, route("users.store"), "User");
 </script>
 
@@ -56,6 +62,17 @@ const { store } = useStore(form, route("users.store"), "User");
             </FormInput>
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
+            </FormInput>
+
+            <FormInput label="Role" :errorMessage="form.errors.is_admin">
+                <Select
+                    v-model="form.is_admin"
+                    :options="roles"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select a Role"
+                    class="w-full"
+                />
             </FormInput>
 
             <InputContainer class="col-span-2 gap-2">
