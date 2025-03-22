@@ -61,7 +61,7 @@ const { update } = useUpdate(form, route("users.update", user.id), "User");
                 <Input v-model="form.last_name" />
             </FormInput>
             <FormInput
-                label="Phone Number"
+                label="Office Phone Number"
                 :errorMessage="form.errors.phone_number"
             >
                 <Input v-model="form.phone_number" type="number" />

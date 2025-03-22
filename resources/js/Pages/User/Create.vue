@@ -49,7 +49,7 @@ const { store } = useStore(form, route("users.store"), "User");
                 <Input v-model="form.last_name" />
             </FormInput>
             <FormInput
-                label="Phone Number"
+                label="Office Phone Number"
                 :errorMessage="form.errors.phone_number"
             >
                 <Input
