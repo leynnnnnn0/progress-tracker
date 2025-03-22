@@ -99,10 +99,12 @@ class UserController extends Controller
                 'regex:/^09\d{9}$/'
             ],
             'is_admin' => ['required'],
+            'is_active' => ['required'],
             'email' => ['required', 'email', 'unique:users,email,' . $id],
             'assignedOffices' => ['required', 'array']
         ], [
-            'is_admin.required' => 'The role field is required.'
+            'is_admin.required' => 'The role field is required.',
+            'is_active.required' => 'The is account active field is required.'
         ]);
         $user = User::findOrFail($id);
         DB::beginTransaction();

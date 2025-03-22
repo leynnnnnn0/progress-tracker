@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
+import Select from "primevue/select";
 
 const { user, offices } = defineProps({
     user: {
@@ -12,14 +13,27 @@ const { user, offices } = defineProps({
         required: true,
     },
 });
+
 const form = useForm({
     first_name: user.first_name,
     middle_name: user.middle_name,
     last_name: user.last_name,
     phone_number: user.phone_number,
     email: user.email,
+    is_admin: user.is_admin,
+    is_active: user.is_active,
     assignedOffices: user.offices_array,
 });
+
+const roles = [
+    { value: 1, label: "Admin" },
+    { value: 0, label: "User" },
+];
+
+const statuses = [
+    { value: 1, label: "Yes" },
+    { value: 0, label: "No" },
+];
 
 console.log(form.assignedOffices);
 
@@ -54,6 +68,31 @@ const { update } = useUpdate(form, route("users.update", user.id), "User");
             </FormInput>
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
+            </FormInput>
+
+            <FormInput label="Role" :errorMessage="form.errors.is_admin">
+                <Select
+                    v-model="form.is_admin"
+                    :options="roles"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select a Role"
+                    class="w-full"
+                />
+            </FormInput>
+
+            <FormInput
+                label="Is Account Active?"
+                :errorMessage="form.errors.is_active"
+            >
+                <Select
+                    v-model="form.is_active"
+                    :options="statuses"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select"
+                    class="w-full"
+                />
             </FormInput>
 
             <InputContainer class="col-span-2 gap-2">

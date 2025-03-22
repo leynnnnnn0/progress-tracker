@@ -29,7 +29,8 @@ class User extends Authenticatable implements Auditable
         'phone_number',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
+        'is_active'
     ];
 
     protected $appends = ['full_name', 'offices_array'];
