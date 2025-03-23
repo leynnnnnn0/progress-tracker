@@ -120,14 +120,14 @@ const updateTask = async () => {
 const isPdfModalOpen = ref(false);
 
 const pdfDownloadOptions = [
-    {
-        key: 1,
-        value: "PROGRAMS, PROJECTS, ACTIVITIES",
-    },
-    {
-        key: 2,
-        value: "PERFORMANCE INDICATORS",
-    },
+    // {
+    //     key: 1,
+    //     value: "PROGRAMS, PROJECTS, ACTIVITIES",
+    // },
+    // {
+    //     key: 2,
+    //     value: "PERFORMANCE INDICATORS",
+    // },
     {
         key: 3,
         value: "TARGET NUMBER",
@@ -145,19 +145,23 @@ const pdfDownloadOptions = [
         value: "ACTUAL ACCOMPLISHMENTS NUMBER",
     },
     {
-        key: 10,
+        key: 7,
+        value: "ACTUAL ACCOMPLISHMENTS",
+    },
+    {
+        key: 8,
         value: "RATING",
     },
     {
-        key: 11,
+        key: 9,
         value: "REMARK",
     },
     {
-        key: 12,
+        key: 10,
         value: "LINK TO EVIDENCE",
     },
     {
-        key: 13,
+        key: 11,
         value: "PMT REMARK",
     },
 ];
@@ -168,6 +172,15 @@ const pdfForm = useForm({
 
 const openPdfModal = () => {
     isPdfModalOpen.value = true;
+};
+
+const exportToPdf = () => {
+    window.open(
+        route("task-report.download", {
+            selectedColumns: pdfForm.selectedColumns,
+        }),
+        "_blank"
+    );
 };
 </script>
 <template>
@@ -195,7 +208,7 @@ const openPdfModal = () => {
             </div>
         </FormContainer>
         <div class="flex justify-end mt-3">
-            <Button class="text-white">Download</Button>
+            <Button class="text-white" @click="exportToPdf">Export</Button>
         </div>
     </Dialog>
 

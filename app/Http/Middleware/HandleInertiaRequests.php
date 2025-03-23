@@ -35,8 +35,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                'is_admin' => Auth::user()->is_admin,
-                'is_active' => Auth::user()->is_active
+                'is_admin' => Auth::user()?->is_admin ?? null,
+                'is_active' => Auth::user()?->is_active ?? null
             ],
             'previous' => fn() => URL::previous()
         ];

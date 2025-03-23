@@ -7,6 +7,7 @@ use App\Http\Controllers\OfficeTargetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TargetController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTaskController;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/task-report', [TaskReportController::class, 'index']);
+    Route::get('/task-report-download', [TaskReportController::class, 'download'])->name('task-report.download');
 
     Route::put('/offices-target/update-target-number', [OfficeTargetController::class, 'updateTargetNumber'])->name('offices-target.update-target-number');
 
