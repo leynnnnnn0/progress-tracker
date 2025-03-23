@@ -79,9 +79,12 @@ class TaskReportController extends Controller
         $validated = $request->validate([
             'selectedColumns' => ['required']
         ]);
+
         $pdf = Pdf::loadView('pdf.task-report', [
-            'selectedColumns' => $validated['selectedColumns']
+            'selectedColumns' => $validated['selectedColumns'],
+            'targets' => $targets
         ]);
+        $pdf->setOption('repeatTableHeader', false);
 
         return $pdf->setPaper('legal', 'landscape')->download('task-report.pdf');
     }

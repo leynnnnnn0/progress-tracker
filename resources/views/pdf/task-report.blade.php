@@ -1,8 +1,5 @@
 @props([
 'targets',
-'offices',
-'filters',
-'users',
 'selectedColumns' => []
 ])
 <!DOCTYPE html>
@@ -119,6 +116,47 @@
             padding: 5px;
             width: 50%;
         }
+
+        @media print {
+
+            /* More aggressive approach to prevent header repetition */
+            .data-table {
+                page-break-inside: auto;
+            }
+
+            /* Force table header to only appear once */
+            .data-table thead {
+                display: table-header-group !important;
+            }
+
+            /* Explicitly tell browsers not to repeat the headers */
+            .data-table tfoot {
+                display: table-footer-group;
+            }
+
+            /* Fix for browsers that ignore the above */
+            .data-table thead tr {
+                position: static;
+            }
+
+            /* Add a dummy element that will ensure headers only print on first page */
+            .data-table::after {
+                content: "";
+                display: block;
+                page-break-before: always;
+                page-break-after: always;
+            }
+
+            /* For Webkit browsers (Chrome, Safari) */
+            @page {
+                margin-top: 0;
+            }
+
+            /* Make sure section headers don't appear at the bottom of pages */
+            .section-header {
+                page-break-after: avoid;
+            }
+        }
     </style>
 </head>
 
@@ -156,6 +194,11 @@
         <div class="table-container">
             <table class="data-table">
                 <thead>
+
+                </thead>
+
+                <tbody>
+
                     <tr>
                         <th>PROGRAMS, PROJECTS, ACTIVITIES</th>
                         <th>PERFORMANCE INDICATORS</th>
@@ -217,26 +260,22 @@
                             Sustainable Development
                         </th>
                     </tr>
-                </thead>
 
-                <tbody>
                     @if(isset($targets[75]) && count($targets[75]) > 0)
                     @foreach($targets[75] as $target)
-                    <tr class="target-row">
-                        <td rowspan="{{ count($target['sub_targets']) + 1 }}">
-                            {{ $target['description'] }}
-                        </td>
-                    </tr>
+                    @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
                     <tr>
+                        @if($firstSubTarget)
+                        <td rowspan="{{ count($target['sub_targets']) }}">
+                            {{ $target['description'] }}
+                        </td>
+                        @php $firstSubTarget = false; @endphp
+                        @endif
                         <td>{{ $sub_target['description'] }}</td>
                         @foreach($sub_target['user_tasks'] as $user_task)
                         <td>{{ $user_task }}</td>
                         @endforeach
-                        <td>
-                            <!-- No button in PDF -->
-                            Edit
-                        </td>
                     </tr>
                     @endforeach
                     @endforeach
@@ -256,21 +295,19 @@
 
                     @if(isset($targets[15]) && count($targets[15]) > 0)
                     @foreach($targets[15] as $target)
-                    <tr class="target-row">
-                        <td rowspan="{{ count($target['sub_targets']) + 1 }}">
-                            {{ $target['description'] }}
-                        </td>
-                    </tr>
+                    @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
                     <tr>
+                        @if($firstSubTarget)
+                        <td rowspan="{{ count($target['sub_targets']) }}">
+                            {{ $target['description'] }}
+                        </td>
+                        @php $firstSubTarget = false; @endphp
+                        @endif
                         <td>{{ $sub_target['description'] }}</td>
                         @foreach($sub_target['user_tasks'] as $user_task)
                         <td>{{ $user_task }}</td>
                         @endforeach
-                        <td>
-                            <!-- No button in PDF -->
-                            Edit
-                        </td>
                     </tr>
                     @endforeach
                     @endforeach
@@ -290,21 +327,19 @@
 
                     @if(isset($targets[10]) && count($targets[10]) > 0)
                     @foreach($targets[10] as $target)
-                    <tr class="target-row">
-                        <td rowspan="{{ count($target['sub_targets']) + 1 }}">
-                            {{ $target['description'] }}
-                        </td>
-                    </tr>
+                    @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
                     <tr>
+                        @if($firstSubTarget)
+                        <td rowspan="{{ count($target['sub_targets']) }}">
+                            {{ $target['description'] }}
+                        </td>
+                        @php $firstSubTarget = false; @endphp
+                        @endif
                         <td>{{ $sub_target['description'] }}</td>
                         @foreach($sub_target['user_tasks'] as $user_task)
                         <td>{{ $user_task }}</td>
                         @endforeach
-                        <td>
-                            <!-- No button in PDF -->
-                            Edit
-                        </td>
                     </tr>
                     @endforeach
                     @endforeach

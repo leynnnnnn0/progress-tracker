@@ -174,13 +174,17 @@ const openPdfModal = () => {
     isPdfModalOpen.value = true;
 };
 
+const exportRoute = computed(() =>
+    route("task-report.download", {
+        user: user.value,
+        office: office.value,
+        selectedColumns: pdfForm.selectedColumns,
+    })
+);
+
 const exportToPdf = () => {
-    window.open(
-        route("task-report.download", {
-            selectedColumns: pdfForm.selectedColumns,
-        }),
-        "_blank"
-    );
+    console.log(exportRoute.value);
+    window.open(exportRoute.value, "_blank");
 };
 </script>
 <template>
