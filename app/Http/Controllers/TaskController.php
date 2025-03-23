@@ -51,8 +51,9 @@ class TaskController extends Controller
                         'target_number' => $user_task->target_number,
                         "success_indicator" => $user_task->success_indicator,
                         "individual_accountable" => $user_task->individual_accountable,
-                        "actual_accomplishments" => $user_task->actual_accomplishments,
+
                         "actual_accomplishments_number" => $user_task->actual_accomplishments_number,
+                        "actual_accomplishments" => $user_task->actual_accomplishments,
                         "q" => $user_task->q,
                         "t" => $user_task->t,
                         "e" => $user_task->e,

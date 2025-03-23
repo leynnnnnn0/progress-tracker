@@ -51,18 +51,18 @@ class TaskReportController extends Controller
                     'description' => $item->description,
                     'user_task_id' => $user_task->id,
                     'user_tasks' => [
-                        'target_number' => $user_task->target_number,
-                        "success_indicator" => $user_task->success_indicator,
-                        "individual_accountable" => $user_task->individual_accountable,
-                        "actual_accomplishments" => $user_task->actual_accomplishments,
-                        "actual_accomplishments_number" => $user_task->actual_accomplishments_number,
+                        3 => $user_task->target_number,
+                        4 => $user_task->success_indicator,
+                        5 => $user_task->individual_accountable,
+                        6 => $user_task->actual_accomplishments_number,
+                        7 => $user_task->actual_accomplishments,
                         "q" => $user_task->q,
                         "t" => $user_task->t,
                         "e" => $user_task->e,
-                        'ave' => $count > 0 ? number_format(($user_task->q + $user_task->t + $user_task->e) / $count, 2) : null,
-                        "remark" => $user_task->remark,
-                        "link_to_evidence" => $user_task->link_to_evidence,
-                        "pmt_remark" => $user_task->pmt_remark
+                        8 => $count > 0 ? number_format(($user_task->q + $user_task->t + $user_task->e) / $count, 2) : null,
+                        9 => $user_task->remark,
+                        10 => $user_task->link_to_evidence,
+                        11 => $user_task->pmt_remark
                     ],
                 ];
             });
