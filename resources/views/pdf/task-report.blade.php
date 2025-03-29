@@ -1,6 +1,8 @@
 @props([
 'targets',
-'selectedColumns' => []
+'selectedColumns' => [],
+'full_name',
+'office_name'
 ])
 <!DOCTYPE html>
 <html lang="en">
@@ -152,11 +154,12 @@
 <body>
     <div>
         <h1 class="text-center">DEPARTMENT PERFORMANCE COMMITMENT AND REVIEW</h1>
-        <p class="text-center">I, FULL NAME HERE, POSITION and OFFICIAL DESIGNATION of the
-            OFFICE NAME, commit to deliver and agree to be rated on the
+        <p class="text-center">I, {{ $full_name }}, POSITION and OFFICIAL DESIGNATION of the
+            {{$office_name }}, commit to deliver and agree to be rated on the
             attainment of following targets in accordance with the
             indicated measure for the period (January - June
-            2025) </p>
+            2025)
+        </p>
 
         <table class="header-table">
             <tr>

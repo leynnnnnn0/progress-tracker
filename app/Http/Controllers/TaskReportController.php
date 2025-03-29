@@ -80,9 +80,13 @@ class TaskReportController extends Controller
             'selectedColumns' => ['required']
         ]);
 
+        dd(User::find($request->only('full_name'))->full_name . Office::find($request->only('office'))->name);
+
         $pdf = Pdf::loadView('pdf.task-report', [
             'selectedColumns' => $validated['selectedColumns'],
-            'targets' => $targets
+            'targets' => $targets,
+            'full_name' => User::find($request->only('full_name'))->full_name,
+            'office' => Office::find($request->only('office'))->name,
         ]);
         $pdf->setOption('repeatTableHeader', false);
 

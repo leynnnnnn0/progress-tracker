@@ -13,13 +13,11 @@ import useStore from "@/Composables/useStore";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
-
 const form = useForm({
     description: null,
-    percentage_group: null,
+    group: null,
     sub_targets: [],
 });
-
 
 const isSubTaskModalOpen = ref(false);
 const openSubTaskModal = () => {
@@ -76,18 +74,18 @@ const { store } = useStore(form, route("targets.store"), "Target");
             </FormInput>
             <FormInput
                 label="Percentage Group"
-                :errorMessage="form.errors.percentage_group"
+                :errorMessage="form.errors.group"
             >
-                <Select v-model="form.percentage_group">
+                <Select v-model="form.group">
                     <SelectTrigger>
-                        <SelectValue placeholder="Select a fruit" />
+                        <SelectValue placeholder="Select from options" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Fruits</SelectLabel>
-                            <SelectItem value="75"> 75 </SelectItem>
-                            <SelectItem value="15"> 15 </SelectItem>
-                            <SelectItem value="10"> 10 </SelectItem>
+                            <SelectItem value="core_function"> Core Functions </SelectItem>
+                            <SelectItem value="15"> Strategic Functions </SelectItem>
+                            <SelectItem value="10">  </SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>

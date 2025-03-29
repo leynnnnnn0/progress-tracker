@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('targets', function (Blueprint $table) {
             $table->id();
-            $table->string('percentage_group');
+            $table->string('group');
             $table->string('description');
             $table->timestamps();
         });

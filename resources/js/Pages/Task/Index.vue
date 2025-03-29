@@ -4,6 +4,7 @@ import { watch, ref, computed } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import useUpdate from "@/Composables/useUpdate";
+import { Select as SelectPrime } from "primevue";
 
 const { targets, offices, filters, users } = defineProps({
     targets: {
@@ -63,6 +64,30 @@ const openEditModal = (id) => {
     form.user_task_id = id;
     isEditModalVisible.value = true;
 };
+
+const userOptions = computed(() => {
+    return users.map((user) => {
+        return {
+            value: user.value.toString(),
+            label: user.label,
+        };
+    });
+});
+
+const officeOptions = computed(() => {
+    return offices.map((office) => {
+        return {
+            value: office.value.toString(),
+            label: office.label,
+        };
+    });
+});
+
+const pdfForm = useForm({
+    selectedColumns: [],
+    full_name: userOptions.value[0].value,
+    office_name: officeOptions.value[0].value,
+});
 
 watch(
     () => form.user_task_id,
@@ -166,10 +191,6 @@ const pdfDownloadOptions = [
     },
 ];
 
-const pdfForm = useForm({
-    selectedColumns: [],
-});
-
 const openPdfModal = () => {
     isPdfModalOpen.value = true;
 };
@@ -179,6 +200,8 @@ const exportRoute = computed(() =>
         user: user.value,
         office: office.value,
         selectedColumns: pdfForm.selectedColumns,
+        full_name: pdfForm.full_name,
+        office_name: pdfForm.office_name,
     })
 );
 
@@ -195,24 +218,56 @@ const exportToPdf = () => {
         header="Export To PDF"
         :style="{ width: '50rem' }"
     >
-        <FormContainer>
-            <SpanXS class="col-span-2">Columns to include</SpanXS>
-            <div
-                v-for="option in pdfDownloadOptions"
-                class="flex items-center gap-2"
-            >
-                <Checkbox
-                    v-model="pdfForm.selectedColumns"
-                    :value="option.key"
-                    name="selectedColumns[]"
-                />
-                <label class="text-xs text-gray-600">
-                    {{ option.value }}
-                </label>
+        <div class="space-y-3">
+            <FormContainer>
+                <FormInput
+                    label="Your full name"
+                    :errorMessage="pdfForm.errors.full_name"
+                >
+                    <SelectPrime
+                        disabled
+                        v-model="pdfForm.full_name"
+                        :options="userOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+                <FormInput
+                    label="Your office name"
+                    :errorMessage="pdfForm.errors.office_name"
+                >
+                    <SelectPrime
+                        disabled
+                        v-model="pdfForm.office_name"
+                        :options="officeOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+            </FormContainer>
+            <FormContainer>
+                <SpanXS class="col-span-2">Columns to include</SpanXS>
+                <div
+                    v-for="option in pdfDownloadOptions"
+                    class="flex items-center gap-2"
+                >
+                    <Checkbox
+                        v-model="pdfForm.selectedColumns"
+                        :value="option.key"
+                        name="selectedColumns[]"
+                    />
+                    <label class="text-xs text-gray-600">
+                        {{ option.value }}
+                    </label>
+                </div>
+            </FormContainer>
+            <div class="flex justify-end">
+                <Button class="text-white" @click="exportToPdf">Export</Button>
             </div>
-        </FormContainer>
-        <div class="flex justify-end mt-3">
-            <Button class="text-white" @click="exportToPdf">Export</Button>
         </div>
     </Dialog>
 

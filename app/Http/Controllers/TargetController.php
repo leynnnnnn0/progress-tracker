@@ -35,14 +35,14 @@ class TargetController extends Controller
     {
         $validated = $request->validate([
             'description' => ['required'],
-            'percentage_group' => ['required'],
+            'group' => ['required'],
             'sub_targets' => ['required'],
         ]);
 
 
         DB::beginTransaction();
         $target = Target::create([
-            'percentage_group' => $validated['percentage_group'],
+            'group' => $validated['percentage_group'],
             'description' => $validated['description']
         ]);
         foreach ($validated['sub_targets'] as $subTarget) {

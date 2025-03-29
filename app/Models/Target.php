@@ -12,7 +12,7 @@ class Target extends Model implements Auditable
     use HasFactory, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
-        'percentage_group',
+        'group',
         'description',
     ];
 
