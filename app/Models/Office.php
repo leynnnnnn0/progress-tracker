@@ -26,6 +26,11 @@ class Office extends Model implements Auditable
         return $this->belongsToMany(User::class, 'users_offices');
     }
 
+    public function group_percentage()
+    {
+        return $this->hasOne(Group::class);
+    }
+
 
     public function user_tasks()
     {

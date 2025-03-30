@@ -5,7 +5,8 @@ import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import useUpdate from "@/Composables/useUpdate";
 import { Select as SelectPrime } from "primevue";
-
+import useAlert from "@/Composables/useAlert.js";
+const { confirm, toast } = useAlert();
 const { targets, offices, filters, users } = defineProps({
     targets: {
         type: Object,
@@ -20,6 +21,10 @@ const { targets, offices, filters, users } = defineProps({
         required: true,
     },
     users: {
+        type: Object,
+        required: false,
+    },
+    group: {
         type: Object,
         required: false,
     },
@@ -211,8 +216,61 @@ const exportToPdf = () => {
     console.log(exportRoute.value);
     window.open(exportRoute.value, "_blank");
 };
+
+const groupForm = useForm({
+    office_id: null,
+    percentage: null,
+    group_name: "N/a",
+});
+const isGroupModalVisible = ref(false);
+const openGroupModal = (group_name) => {
+    isGroupModalVisible.value = true;
+    groupForm.group_name = group_name;
+    groupForm.office_id = office.value;
+};
+
+const updateGroup = () => {
+    groupForm.put(route("groups.update"), {
+        onSuccess: () => {
+            toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: `Updated Successfully.`,
+                life: 5000,
+            });
+            isGroupModalVisible.value = false;
+        },
+        onError: (e) => {
+            console.log(e);
+            toast.add({
+                severity: "error",
+                summary: "Error",
+                detail: `An error occured while trying to update.`,
+                life: 5000,
+            });
+            isGroupModalVisible.value = false;
+        },
+    });
+};
 </script>
 <template>
+    <!-- Group Modal -->
+    <Dialog
+        modal
+        v-model:visible="isGroupModalVisible"
+        :style="{ width: '25rem' }"
+    >
+        <FormInput
+            label="Percentage"
+            :errorMessage="groupForm.errors.percentage"
+        >
+            <Input type="number" required v-model="groupForm.percentage" />
+        </FormInput>
+        <div class="flex justify-end">
+            <Button @click="updateGroup" class="text-white">Save</Button>
+        </div>
+        <template #header> Edit {{ groupForm.group_name }} </template>
+    </Dialog>
     <!-- Pdf Modal -->
     <Dialog
         v-model:visible="isPdfModalOpen"
@@ -580,23 +638,29 @@ const exportToPdf = () => {
                     </TableBody>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Core: </TD>
-                        <TD colspan="4"></TD>
+                        <TD colspan="4">Core: {{ group.core }}</TD>
+                        <TD colspan="4">
+                            <EditButton @click="openGroupModal('core')" />
+                        </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Strategic: </TD>
-                        <TD colspan="4"></TD>
+                        <TD colspan="4">Strategic: {{ group.strategic }}</TD>
+                        <TD colspan="4">
+                            <EditButton @click="openGroupModal('strategic')" />
+                        </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Support: </TD>
-                        <TD colspan="4"></TD>
+                        <TD colspan="4">Support: {{ group.support }}</TD>
+                        <TD colspan="4">
+                            <EditButton @click="openGroupModal('support')" />
+                        </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
                         <TD colspan="4">Final Ave: </TD>
-                        <TD colspan="4"></TD>
+                        <TD colspan="4"> </TD>
                     </tr>
                 </Table>
             </DivFlexCol>

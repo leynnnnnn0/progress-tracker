@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Group;
 use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\UserTask;
@@ -14,6 +15,9 @@ class OfficeObserver
      */
     public function created(Office $office): void
     {
+        Group::create([
+            'office_id' => $office->id,
+        ]);
         $subTargets = SubTarget::pluck('id');
         DB::beginTransaction();
         foreach ($subTargets as $subTarget) {

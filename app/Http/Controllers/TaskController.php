@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\Office;
 use App\Models\Target;
 use App\Models\User;
@@ -15,7 +16,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $users = User::getOptions();
+        $users = User::getOptions(); 
 
         $query = Target::query()->with(['sub_targets.user_tasks']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
@@ -23,6 +24,8 @@ class TaskController extends Controller
 
         $offices = Office::getOptions($user);
         $office = request('office') ?? $offices->first()['value'];
+
+        $group = Group::where('office_id', $office)->first();
 
         $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
             $query->where('office_id', $office);
@@ -60,7 +63,7 @@ class TaskController extends Controller
                         'ave' => $count > 0 ? number_format(($user_task->q + $user_task->t + $user_task->e) / $count, 2) : null,
                         "remark" => $user_task->remark,
                         "link_to_evidence" => $user_task->link_to_evidence,
-                        "pmt_remark" => $user_task->pmt_remark
+                        "pmt_remark" => $user_task->pmt_remark,
                     ],
                 ];
             });
@@ -81,7 +84,8 @@ class TaskController extends Controller
             'targets' => $targets,
             'offices' => $offices ?? [],
             'filters' => request()->only(['office', 'user']),
-            'users' => $users
+            'users' => $users,
+            'group' => $group
         ]);
     }
 }

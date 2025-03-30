@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeFinalAverageController;
 use App\Http\Controllers\OfficeTargetController;
@@ -18,6 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::put('groups/update', [GroupController::class, 'update'])->name('groups.update');
 
     Route::get('/task-report', [TaskReportController::class, 'index']);
     Route::get('/task-report-download', [TaskReportController::class, 'download'])->name('task-report.download');
