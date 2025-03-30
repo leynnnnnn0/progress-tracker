@@ -21,6 +21,6 @@ class GroupController extends Controller
                 $validated['group_name'] => $validated['percentage']
             ]);
 
-        return to_route('tasks.index');
+        return back();
     }
 }

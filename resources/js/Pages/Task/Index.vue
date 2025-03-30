@@ -507,7 +507,7 @@ const updateGroup = () => {
                     </TableHead>
                     <TableHead>
                         <TH colspan="12">
-                            CORE FUNCTIONS (75%) RESEARCH AND EXTENSION
+                            CORE FUNCTIONS RESEARCH AND EXTENSION
                         </TH>
                     </TableHead>
                     <TableHead>
