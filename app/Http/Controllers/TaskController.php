@@ -67,11 +67,11 @@ class TaskController extends Controller
             return [
                 'target_id' => $item->id,
                 'description' => $item->description,
-                'percentage_group' => $item->percentage_group,
+                'group' => $item->group,
                 'sub_targets' => $sub_targets
             ];
         })
-            ->groupBy('percentage_group');
+            ->groupBy('group');
 
 
 

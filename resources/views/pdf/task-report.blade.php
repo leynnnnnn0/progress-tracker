@@ -154,7 +154,7 @@
 <body>
     <div>
         <h1 class="text-center">DEPARTMENT PERFORMANCE COMMITMENT AND REVIEW</h1>
-        <p class="text-center">I, {{ $full_name }}, POSITION and OFFICIAL DESIGNATION of the
+        <p class="text-center">I, {{ $full_name }} of the
             {{$office_name }}, commit to deliver and agree to be rated on the
             attainment of following targets in accordance with the
             indicated measure for the period (January - June
@@ -265,7 +265,7 @@
                     @endphp
 
                     <tr class="section-header">
-                        <th colspan="{{ $totalVisibleCols }}">CORE FUNCTIONS (75%) RESEARCH AND EXTENSION</th>
+                        <th colspan="{{ $totalVisibleCols }}">CORE FUNCTIONS RESEARCH AND EXTENSION</th>
                     </tr>
                     <tr class="section-header">
                         <th colspan="{{ $totalVisibleCols }}">
@@ -282,8 +282,8 @@
                     </tr>
 
                     <!-- Core Functions Targets -->
-                    @if(isset($targets[75]) && count($targets[75]) > 0)
-                    @foreach($targets[75] as $target)
+                    @if(isset($targets['core']) && count($targets['core']) > 0)
+                    @foreach($targets['core'] as $target)
                     @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
                     <tr>
@@ -351,14 +351,14 @@
                     </tr>
                     @endif
 
-                    <!-- Section: STRATEGIC FUNCTIONS (15%) -->
+                    <!-- Section: STRATEGIC FUNCTIONS ('strategic'%) -->
                     <tr class="section-header">
-                        <th colspan="{{ $totalVisibleCols }}">STRATEGIC FUNCTIONS (15%)</th>
+                        <th colspan="{{ $totalVisibleCols }}">STRATEGIC</th>
                     </tr>
 
-                    <!-- Strategic Functions Targets (15%) -->
-                    @if(isset($targets[15]) && count($targets[15]) > 0)
-                    @foreach($targets[15] as $target)
+                    <!-- Strategic Functions Targets ('strategic'%) -->
+                    @if(isset($targets['strategic']) && count($targets['strategic']) > 0)
+                    @foreach($targets['strategic'] as $target)
                     @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
                     <tr>
@@ -415,7 +415,7 @@
                     @endforeach
                     @endif
 
-                    <!-- Subrating row for Strategic Functions (15%) -->
+                    <!-- Subrating row for Strategic Functions ('strategic'%) -->
                     @if(in_array(8, $selectedColumns))
                     <tr class="subrating-row">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
@@ -428,12 +428,12 @@
 
                     <!-- Section: STRATEGIC FUNCTIONS (10%) -->
                     <tr class="section-header">
-                        <th colspan="{{ $totalVisibleCols }}">STRATEGIC FUNCTIONS (10%)</th>
+                        <th colspan="{{ $totalVisibleCols }}">SUPPORT</th>
                     </tr>
 
                     <!-- Strategic Functions Targets (10%) -->
-                    @if(isset($targets[10]) && count($targets[10]) > 0)
-                    @foreach($targets[10] as $target)
+                    @if(isset($targets['support']) && count($targets['support']) > 0)
+                    @foreach($targets['support'] as $target)
                     @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
                     <tr>

@@ -69,11 +69,11 @@ class TaskReportController extends Controller
             return [
                 'target_id' => $item->id,
                 'description' => $item->description,
-                'percentage_group' => $item->percentage_group,
+                'group' => $item->group,
                 'sub_targets' => $sub_targets
             ];
         })
-            ->groupBy('percentage_group');
+            ->groupBy('group');
 
 
         $validated = $request->validate([
@@ -84,8 +84,8 @@ class TaskReportController extends Controller
         $pdf = Pdf::loadView('pdf.task-report', [
             'selectedColumns' => $validated['selectedColumns'],
             'targets' => $targets,
-            'full_name' => User::find(request('full_name'))->full_name,
-            'office_name' => Office::find(request('office'))->name,
+            'full_name' => User::find(request('full_name'))?->full_name ?? 'N/a',
+            'office_name' => Office::find(request('office'))?->name ?? 'N/a',
         ]);
         $pdf->setOption('repeatTableHeader', false);
 

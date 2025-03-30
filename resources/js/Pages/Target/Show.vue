@@ -12,10 +12,7 @@ defineProps({
         <Heading>Target Details</Heading>
         <FormContainer>
             <Infolist label="Description" :value="target.description" />
-            <Infolist
-                label="Percentage Group"
-                :value="target.percentage_group"
-            />
+            <Infolist label="Percentage Group" :value="target.group" />
             <h1 class="col-span-2 text-xs">Sub Targets</h1>
             <ul>
                 <li v-for="sub_target in target.sub_targets" class="font-bold">

@@ -42,7 +42,7 @@ class TargetController extends Controller
 
         DB::beginTransaction();
         $target = Target::create([
-            'group' => $validated['percentage_group'],
+            'group' => $validated['group'],
             'description' => $validated['description']
         ]);
         foreach ($validated['sub_targets'] as $subTarget) {

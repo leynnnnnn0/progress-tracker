@@ -82,10 +82,12 @@ const { store } = useStore(form, route("targets.store"), "Target");
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectLabel>Fruits</SelectLabel>
-                            <SelectItem value="core_function"> Core Functions </SelectItem>
-                            <SelectItem value="15"> Strategic Functions </SelectItem>
-                            <SelectItem value="10">  </SelectItem>
+                            <SelectLabel>Options</SelectLabel>
+                            <SelectItem value="core"> Core </SelectItem>
+                            <SelectItem value="strategic">
+                                Strategic
+                            </SelectItem>
+                            <SelectItem value="support"> Support </SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>

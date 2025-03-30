@@ -85,8 +85,10 @@ const officeOptions = computed(() => {
 
 const pdfForm = useForm({
     selectedColumns: [],
-    full_name: userOptions.value[0].value,
-    office_name: officeOptions.value[0].value,
+    full_name:
+        userOptions.value.length == 0 ? null : userOptions.value[0].value,
+    office_name:
+        officeOptions.value.length == 0 ? null : officeOptions.value[0].value,
 });
 
 watch(
@@ -464,7 +466,7 @@ const exportToPdf = () => {
                         </TH>
                     </TableHead>
 
-                    <TableBody v-for="target in targets[75]">
+                    <TableBody v-for="target in targets['core']">
                         <tr>
                             <TD
                                 :rowspan="target.sub_targets.length + 1"
@@ -500,10 +502,10 @@ const exportToPdf = () => {
                     </TableBody>
 
                     <TableHead>
-                        <TH colspan="12"> STRATEGIC FUNCTIONS (15%) </TH>
+                        <TH colspan="12"> STRATEGIC </TH>
                     </TableHead>
 
-                    <TableBody v-for="target in targets[15]">
+                    <TableBody v-for="target in targets['strategic']">
                         <tr>
                             <TD
                                 :rowspan="target.sub_targets.length + 1"
@@ -539,10 +541,10 @@ const exportToPdf = () => {
                     </TableBody>
 
                     <TableHead>
-                        <TH colspan="12"> STRATEGIC FUNCTIONS (10%) </TH>
+                        <TH colspan="12"> SUPPORT</TH>
                     </TableHead>
 
-                    <TableBody v-for="target in targets[10]">
+                    <TableBody v-for="target in targets['support']">
                         <tr>
                             <TD
                                 :rowspan="target.sub_targets.length + 1"
