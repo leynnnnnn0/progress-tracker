@@ -412,7 +412,7 @@ const updateGroup = () => {
     <MainLayout>
         <Button class="text-white" @click="openPdfModal">Export To PDF</Button>
         <DivFlexCenter class="gap-2">
-            <Select v-if="users.length > 0" v-model="user">
+            <!-- <Select v-if="users.length > 0" v-model="user">
                 <SelectTrigger>
                     <SelectValue placeholder="Select a user" />
                 </SelectTrigger>
@@ -427,7 +427,7 @@ const updateGroup = () => {
                         </SelectItem>
                     </SelectGroup>
                 </SelectContent>
-            </Select>
+            </Select> -->
 
             <Select v-model="office">
                 <SelectTrigger>
