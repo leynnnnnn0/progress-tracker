@@ -64,9 +64,13 @@ class TargetController extends Controller
 
     public function edit(Target $target)
     {
-        $target->load(['sub_targets']);
+        $offices = Office::getOptions();
+        $target->load(['sub_targets', 'offices']);
+
+
         return Inertia::render('Target/Edit', [
-            'target' => $target
+            'target' => $target,
+            'offices' => $offices
         ]);
     }
 
@@ -100,6 +104,8 @@ class TargetController extends Controller
                 ]
             );
         }
+
+        $target->offices()->sync($validated['assignedOffices']);
         DB::commit();
         return to_route('targets.index');
     }

@@ -16,6 +16,8 @@ class Target extends Model implements Auditable
         'description',
     ];
 
+    protected $appends = ['offices_array'];
+
     public function offices()
     {
         return $this->belongsToMany(
@@ -25,6 +27,11 @@ class Target extends Model implements Auditable
             'office_id'
         )
             ->using(OfficeSpecificTarget::class);
+    }
+
+    public function getOfficesArrayAttribute()
+    {
+        return $this->offices->pluck('id')->toArray();
     }
 
     public function sub_targets()

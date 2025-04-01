@@ -4,9 +4,13 @@ import useUpdate from "@/Composables/useUpdate";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
-const { target } = defineProps({
+const { target, offices } = defineProps({
     target: {
         type: Object,
+        required: true,
+    },
+    offices: {
+        type: Array,
         required: true,
     },
 });
@@ -14,6 +18,7 @@ const { target } = defineProps({
 const form = useForm({
     description: target.description,
     sub_targets: [],
+    assignedOffices: target.offices_array,
 });
 
 const isSubTaskModalOpen = ref(false);
@@ -103,6 +108,33 @@ const { update } = useUpdate(
                 </TableBody>
             </Table>
         </TableContainer>
+
+        <TableContainer>
+            <InputContainer class="col-span-2 gap-2">
+                <InputLabel label="Assigned Offices" />
+
+                <div
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                >
+                    <div
+                        v-for="office in offices"
+                        :key="office.value"
+                        class="flex items-center space-x-2"
+                    >
+                        <Checkbox
+                            v-model="form.assignedOffices"
+                            :value="office.value"
+                            name="assignedOffices[]"
+                        />
+                        <label class="text-xs text-gray-600">
+                            {{ office.label }}
+                        </label>
+                    </div>
+                </div>
+                <FormError>{{ form.errors.assignedOffices }}</FormError>
+            </InputContainer>
+        </TableContainer>
+
         <DivFlexCenter class="justify-end">
             <Button @click="update" class="text-white">Update</Button>
         </DivFlexCenter>
