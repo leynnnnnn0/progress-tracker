@@ -16,10 +16,11 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $users = User::getOptions(); 
+        $users = User::getOptions();
 
         $query = Target::query()->with(['sub_targets.user_tasks']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
+
         $user = request('user') ?? $userId;
 
         $offices = Office::getOptions($user);

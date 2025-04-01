@@ -7,7 +7,7 @@ import useUpdate from "@/Composables/useUpdate";
 import { Select as SelectPrime } from "primevue";
 import useAlert from "@/Composables/useAlert.js";
 const { confirm, toast } = useAlert();
-const { targets, offices, filters, users } = defineProps({
+const { targets, offices, filters, users, auth } = defineProps({
     targets: {
         type: Object,
         required: true,
@@ -28,7 +28,13 @@ const { targets, offices, filters, users } = defineProps({
         type: Object,
         required: false,
     },
+    auth: {
+        type: Object,
+        required: false,
+    },
 });
+
+console.log(auth);
 const office = ref(
     offices.length > 0 ? filters.office ?? offices[0].value.toString() : null
 );

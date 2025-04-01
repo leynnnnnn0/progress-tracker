@@ -80,14 +80,14 @@ class User extends Authenticatable implements Auditable
 
     public function scopeGetOptions(Builder $query)
     {
-
-        return Auth::user()->is_admin ?  $query->where('is_admin', false)->get()->map(function ($user) {
+        Auth::user()->is_admin ? $query->where('is_admin', false) : $query->where('id', Auth::user()->id);
+        return $query->get()->map(function ($user) {
             if (!$user) return null;
             return [
                 'value' => $user->id,
                 'label' => $user->full_name
             ];
-        })->filter() : null;
+        });
     }
 
     public function auditEvent($event)
