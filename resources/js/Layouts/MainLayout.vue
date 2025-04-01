@@ -92,11 +92,7 @@ const is_admin = usePage().props.auth.is_admin;
                             >
                                 Offices Target
                             </NavLink>
-                            <NavLink
-                                href="/targets"
-                                :icon="ListCheck"
-                                v-if="is_admin"
-                            >
+                            <NavLink href="/targets" :icon="ListCheck">
                                 Targets
                             </NavLink>
                             <NavLink

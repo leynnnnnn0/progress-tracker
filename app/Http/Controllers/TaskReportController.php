@@ -20,7 +20,7 @@ class TaskReportController extends Controller
     {
         $users = User::getOptions();
 
-        $query = Target::query()->with(['sub_targets.user_tasks']);
+        $query = Target::query()->with(['sub_targets.user_tasks', 'offices']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
         $user = request('user') ?? $userId;
 
@@ -30,6 +30,11 @@ class TaskReportController extends Controller
         $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
             $query->where('office_id', $office);
         });
+
+        $query->whereHas('offices', function ($query) use ($office) {
+            $query->where('office_id', $office);
+        });
+
 
         $query->with(['sub_targets.user_tasks' => function ($query) use ($office) {
             $query->where('office_id', $office);

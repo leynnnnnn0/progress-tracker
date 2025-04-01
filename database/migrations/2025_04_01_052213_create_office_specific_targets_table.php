@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('office_specific_targets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('office_id')->constrained('offices')->cascadeOnDelete();
+            $table->foreignId('target_id')->constrained('targets')->cascadeOnDelete();
             $table->timestamps();
         });
     }

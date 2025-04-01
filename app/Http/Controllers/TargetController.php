@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\Target;
 use App\Models\User;
@@ -28,7 +29,10 @@ class TargetController extends Controller
 
     public function create()
     {
-        return Inertia::render('Target/Create');
+        $offices = Office::getOptions();
+        return Inertia::render('Target/Create', [
+            'offices' => $offices
+        ]);
     }
 
     public function store(Request $request)
@@ -37,8 +41,8 @@ class TargetController extends Controller
             'description' => ['required'],
             'group' => ['required'],
             'sub_targets' => ['required'],
+            'assignedOffices' => ['required', 'array']
         ]);
-
 
         DB::beginTransaction();
         $target = Target::create([
@@ -51,6 +55,8 @@ class TargetController extends Controller
                 'description' => $subTarget['description'],
             ]);
         }
+
+        $target->offices()->attach($validated['assignedOffices']);
         DB::commit();
 
         return to_route('targets.index');
@@ -69,6 +75,7 @@ class TargetController extends Controller
         $validated = $request->validate([
             'description' => ['required'],
             'sub_targets' => ['required'],
+            'assignedOffices' => ['required', 'array']
         ]);
 
         DB::beginTransaction();

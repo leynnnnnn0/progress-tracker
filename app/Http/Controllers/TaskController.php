@@ -18,7 +18,7 @@ class TaskController extends Controller
     {
         $users = User::getOptions();
 
-        $query = Target::query()->with(['sub_targets.user_tasks']);
+        $query = Target::query()->with(['sub_targets.user_tasks', 'offices']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
 
         $user = request('user') ?? $userId;
@@ -29,6 +29,10 @@ class TaskController extends Controller
         $group = Group::where('office_id', $office)->first();
 
         $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
+            $query->where('office_id', $office);
+        });
+
+        $query->whereHas('offices', function ($query) use ($office) {
             $query->where('office_id', $office);
         });
 
@@ -68,6 +72,7 @@ class TaskController extends Controller
                     ],
                 ];
             });
+
             return [
                 'target_id' => $item->id,
                 'description' => $item->description,
@@ -76,10 +81,6 @@ class TaskController extends Controller
             ];
         })
             ->groupBy('group');
-
-
-
-
 
         return Inertia::render('Task/Index', [
             'targets' => $targets,

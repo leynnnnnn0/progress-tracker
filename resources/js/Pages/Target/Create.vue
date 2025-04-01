@@ -8,15 +8,24 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+
 import Dialog from "primevue/dialog";
 import useStore from "@/Composables/useStore";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
+const { offices } = defineProps({
+    offices: {
+        type: Array,
+        required: true,
+    },
+});
+
 const form = useForm({
     description: null,
     group: null,
     sub_targets: [],
+    assignedOffices: [],
 });
 
 const isSubTaskModalOpen = ref(false);
@@ -118,6 +127,32 @@ const { store } = useStore(form, route("targets.store"), "Target");
                     </tr>
                 </TableBody>
             </Table>
+        </TableContainer>
+
+        <TableContainer>
+            <InputContainer class="col-span-2 gap-2">
+                <InputLabel label="Assigned Offices" />
+
+                <div
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                >
+                    <div
+                        v-for="office in offices"
+                        :key="office.value"
+                        class="flex items-center space-x-2"
+                    >
+                        <Checkbox
+                            v-model="form.assignedOffices"
+                            :value="office.value"
+                            name="assignedOffices[]"
+                        />
+                        <label class="text-xs text-gray-600">
+                            {{ office.label }}
+                        </label>
+                    </div>
+                </div>
+                <FormError>{{ form.errors.assignedOffices }}</FormError>
+            </InputContainer>
         </TableContainer>
         <DivFlexCenter class="justify-end">
             <Button @click="store" class="text-white">Create</Button>
