@@ -15,15 +15,9 @@ class SubTarget extends Model implements Auditable
     use HasFactory, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
-        'office_id',
         'target_id',
         'description',
     ];
-
-    public function target()
-    {
-        return $this->belongsTo(Target::class);
-    }
 
     public function office()
     {

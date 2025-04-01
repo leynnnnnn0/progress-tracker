@@ -16,6 +16,17 @@ class Target extends Model implements Auditable
         'description',
     ];
 
+    public function offices()
+    {
+        return $this->belongsToMany(
+            Office::class,
+            'office_specific_targets',
+            'target_id',
+            'office_id'
+        )
+            ->using(OfficeSpecificTarget::class);
+    }
+
     public function sub_targets()
     {
         return $this->hasMany(SubTarget::class);
@@ -23,7 +34,7 @@ class Target extends Model implements Auditable
 
     public function user_tasks()
     {
-        return $this->hasManyThrough(UserTask::class, SubTarget::class);                                                                                 
+        return $this->hasManyThrough(UserTask::class, SubTarget::class);
     }
 
     // protected static function booted()
