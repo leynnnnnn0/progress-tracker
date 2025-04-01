@@ -71,25 +71,25 @@ const openEditModal = (id) => {
 };
 
 const userOptions = computed(() => {
-    return (
-        users?.map((user) => {
-            return {
-                value: user.value.toString(),
-                label: user.label,
-            };
-        }) ?? []
-    );
+    return Array.isArray(users)
+        ? users.map((user) => {
+              return {
+                  value: user.value.toString(),
+                  label: user.label,
+              };
+          })
+        : [];
 });
 
 const officeOptions = computed(() => {
-    return (
-        offices?.map((office) => {
-            return {
-                value: office.value.toString(),
-                label: office.label,
-            };
-        }) ?? []
-    );
+    return Array.isArray(offices)
+        ? offices.map((office) => {
+              return {
+                  value: office.value.toString(),
+                  label: office.label,
+              };
+          })
+        : [];
 });
 
 const pdfForm = useForm({
