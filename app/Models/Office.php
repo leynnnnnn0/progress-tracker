@@ -31,6 +31,10 @@ class Office extends Model implements Auditable
         return $this->hasOne(Group::class);
     }
 
+    public function sub_targets()
+    {
+        return $this->hasMany(SubTarget::class);
+    }
 
     public function user_tasks()
     {
