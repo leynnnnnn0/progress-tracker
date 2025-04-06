@@ -6,6 +6,7 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeFinalAverageController;
 use App\Http\Controllers\OfficeTargetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TargetController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReportController;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/offices-target/update-target-number', [OfficeTargetController::class, 'updateTargetNumber'])->name('offices-target.update-target-number');
 
+    Route::resource('settings', SettingController::class);
     Route::resource('users', UserController::class);
     Route::resource('offices', OfficeController::class);
     Route::resource('tasks', TaskController::class);
