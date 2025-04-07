@@ -30,10 +30,6 @@ const form = useForm({
 
 const isAllSelected = ref(form.assignedOffices.length == offices.length);
 
-watch(isAllSelected, (value) => {
-    console.log(value);
-});
-
 const selectAll = () => {
     form.assignedOffices = offices.map((office) => office.value);
     isAllSelected.value = true;

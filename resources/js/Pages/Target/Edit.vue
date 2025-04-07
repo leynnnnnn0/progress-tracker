@@ -21,6 +21,19 @@ const form = useForm({
     assignedOffices: target.offices_array,
 });
 
+const isAllSelected = ref(form.assignedOffices.length == offices.length);
+
+
+const selectAll = () => {
+    form.assignedOffices = offices.map((office) => office.value);
+    isAllSelected.value = true;
+};
+
+const deselectALl = () => {
+    form.assignedOffices = [];
+    isAllSelected.value = false;
+};
+
 const isSubTaskModalOpen = ref(false);
 const openSubTaskModal = () => {
     isSubTaskModalOpen.value = true;
@@ -111,7 +124,21 @@ const { update } = useUpdate(
 
         <TableContainer>
             <InputContainer class="col-span-2 gap-2">
-                <InputLabel label="Assigned Offices" />
+                <DivFlexCenter class="justify-between">
+                    <InputLabel label="Assigned Offices" />
+                    <Button
+                        v-if="!isAllSelected"
+                        class="text-white"
+                        @click="selectAll"
+                        >Select All</Button
+                    >
+                    <Button
+                        v-if="isAllSelected"
+                        class="text-white"
+                        @click="deselectALl"
+                        >Deselect All</Button
+                    >
+                </DivFlexCenter>
 
                 <div
                     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
