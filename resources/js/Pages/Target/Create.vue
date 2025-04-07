@@ -11,7 +11,7 @@ import {
 
 import Dialog from "primevue/dialog";
 import useStore from "@/Composables/useStore";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
 const { offices } = defineProps({
@@ -28,6 +28,21 @@ const form = useForm({
     assignedOffices: [],
 });
 
+const isAllSelected = ref(form.assignedOffices.length == offices.length);
+
+watch(isAllSelected, (value) => {
+    console.log(value);
+});
+
+const selectAll = () => {
+    form.assignedOffices = offices.map((office) => office.value);
+    isAllSelected.value = true;
+};
+
+const deselectALl = () => {
+    form.assignedOffices = [];
+    isAllSelected.value = false;
+};
 const isSubTaskModalOpen = ref(false);
 const openSubTaskModal = () => {
     isSubTaskModalOpen.value = true;
@@ -131,7 +146,21 @@ const { store } = useStore(form, route("targets.store"), "Target");
 
         <TableContainer>
             <InputContainer class="col-span-2 gap-2">
-                <InputLabel label="Assigned Offices" />
+                <DivFlexCenter class="justify-between">
+                    <InputLabel label="Assigned Offices" />
+                    <Button
+                        v-if="!isAllSelected"
+                        class="text-white"
+                        @click="selectAll"
+                        >Select All</Button
+                    >
+                    <Button
+                        v-if="isAllSelected"
+                        class="text-white"
+                        @click="deselectALl"
+                        >Deselect All</Button
+                    >
+                </DivFlexCenter>
 
                 <div
                     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
