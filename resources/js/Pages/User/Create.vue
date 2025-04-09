@@ -2,6 +2,7 @@
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
 import Select from "primevue/select";
+import { ref } from "vue";
 
 const { offices } = defineProps({
     offices: {
@@ -25,6 +26,18 @@ const roles = [
     { value: 0, label: "User" },
 ];
 const { store } = useStore(form, route("users.store"), "User");
+
+const isAllSelected = ref(form.assignedOffices.length == offices.length);
+
+const selectAll = () => {
+    form.assignedOffices = offices.map((office) => office.value);
+    isAllSelected.value = true;
+};
+
+const deselectALl = () => {
+    form.assignedOffices = [];
+    isAllSelected.value = false;
+};
 </script>
 
 <template>
@@ -75,7 +88,21 @@ const { store } = useStore(form, route("users.store"), "User");
             </FormInput>
 
             <InputContainer class="col-span-2 gap-2">
-                <InputLabel label="Assigned Offices" />
+                <DivFlexCenter class="justify-between">
+                    <InputLabel label="Assigned Offices" />
+                    <Button
+                        v-if="!isAllSelected"
+                        class="text-white"
+                        @click="selectAll"
+                        >Select All</Button
+                    >
+                    <Button
+                        v-if="isAllSelected"
+                        class="text-white"
+                        @click="deselectALl"
+                        >Deselect All</Button
+                    >
+                </DivFlexCenter>
 
                 <div
                     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
