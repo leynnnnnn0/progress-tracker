@@ -35,7 +35,6 @@ const { deleteModel } = useDelete("User");
                     <TH>Id</TH>
                     <TH>Full Name</TH>
                     <TH>Email</TH>
-                    <TH>Phone Number</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
@@ -43,7 +42,6 @@ const { deleteModel } = useDelete("User");
                         <TD>{{ user.id }}</TD>
                         <TD>{{ user.full_name }}</TD>
                         <TD>{{ user.email }}</TD>
-                        <TD>{{ user.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton
                                 :isLink="true"

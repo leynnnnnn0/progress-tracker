@@ -18,7 +18,6 @@ const form = useForm({
     first_name: user.first_name,
     middle_name: user.middle_name,
     last_name: user.last_name,
-    phone_number: user.phone_number,
     email: user.email,
     is_admin: user.is_admin,
     is_active: user.is_active,
@@ -60,7 +59,7 @@ const { update } = useUpdate(form, route("users.update", user.id), "User");
             <FormInput label="Last Name" :errorMessage="form.errors.last_name">
                 <Input v-model="form.last_name" />
             </FormInput>
-            <FormInput
+            <!-- <FormInput
                 label="Office Phone Number"
                 :errorMessage="form.errors.phone_number"
                 minlength="11"
@@ -68,7 +67,7 @@ const { update } = useUpdate(form, route("users.update", user.id), "User");
                 onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
             >
                 <Input v-model="form.phone_number" type="number" />
-            </FormInput>
+            </FormInput> -->
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
             </FormInput>

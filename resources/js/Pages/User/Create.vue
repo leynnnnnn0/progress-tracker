@@ -14,7 +14,6 @@ const form = useForm({
     first_name: null,
     middle_name: null,
     last_name: null,
-    phone_number: "",
     email: null,
     is_admin: null,
     password: null,
@@ -48,7 +47,7 @@ const { store } = useStore(form, route("users.store"), "User");
             <FormInput label="Last Name" :errorMessage="form.errors.last_name">
                 <Input v-model="form.last_name" />
             </FormInput>
-            <FormInput
+            <!-- <FormInput
                 label="Office Phone Number"
                 :errorMessage="form.errors.phone_number"
             >
@@ -59,7 +58,7 @@ const { store } = useStore(form, route("users.store"), "User");
                     maxlength="11"
                     onkeydown="return !(event.keyCode === 69 || event.keyCode === 187 || event.keyCode === 189)"
                 />
-            </FormInput>
+            </FormInput> -->
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
             </FormInput>

@@ -42,12 +42,12 @@ class UserController extends Controller
             'first_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
             'middle_name' => ['nullable', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
             'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
-            'phone_number' => [
-                'required',
-                'numeric',
-                'digits:11',
-                'regex:/^09\d{9}$/'
-            ],
+            // 'phone_number' => [
+            //     'required',
+            //     'numeric',
+            //     'digits:11',
+            //     'regex:/^09\d{9}$/'
+            // ],
             'is_admin' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
             'assignedOffices' => ['required', 'array']
@@ -92,11 +92,11 @@ class UserController extends Controller
             'first_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
             'middle_name' => ['nullable', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
             'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s\'\-]+$/'],
-            'phone_number' => [
-                'required',
-                'digits:10',
-                // 'regex:/^09\d{9}$/'
-            ],
+            // 'phone_number' => [
+            //     'required',
+            //     'digits:10',
+            //     // 'regex:/^09\d{9}$/'
+            // ],
             'is_admin' => ['required'],
             'is_active' => ['required'],
             'email' => ['required', 'email', 'unique:users,email,' . $id],
