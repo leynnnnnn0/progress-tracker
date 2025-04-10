@@ -34,7 +34,7 @@ const submit = () => {
             class="w-[500px] border border-gray-300 rounded-lg sm:p-10 sm:space-y-5 space-y-3 p-5"
         >
             <h1 class="sm:text-lg text-sm sm:mb-5 text-black">
-                Welcome to BSU System!
+                Welcome to DPCR Tracker!
             </h1>
             <h1 class="sm:text-2xl text-lg font-bold text-black">
                 Sign in to your account

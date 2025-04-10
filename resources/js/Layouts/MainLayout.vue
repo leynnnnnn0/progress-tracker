@@ -42,7 +42,7 @@ const is_admin = usePage().props.auth.is_admin;
                 >
                     <a href="/" class="flex items-center font-semibold">
                         <img :src="Logo" alt="logo" class="size-12" />
-                        <span class="font-bold">BSU</span>
+                        <span class="font-bold">DPCR Tracker</span>
                     </a>
                     <!-- <Button
                         variant="outline"
