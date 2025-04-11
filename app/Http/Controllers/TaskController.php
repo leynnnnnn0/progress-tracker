@@ -47,7 +47,8 @@ class TaskController extends Controller
             $sub_targets = $item->sub_targets->map(function ($item) {
                 $user_task = $item->user_tasks->first();
 
-                if (!$user_task) return [];
+                if (!$user_task || $user_task->target_number == false) return [];
+
                 $count = 0;
                 if ($user_task->q > 0) $count++;
                 if ($user_task->t > 0) $count++;
@@ -73,7 +74,7 @@ class TaskController extends Controller
                         "pmt_remark" => $user_task->pmt_remark,
                     ],
                 ];
-            });
+            })->filter();
 
 
             $subrating = 0;

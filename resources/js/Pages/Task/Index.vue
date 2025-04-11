@@ -301,13 +301,37 @@ const updateGroup = () => {
 
 const getColumnsCount = (group) => {
     let columnsCount = 0;
-    targets[group].map((item) => {
+    targets[group]?.map((item) => {
         item.sub_targets.map((item) => {
             if (item.user_tasks.ave) columnsCount++;
         });
     });
 
     return columnsCount;
+};
+
+const getGroupTotal = (percentage, group) => {
+    const result = (
+        (percentage / 100) *
+        (
+            targets[group]?.reduce(
+                (sum, target) => sum + parseFloat(target.subrating || 0),
+                0
+            ) / getColumnsCount(group) ?? 1
+        ).toFixed(2)
+    ).toFixed(2);
+
+    return isNaN(result) ? null : result;
+};
+
+const getSubrating = (group) => {
+    const result = (
+        targets[group]?.reduce(
+            (sum, target) => sum + parseFloat(target.subrating || 0),
+            0
+        ) / getColumnsCount(group) ?? 1
+    ).toFixed(2);
+    return isNaN(result) ? null : result;
 };
 </script>
 <template>
@@ -645,7 +669,7 @@ const getColumnsCount = (group) => {
                     </TableHead>
 
                     <TableBody v-for="target in targets['core']">
-                        <tr>
+                        <tr v-if="target.sub_targets.length > 0">
                             <TD
                                 :rowspan="target.sub_targets.length + 1"
                                 class="border-r border-gray-300"
@@ -676,18 +700,7 @@ const getColumnsCount = (group) => {
                             <TD colspan="7"></TD>
                             <TD colspan="4">
                                 SUBRATING:
-                                {{
-                                    (
-                                        targets["core"].reduce(
-                                            (sum, target) =>
-                                                sum +
-                                                parseFloat(
-                                                    target.subrating || 0
-                                                ),
-                                            0
-                                        ) / getColumnsCount("core") ?? 1
-                                    ).toFixed(2)
-                                }}</TD
+                                {{ getSubrating("core") }}</TD
                             >
                             <TD colspan="4"></TD>
                         </tr>
@@ -728,19 +741,7 @@ const getColumnsCount = (group) => {
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
                             <TD colspan="4"
-                                >SUBRATING:
-                                {{
-                                    (
-                                        targets["strategic"].reduce(
-                                            (sum, target) =>
-                                                sum +
-                                                parseFloat(
-                                                    target.subrating || 0
-                                                ),
-                                            0
-                                        ) / getColumnsCount("strategic") ?? 1
-                                    ).toFixed(2)
-                                }}</TD
+                                >SUBRATING: {{ getSubrating("strategic") }}</TD
                             >
                             <TD colspan="4"></TD>
                         </tr>
@@ -781,19 +782,7 @@ const getColumnsCount = (group) => {
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
                             <TD colspan="4"
-                                >SUBRATING:
-                                {{
-                                    (
-                                        targets["support"].reduce(
-                                            (sum, target) =>
-                                                sum +
-                                                parseFloat(
-                                                    target.subrating || 0
-                                                ),
-                                            0
-                                        ) / getColumnsCount("support") ?? 1
-                                    ).toFixed(2)
-                                }}</TD
+                                >SUBRATING: {{ getSubrating("support") }}</TD
                             >
                             <TD colspan="4"></TD>
                         </tr>
@@ -801,22 +790,7 @@ const getColumnsCount = (group) => {
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
                         <TD colspan="4"
-                            >Core:
-                            {{
-                                (
-                                    (group.core / 100) *
-                                    (
-                                        targets["core"].reduce(
-                                            (sum, target) =>
-                                                sum +
-                                                parseFloat(
-                                                    target.subrating || 0
-                                                ),
-                                            0
-                                        ) / getColumnsCount("core") ?? 1
-                                    ).toFixed(2)
-                                ).toFixed(2)
-                            }}</TD
+                            >Core: {{ getGroupTotal(group.core, "core") }}</TD
                         >
                         <TD colspan="3">Core Percentage: {{ group.core }}</TD>
 
@@ -829,19 +803,7 @@ const getColumnsCount = (group) => {
                         <TD colspan="4"
                             >Strategic:
                             {{
-                                (
-                                    (group.strategic / 100) *
-                                    (
-                                        targets["core"].reduce(
-                                            (sum, target) =>
-                                                sum +
-                                                parseFloat(
-                                                    target.subrating || 0
-                                                ),
-                                            0
-                                        ) / getColumnsCount("strategic") ?? 1
-                                    ).toFixed(2)
-                                ).toFixed(2)
+                                getGroupTotal(group.strategic, "strategic")
                             }}</TD
                         >
                         <TD colspan="3"
@@ -856,21 +818,7 @@ const getColumnsCount = (group) => {
                         <TD colspan="7"></TD>
                         <TD colspan="4"
                             >Support:
-                            {{
-                                (
-                                    (group.support / 100) *
-                                    (
-                                        targets["core"].reduce(
-                                            (sum, target) =>
-                                                sum +
-                                                parseFloat(
-                                                    target.subrating || 0
-                                                ),
-                                            0
-                                        ) / getColumnsCount("support") ?? 1
-                                    ).toFixed(2)
-                                ).toFixed(2)
-                            }}</TD
+                            {{ getGroupTotal(group.support, "support") }}</TD
                         >
                         <TD colspan="3"
                             >Support Percentage: {{ group.support }}</TD
@@ -882,7 +830,48 @@ const getColumnsCount = (group) => {
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Final Ave: </TD>
+                        <TD colspan="4"
+                            >Final Ave:
+                            {{
+                                isNaN(
+                                    (
+                                        parseFloat(
+                                            getGroupTotal(group.core, "core")
+                                        ) +
+                                        parseFloat(
+                                            getGroupTotal(
+                                                group.strategic,
+                                                "strategic"
+                                            )
+                                        ) +
+                                        parseFloat(
+                                            getGroupTotal(
+                                                group.support,
+                                                "support"
+                                            )
+                                        )
+                                    ).toFixed(2)
+                                )
+                                    ? null
+                                    : (
+                                          parseFloat(
+                                              getGroupTotal(group.core, "core")
+                                          ) +
+                                          parseFloat(
+                                              getGroupTotal(
+                                                  group.strategic,
+                                                  "strategic"
+                                              )
+                                          ) +
+                                          parseFloat(
+                                              getGroupTotal(
+                                                  group.support,
+                                                  "support"
+                                              )
+                                          )
+                                      ).toFixed(2)
+                            }}</TD
+                        >
                         <TD colspan="4"> </TD>
                     </tr>
                 </Table>
