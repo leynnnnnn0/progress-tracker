@@ -23,9 +23,14 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return Inertia::render('Employee/Edit');
+        $positions = Position::options();
+        $employee = Employee::findOrFail($id);
+        return Inertia::render('Employee/Edit', [
+            'employee' => $employee,
+            'positions' => $positions,
+        ]);
     }
 
     public function show($id)
@@ -55,6 +60,20 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($validated);
+
+        return to_route('employees.index');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'first_name' => ['required'],
+            'middle_name' => ['nullable'],
+            'last_name' => ['required'],
+            'position' => ['required']
+        ]);
+
+        Employee::findOrFail($id)->update($validated);
 
         return to_route('employees.index');
     }
