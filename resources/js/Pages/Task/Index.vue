@@ -191,7 +191,7 @@ const updateTask = async () => {
     }
 };
 
-const isPdfModalOpen = ref(true);
+const isPdfModalOpen = ref(false);
 
 const pdfDownloadOptions = [
     // {
@@ -297,6 +297,17 @@ const updateGroup = () => {
             isGroupModalVisible.value = false;
         },
     });
+};
+
+const getColumnsCount = (group) => {
+    let columnsCount = 0;
+    targets[group].map((item) => {
+        item.sub_targets.map((item) => {
+            if (item.user_tasks.ave) columnsCount++;
+        });
+    });
+
+    return columnsCount;
 };
 </script>
 <template>
@@ -663,7 +674,21 @@ const updateGroup = () => {
                     <TableBody>
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
-                            <TD colspan="4">SUBRATING: </TD>
+                            <TD colspan="4">
+                                SUBRATING:
+                                {{
+                                    (
+                                        targets["core"].reduce(
+                                            (sum, target) =>
+                                                sum +
+                                                parseFloat(
+                                                    target.subrating || 0
+                                                ),
+                                            0
+                                        ) / getColumnsCount("core") ?? 1
+                                    ).toFixed(2)
+                                }}</TD
+                            >
                             <TD colspan="4"></TD>
                         </tr>
                     </TableBody>
@@ -702,7 +727,21 @@ const updateGroup = () => {
                     <TableBody>
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
-                            <TD colspan="4">SUBRATING: </TD>
+                            <TD colspan="4"
+                                >SUBRATING:
+                                {{
+                                    (
+                                        targets["strategic"].reduce(
+                                            (sum, target) =>
+                                                sum +
+                                                parseFloat(
+                                                    target.subrating || 0
+                                                ),
+                                            0
+                                        ) / getColumnsCount("strategic") ?? 1
+                                    ).toFixed(2)
+                                }}</TD
+                            >
                             <TD colspan="4"></TD>
                         </tr>
                     </TableBody>
@@ -741,28 +780,103 @@ const updateGroup = () => {
                     <TableBody>
                         <tr class="divide-x divide-gray-300">
                             <TD colspan="7"></TD>
-                            <TD colspan="4">SUBRATING: </TD>
+                            <TD colspan="4"
+                                >SUBRATING:
+                                {{
+                                    (
+                                        targets["support"].reduce(
+                                            (sum, target) =>
+                                                sum +
+                                                parseFloat(
+                                                    target.subrating || 0
+                                                ),
+                                            0
+                                        ) / getColumnsCount("support") ?? 1
+                                    ).toFixed(2)
+                                }}</TD
+                            >
                             <TD colspan="4"></TD>
                         </tr>
                     </TableBody>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Core: {{ group.core }}</TD>
-                        <TD colspan="4">
+                        <TD colspan="4"
+                            >Core:
+                            {{
+                                (
+                                    (group.core / 100) *
+                                    (
+                                        targets["core"].reduce(
+                                            (sum, target) =>
+                                                sum +
+                                                parseFloat(
+                                                    target.subrating || 0
+                                                ),
+                                            0
+                                        ) / getColumnsCount("core") ?? 1
+                                    ).toFixed(2)
+                                ).toFixed(2)
+                            }}</TD
+                        >
+                        <TD colspan="3">Core Percentage: {{ group.core }}</TD>
+
+                        <TD colspan="1">
                             <EditButton @click="openGroupModal('core')" />
                         </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Strategic: {{ group.strategic }}</TD>
-                        <TD colspan="4">
+                        <TD colspan="4"
+                            >Strategic:
+                            {{
+                                (
+                                    (group.strategic / 100) *
+                                    (
+                                        targets["core"].reduce(
+                                            (sum, target) =>
+                                                sum +
+                                                parseFloat(
+                                                    target.subrating || 0
+                                                ),
+                                            0
+                                        ) / getColumnsCount("strategic") ?? 1
+                                    ).toFixed(2)
+                                ).toFixed(2)
+                            }}</TD
+                        >
+                        <TD colspan="3"
+                            >Strategic Percentage: {{ group.strategic }}</TD
+                        >
+
+                        <TD colspan="1">
                             <EditButton @click="openGroupModal('strategic')" />
                         </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
-                        <TD colspan="4">Support: {{ group.support }}</TD>
-                        <TD colspan="4">
+                        <TD colspan="4"
+                            >Support:
+                            {{
+                                (
+                                    (group.support / 100) *
+                                    (
+                                        targets["core"].reduce(
+                                            (sum, target) =>
+                                                sum +
+                                                parseFloat(
+                                                    target.subrating || 0
+                                                ),
+                                            0
+                                        ) / getColumnsCount("support") ?? 1
+                                    ).toFixed(2)
+                                ).toFixed(2)
+                            }}</TD
+                        >
+                        <TD colspan="3"
+                            >Support Percentage: {{ group.support }}</TD
+                        >
+
+                        <TD colspan="1">
                             <EditButton @click="openGroupModal('support')" />
                         </TD>
                     </tr>

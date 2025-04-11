@@ -75,11 +75,20 @@ class TaskController extends Controller
                 ];
             });
 
+
+            $subrating = 0;
+
+            foreach ($sub_targets as $subTarget) {
+                $subrating += floatval($subTarget['user_tasks']['ave']);
+            }
+
+
             return [
                 'target_id' => $item->id,
                 'description' => $item->description,
                 'group' => $item->group,
-                'sub_targets' => $sub_targets
+                'sub_targets' => $sub_targets,
+                'subrating' => $subrating
             ];
         })
             ->groupBy('group');
