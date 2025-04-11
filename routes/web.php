@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeFinalAverageController;
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('offices-final-average', OfficeFinalAverageController::class);
     Route::resource('offices-target', OfficeTargetController::class);
     Route::resource('audits', AuditController::class);
+    Route::resource('employees', EmployeeController::class);
 });
 
 Route::middleware('auth')->group(function () {
