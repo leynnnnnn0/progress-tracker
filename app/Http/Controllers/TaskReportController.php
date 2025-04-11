@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Office;
 use App\Models\Target;
 use App\Models\User;
@@ -85,12 +86,41 @@ class TaskReportController extends Controller
             'selectedColumns' => ['required']
         ]);
 
+        $employees = Employee::whereIn('id', [
+            request('approved_by'),
+            request('ratee'),
+            request('final_rating_by'),
+            request('name_of_employee')
+        ])->get();
 
+        $approved_by = $employees->where('id', request('approved_by'))->first();
+
+        $approved_by_name = $approved_by->full_name;
+        $approved_by_position = $approved_by->position;
+
+        $ratee = $employees->where('id', request('ratee'))->first();
+        $ratee_name = $ratee->full_name;
+        $ratee_position = $ratee->position;
+
+        $final_rating_by = $employees->where('id', request('final_rating_by'))->first();
+        $final_rating_by_name = $final_rating_by->full_name;
+        $final_rating_by_position = $final_rating_by->position;
+
+        $date = now()->format('F d, Y');
         $pdf = Pdf::loadView('pdf.task-report', [
             'selectedColumns' => $validated['selectedColumns'],
             'targets' => $targets,
             'full_name' => User::find(request('full_name'))?->full_name ?? 'N/a',
             'office_name' => Office::find(request('office'))?->name ?? 'N/a',
+            'name_of_employee' =>  $employees->where('id', request('name_of_employee'))->first()->full_name,
+            'approved_by_name' => $approved_by_name,
+            'approved_by_position' => $approved_by_position,
+            'ratee_name' => $ratee_name,
+            'ratee_position' => $ratee_position,
+            'final_rating_by_name' => $final_rating_by_name,
+            'final_rating_by_position' => $final_rating_by_position,
+            'date_range' => request('date_range') == 0 ? 'January - June ' . date('Y') : 'July - December ' . date('Y'),
+            'date' => $date
         ]);
         $pdf->setOption('repeatTableHeader', false);
 

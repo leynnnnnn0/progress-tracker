@@ -7,7 +7,7 @@ import useUpdate from "@/Composables/useUpdate";
 import { Select as SelectPrime } from "primevue";
 import useAlert from "@/Composables/useAlert.js";
 const { confirm, toast } = useAlert();
-const { targets, offices, filters, users, auth } = defineProps({
+const { targets, offices, filters, users, auth, employees } = defineProps({
     targets: {
         type: Object,
         required: true,
@@ -29,6 +29,10 @@ const { targets, offices, filters, users, auth } = defineProps({
         required: false,
     },
     auth: {
+        type: Object,
+        required: false,
+    },
+    employees: {
         type: Object,
         required: false,
     },
@@ -97,6 +101,29 @@ const officeOptions = computed(() => {
           })
         : [];
 });
+const employeeOptions = computed(() => {
+    return Array.isArray(employees)
+        ? employees.map((employee) => {
+              return {
+                  value: employee.value.toString(),
+                  label: employee.label,
+              };
+          })
+        : [];
+});
+
+const dateRange = [
+    {
+        value: 0,
+        label: "January - June " + new Date().getFullYear(),
+    },
+    {
+        value: 1,
+        label: "July - December " + new Date().getFullYear(),
+    },
+];
+
+console.log(employeeOptions);
 
 const pdfForm = useForm({
     selectedColumns: [],
@@ -104,6 +131,11 @@ const pdfForm = useForm({
         userOptions.value.length == 0 ? null : userOptions.value[0].value,
     office_name:
         officeOptions.value.length == 0 ? null : officeOptions.value[0].value,
+    name_of_employee: null,
+    approved_by: null,
+    ratee: null,
+    final_rating_by: null,
+    date_range: null,
 });
 
 watch(
@@ -159,7 +191,7 @@ const updateTask = async () => {
     }
 };
 
-const isPdfModalOpen = ref(false);
+const isPdfModalOpen = ref(true);
 
 const pdfDownloadOptions = [
     // {
@@ -219,11 +251,15 @@ const exportRoute = computed(() =>
         selectedColumns: pdfForm.selectedColumns,
         full_name: pdfForm.full_name,
         office_name: pdfForm.office_name,
+        name_of_employee: pdfForm.name_of_employee,
+        approved_by: pdfForm.approved_by,
+        ratee: pdfForm.ratee,
+        final_rating_by: pdfForm.final_rating_by,
+        date_range: pdfForm.date_range,
     })
 );
 
 const exportToPdf = () => {
-    console.log(exportRoute.value);
     window.open(exportRoute.value, "_blank");
 };
 
@@ -312,6 +348,69 @@ const updateGroup = () => {
                         disabled
                         v-model="pdfForm.office_name"
                         :options="officeOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+                <FormInput
+                    label="Name Of Employee"
+                    :errorMessage="pdfForm.errors.name_of_employee"
+                >
+                    <SelectPrime
+                        v-model="pdfForm.name_of_employee"
+                        :options="employeeOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+                <FormInput
+                    label="Approved By"
+                    :errorMessage="pdfForm.errors.approved_by"
+                >
+                    <SelectPrime
+                        v-model="pdfForm.approved_by"
+                        :options="employeeOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+                <FormInput label="Ratee" :errorMessage="pdfForm.errors.ratee">
+                    <SelectPrime
+                        v-model="pdfForm.ratee"
+                        :options="employeeOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+                <FormInput
+                    label="Final Rating By:"
+                    :errorMessage="pdfForm.errors.final_rating_by"
+                >
+                    <SelectPrime
+                        v-model="pdfForm.final_rating_by"
+                        :options="employeeOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select from options"
+                        class="w-full"
+                    />
+                </FormInput>
+
+                <FormInput
+                    label="Date Range:"
+                    :errorMessage="pdfForm.errors.date_range"
+                >
+                    <SelectPrime
+                        v-model="pdfForm.date_range"
+                        :options="dateRange"
                         optionLabel="label"
                         optionValue="value"
                         placeholder="Select from options"

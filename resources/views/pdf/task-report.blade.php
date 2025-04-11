@@ -2,7 +2,16 @@
 'targets',
 'selectedColumns' => [],
 'full_name',
-'office_name'
+'office_name',
+'approved_by_name',
+'approved_by_position',
+'ratee_name',
+'ratee_position',
+'final_rating_by_name',
+'final_rating_by_position',
+'date',
+'name_of_employee',
+'date_range'
 ])
 <!DOCTYPE html>
 <html lang="en">
@@ -157,21 +166,20 @@
         <p class="text-center">I, {{ $full_name }} of the
             {{$office_name }}, commit to deliver and agree to be rated on the
             attainment of following targets in accordance with the
-            indicated measure for the period (January - June
-            2025)
+            indicated measure for the period ({{ $date_range }})
         </p>
 
         <table class="header-table">
             <tr>
                 <td>
                     <span class="bold">Approved By:</span>
-                    <span>Name:</span>
-                    <span>Position:</span>
-                    <span>Date:</span>
+                    <span>Name: {{ $approved_by_name }}</span>
+                    <span>Position: {{ $approved_by_position }}</span>
+                    <span>Date: {{ $date }}</span>
                 </td>
                 <td>
-                    <span>Name of Employee:</span>
-                    <span>Date:</span>
+                    <span>Name of Employee: {{ $name_of_employee }}</span>
+                    <span>Date: {{ $date }}</span>
                     <span class="spacing bold">Rating Scale:</span>
                     <span>5 - Outstanding</span>
                     <span>4 - Very Satisfactory</span>
@@ -541,14 +549,14 @@
         <table class="footer-table">
             <tr>
                 <td>
-                    <span>Name and Signature of Ratee:</span>
-                    <span>Position:</span>
-                    <span>Date:</span>
+                    <span>Name and Signature of Ratee: {{ $ratee_name }}</span>
+                    <span>Position: {{ $ratee_position }}</span>
+                    <span>Date: {{ $date }}</span>
                 </td>
                 <td>
-                    <span>Final Rating by:</span>
-                    <span>Position:</span>
-                    <span>Date:</span>
+                    <span>Final Rating by: {{ $final_rating_by_name }}</span>
+                    <span>Position: {{ $final_rating_by_position }}</span>
+                    <span>Date: {{ $date }}</span>
                 </td>
             </tr>
         </table>

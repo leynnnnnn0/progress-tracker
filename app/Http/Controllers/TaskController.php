@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Group;
 use App\Models\Office;
 use App\Models\Target;
@@ -16,6 +17,7 @@ class TaskController extends Controller
 {
     public function index()
     {
+        $employees = Employee::getOptions();
         $users = User::getOptions();
 
         $query = Target::query()->with(['sub_targets.user_tasks', 'offices']);
@@ -87,7 +89,8 @@ class TaskController extends Controller
             'offices' => $offices ?? [],
             'filters' => request()->only(['office', 'user']),
             'users' => $users,
-            'group' => $group
+            'group' => $group,
+            'employees' => $employees
         ]);
     }
 }
