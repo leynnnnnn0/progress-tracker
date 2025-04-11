@@ -17,7 +17,7 @@ class Employee extends Model
         'position',
     ];
 
-    protected $casts = [
+    protected $appends = [
         'full_name'
     ];
 

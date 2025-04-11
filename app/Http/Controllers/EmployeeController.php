@@ -28,9 +28,12 @@ class EmployeeController extends Controller
         return Inertia::render('Employee/Edit');
     }
 
-    public function show()
+    public function show($id)
     {
-        return Inertia::render('Employee/Show');
+        $employee = Employee::findOrFail($id);
+        return Inertia::render('Employee/Show', [
+            'employee' => $employee
+        ]);
     }
 
     public function create()
