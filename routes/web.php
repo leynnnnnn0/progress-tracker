@@ -8,6 +8,7 @@ use App\Http\Controllers\OfficeFinalAverageController;
 use App\Http\Controllers\OfficeTargetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TargetAccomplishedController;
 use App\Http\Controllers\TargetController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReportController;
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('offices-target', OfficeTargetController::class);
     Route::resource('audits', AuditController::class);
     Route::resource('employees', EmployeeController::class);
+    Route::resource('target-accomplished', TargetAccomplishedController::class);
 });
 
 Route::middleware('auth')->group(function () {

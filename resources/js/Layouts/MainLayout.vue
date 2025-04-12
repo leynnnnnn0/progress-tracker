@@ -109,6 +109,13 @@ const is_admin = usePage().props.auth.is_admin;
                             >
                                 Employees
                             </NavLink>
+                            <NavLink
+                                href="/target-accomplished"
+                                :icon="ListCheck"
+                                v-if="is_admin"
+                            >
+                                Target Accomplished
+                            </NavLink>
                             <NavLink href="/settings" :icon="ListCheck">
                                 Settings
                             </NavLink>
