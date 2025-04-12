@@ -46,4 +46,9 @@ class UserTask extends Model implements Auditable
     {
         return $this->belongsTo(UsersOffices::class);
     }
+
+    public function target()
+    {
+        return $this->belongsTo(Target::class);
+    }
 }

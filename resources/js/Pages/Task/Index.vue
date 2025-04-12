@@ -321,7 +321,7 @@ const getGroupTotal = (percentage, group) => {
         ).toFixed(2)
     ).toFixed(2);
 
-    return isNaN(result) ? null : result;
+    return isNaN(result) ? 0 : result;
 };
 
 const getSubrating = (group) => {
@@ -837,19 +837,22 @@ const getSubrating = (group) => {
                                     (
                                         parseFloat(
                                             getGroupTotal(group.core, "core")
-                                        ) +
-                                        parseFloat(
-                                            getGroupTotal(
-                                                group.strategic,
-                                                "strategic"
-                                            )
-                                        ) +
-                                        parseFloat(
-                                            getGroupTotal(
-                                                group.support,
-                                                "support"
-                                            )
-                                        )
+                                        ) ??
+                                        0 +
+                                            parseFloat(
+                                                getGroupTotal(
+                                                    group.strategic,
+                                                    "strategic"
+                                                )
+                                            ) ??
+                                        0 +
+                                            parseFloat(
+                                                getGroupTotal(
+                                                    group.support,
+                                                    "support"
+                                                )
+                                            ) ??
+                                        0
                                     ).toFixed(2)
                                 )
                                     ? null

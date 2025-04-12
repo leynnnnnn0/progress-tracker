@@ -29,6 +29,11 @@ class SubTarget extends Model implements Auditable
         return $this->hasMany(UserTask::class);
     }
 
+    public function target()
+    {
+        return $this->belongsTo(Target::class);
+    }
+
     // protected static function boooted()
     // {
     //     static::created(function ($sub_target) {

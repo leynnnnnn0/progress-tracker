@@ -58,4 +58,5 @@ class Target extends Model implements Auditable
     //         }
     //     });
     // }
+
 }

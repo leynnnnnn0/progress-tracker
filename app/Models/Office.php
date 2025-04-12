@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditable;
 
 #[ObservedBy([OfficeObserver::class])]
-class Office extends Model implements Auditable
+class  Office extends Model implements Auditable
 {
     /** @use HasFactory<\Database\Factories\OfficeFactory> */
     use HasFactory, \OwenIt\Auditing\Auditable;
