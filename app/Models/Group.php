@@ -11,6 +11,7 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
+        'office_id',
         'core',
         'strategic',
         'support'
