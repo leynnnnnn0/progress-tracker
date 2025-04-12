@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'is_admin' => Auth::user()?->is_admin ?? null,
-                'is_active' => Auth::user()?->is_active ?? null
+                'is_active' => Auth::user()?->is_active ?? null,
             ],
             'previous' => fn() => URL::previous()
         ];

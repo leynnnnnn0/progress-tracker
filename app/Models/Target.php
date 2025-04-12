@@ -12,6 +12,7 @@ class Target extends Model implements Auditable
     use HasFactory, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
+        'created_by_id',
         'group',
         'description',
     ];
@@ -37,6 +38,11 @@ class Target extends Model implements Auditable
     public function sub_targets()
     {
         return $this->hasMany(SubTarget::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     public function user_tasks()

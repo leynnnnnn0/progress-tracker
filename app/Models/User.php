@@ -89,6 +89,11 @@ class User extends Authenticatable implements Auditable
         });
     }
 
+    public function targets()
+    {
+        return $this->hasMany(Target::class);
+    }
+
     public function auditEvent($event)
     {
         Audit::create([

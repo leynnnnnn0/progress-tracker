@@ -8,6 +8,7 @@ use App\Models\Target;
 use App\Models\User;
 use App\Models\UserTask;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -46,6 +47,7 @@ class TargetController extends Controller
 
         DB::beginTransaction();
         $target = Target::create([
+            'created_by_id' => Auth::id(),
             'group' => $validated['group'],
             'description' => $validated['description']
         ]);

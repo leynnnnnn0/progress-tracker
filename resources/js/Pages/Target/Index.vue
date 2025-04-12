@@ -1,12 +1,17 @@
 <script setup>
 import { useSearch } from "@/Composables/useSearch.js";
 import useDelete from "@/Composables/useDelete.js";
-defineProps({
+const props = defineProps({
     targets: {
         type: Object,
         required: true,
     },
+    auth: {
+        type: Object,
+        required: true,
+    },
 });
+
 const { search } = useSearch("targets.index");
 const { deleteModel } = useDelete("Target");
 </script>
@@ -49,10 +54,12 @@ const { deleteModel } = useDelete("Target");
                                     :href="route('targets.show', target.id)"
                                 />
                                 <EditButton
+                                    v-if="auth.user.id == target.created_by_id"
                                     :isLink="true"
                                     :href="route('targets.edit', target.id)"
                                 />
                                 <DeleteButton
+                                    v-if="auth.user.id == target.created_by_id"
                                     @click="
                                         deleteModel(
                                             route('targets.destroy', target.id)
