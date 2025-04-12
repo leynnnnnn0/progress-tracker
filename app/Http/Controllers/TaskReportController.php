@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Group;
 use App\Models\Office;
 use App\Models\Target;
 use App\Models\User;
@@ -46,7 +47,7 @@ class TaskReportController extends Controller
             $sub_targets = $item->sub_targets->map(function ($item) {
                 $user_task = $item->user_tasks->first();
 
-                if (!$user_task) return [];
+                if (!$user_task || $user_task->target_number == false) return [];
                 $count = 0;
                 if ($user_task->q > 0) $count++;
                 if ($user_task->t > 0) $count++;
@@ -71,12 +72,20 @@ class TaskReportController extends Controller
                         11 => $user_task->pmt_remark
                     ],
                 ];
-            });
+            })->filter();
+
+            $subrating = 0;
+
+            foreach ($sub_targets as $subTarget) {
+                if (!isset($subTarget['user_tasks'][8])) continue;
+                $subrating += floatval($subTarget['user_tasks'][8]);
+            }
             return [
                 'target_id' => $item->id,
                 'description' => $item->description,
                 'group' => $item->group,
-                'sub_targets' => $sub_targets
+                'sub_targets' => $sub_targets,
+                'subrating' => $subrating
             ];
         })
             ->groupBy('group');
@@ -107,6 +116,19 @@ class TaskReportController extends Controller
         $final_rating_by_position = $final_rating_by->position;
 
         $date = now()->format('F d, Y');
+
+        $coreSubrating = number_format(isset($targets['core']) ? collect($targets['core'])->sum('subrating') / (collect($targets['core'])->count() + 1) : 0, '2');
+        $strategicSubrating = number_format(isset($targets['strategic']) ? collect($targets['strategic'])->sum('subrating') / (collect($targets['strategic'])->count() + 1) : 0, 2);
+        $supportSubrating = number_format(isset($targets['support']) ? collect($targets['support'])->sum('subrating') / (collect($targets['support'])->count() + 1) : 0, 2);
+
+        $group = Group::where('office_id', $office)->first();
+
+        $coreOnPercentage = number_format(isset($group['core']) ? $coreSubrating * ($group['core'] / 100) : 0, 2);
+        $strategicOnPercentage = number_format(isset($group['strategic']) ? $strategicSubrating * ($group['strategic'] / 100) : 0, 2);
+        $supportOnPercentage = number_format(isset($group['support']) ? $supportSubrating * ($group['support'] / 100) : 0, 2);
+
+
+
         $pdf = Pdf::loadView('pdf.task-report', [
             'selectedColumns' => $validated['selectedColumns'],
             'targets' => $targets,
@@ -120,7 +142,16 @@ class TaskReportController extends Controller
             'final_rating_by_name' => $final_rating_by_name,
             'final_rating_by_position' => $final_rating_by_position,
             'date_range' => request('date_range') == 0 ? 'January - June ' . date('Y') : 'July - December ' . date('Y'),
-            'date' => $date
+            'date' => $date,
+            'group' => $group,
+            'coreSubrating' => $coreSubrating,
+            'strategicSubrating' => $strategicSubrating,
+            'supportSubrating' => $supportSubrating,
+            'finalAverage' => $coreOnPercentage + $strategicOnPercentage,
+            $supportOnPercentage,
+            'coreOnPercent' => $coreOnPercentage,
+            'strategicOnPercent' => $strategicOnPercentage,
+            'supportOnPercent' => $supportOnPercentage
         ]);
         $pdf->setOption('repeatTableHeader', false);
 

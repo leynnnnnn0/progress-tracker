@@ -24,9 +24,9 @@ class OfficeFinalAverageController extends Controller
                         return $item->sub_target->target->group;
                     });
                 $groupPercentage = $office->group_percentage;
-                $corePercentage = $groupPercentage->core;
-                $strategicPercentage = $groupPercentage->strategic;
-                $supportPercentage = $groupPercentage->support;
+                $corePercentage = $groupPercentage?->core ?? 0;
+                $strategicPercentage = $groupPercentage?->strategic ?? 0;
+                $supportPercentage = $groupPercentage?->support ?? 0;
 
 
                 $coreSubrating = isset($userTasks['core']) ? $this->getGroupAverage($userTasks['core']) : 0;

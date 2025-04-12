@@ -311,15 +311,7 @@ const getColumnsCount = (group) => {
 };
 
 const getGroupTotal = (percentage, group) => {
-    const result = (
-        (percentage / 100) *
-        (
-            targets[group]?.reduce(
-                (sum, target) => sum + parseFloat(target.subrating || 0),
-                0
-            ) / getColumnsCount(group) ?? 1
-        ).toFixed(2)
-    ).toFixed(2);
+    const result = ((percentage / 100) * getSubrating(group)).toFixed(2);
 
     return isNaN(result) ? 0 : result;
 };

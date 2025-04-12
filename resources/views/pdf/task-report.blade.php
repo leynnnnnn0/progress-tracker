@@ -11,7 +11,15 @@
 'final_rating_by_position',
 'date',
 'name_of_employee',
-'date_range'
+'date_range',
+'group',
+'coreSubrating',
+'strategicSubrating',
+'supportSubrating',
+'final_average',
+'coreOnPercent',
+'strategicOnPercent',
+'supportOnPercent'
 ])
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +28,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Performance Commitment and Review</title>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -168,7 +175,6 @@
             attainment of following targets in accordance with the
             indicated measure for the period ({{ $date_range }})
         </p>
-
         <table class="header-table">
             <tr>
                 <td>
@@ -189,13 +195,10 @@
                 </td>
             </tr>
         </table>
-
         <div class="table-container">
             <table class="data-table">
                 <thead>
-
                 </thead>
-
                 <tbody>
                     <!-- Main header row with column titles -->
                     <tr>
@@ -229,7 +232,6 @@
                         <th>PMT REMARK</th>
                         @endif
                     </tr>
-
                     <!-- Subheader row for Rating columns when column 8 is selected -->
                     @if(in_array(8, $selectedColumns))
                     <tr>
@@ -240,13 +242,11 @@
                         (in_array(5, $selectedColumns) ? 1 : 0) +
                         (in_array(6, $selectedColumns) ? 1 : 0) +
                         (in_array(7, $selectedColumns) ? 1 : 0);
-
                         $visibleColsAfterRating =
                         (in_array(9, $selectedColumns) ? 1 : 0) +
                         (in_array(10, $selectedColumns) ? 1 : 0) +
                         (in_array(11, $selectedColumns) ? 1 : 0);
                         @endphp
-
                         <th colspan="{{ $visibleColsBeforeRating }}"></th>
                         <th>Q</th>
                         <th>T</th>
@@ -271,7 +271,6 @@
                     (in_array(10, $selectedColumns) ? 1 : 0) +
                     (in_array(11, $selectedColumns) ? 1 : 0);
                     @endphp
-
                     <tr class="section-header">
                         <th colspan="{{ $totalVisibleCols }}">CORE FUNCTIONS RESEARCH AND EXTENSION</th>
                     </tr>
@@ -288,12 +287,24 @@
                             Sustainable Development
                         </th>
                     </tr>
-
                     <!-- Core Functions Targets -->
+                    @php
+                    // Initialize variables for calculations
+                    $coreColumnsCount = 0;
+                    $coreTotalRating = 0;
+
+                    @endphp
                     @if(isset($targets['core']) && count($targets['core']) > 0)
                     @foreach($targets['core'] as $target)
                     @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
+                    @php
+                    // Count tasks with ratings for subrating calculation
+                    if (isset($sub_target['user_tasks']['ave']) && $sub_target['user_tasks']['ave']) {
+                    $coreColumnsCount++;
+                    $coreTotalRating += floatval($sub_target['user_tasks']['ave']);
+                    }
+                    @endphp
                     <tr>
                         @if($firstSubTarget)
                         <td rowspan="{{ count($target['sub_targets']) }}">
@@ -302,28 +313,22 @@
                         @php $firstSubTarget = false; @endphp
                         @endif
                         <td>{{ $sub_target['description'] }}</td>
-
                         <!-- Display standard columns based on selection -->
                         @if(in_array(3, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][3] ?? '' }}</td>
                         @endif
-
                         @if(in_array(4, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][4] ?? '' }}</td>
                         @endif
-
                         @if(in_array(5, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][5] ?? '' }}</td>
                         @endif
-
                         @if(in_array(6, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][6] ?? '' }}</td>
                         @endif
-
                         @if(in_array(7, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][7] ?? '' }}</td>
                         @endif
-
                         <!-- Display rating columns if selected -->
                         @if(in_array(8, $selectedColumns))
                         <td>{{ $sub_target['user_tasks']['q'] ?? '' }}</td>
@@ -331,15 +336,12 @@
                         <td>{{ $sub_target['user_tasks']['e'] ?? '' }}</td>
                         <td>{{ $sub_target['user_tasks'][8] ?? '' }}</td>
                         @endif
-
                         @if(in_array(9, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][9] ?? '' }}</td>
                         @endif
-
                         @if(in_array(10, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][10] ?? '' }}</td>
                         @endif
-
                         @if(in_array(11, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][11] ?? '' }}</td>
                         @endif
@@ -347,28 +349,41 @@
                     @endforeach
                     @endforeach
                     @endif
-
+                    @php
+                    // Calculate core subrating
+                    @endphp
                     <!-- Subrating row for Core Functions -->
                     @if(in_array(8, $selectedColumns))
                     <tr class="subrating-row">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">SUBRATING: </td>
+                        <td colspan="4">SUBRATING: {{ $coreSubrating }}</td>
                         @if($visibleColsAfterRating > 0)
                         <td colspan="{{ $visibleColsAfterRating }}"></td>
                         @endif
                     </tr>
                     @endif
-
-                    <!-- Section: STRATEGIC FUNCTIONS ('strategic'%) -->
+                    <!-- Section: STRATEGIC FUNCTIONS -->
                     <tr class="section-header">
                         <th colspan="{{ $totalVisibleCols }}">STRATEGIC</th>
                     </tr>
-
-                    <!-- Strategic Functions Targets ('strategic'%) -->
+                    <!-- Strategic Functions Targets -->
+                    @php
+                    // Initialize variables for calculations
+                    $strategicColumnsCount = 0;
+                    $strategicTotalRating = 0;
+                    $strategicSubrating = 0;
+                    @endphp
                     @if(isset($targets['strategic']) && count($targets['strategic']) > 0)
                     @foreach($targets['strategic'] as $target)
                     @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
+                    @php
+                    // Count tasks with ratings for subrating calculation
+                    if (isset($sub_target['user_tasks']['ave']) && $sub_target['user_tasks']['ave']) {
+                    $strategicColumnsCount++;
+                    $strategicTotalRating += floatval($sub_target['user_tasks']['ave']);
+                    }
+                    @endphp
                     <tr>
                         @if($firstSubTarget)
                         <td rowspan="{{ count($target['sub_targets']) }}">
@@ -377,28 +392,22 @@
                         @php $firstSubTarget = false; @endphp
                         @endif
                         <td>{{ $sub_target['description'] }}</td>
-
                         <!-- Display standard columns based on selection -->
                         @if(in_array(3, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][3] ?? '' }}</td>
                         @endif
-
                         @if(in_array(4, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][4] ?? '' }}</td>
                         @endif
-
                         @if(in_array(5, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][5] ?? '' }}</td>
                         @endif
-
                         @if(in_array(6, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][6] ?? '' }}</td>
                         @endif
-
                         @if(in_array(7, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][7] ?? '' }}</td>
                         @endif
-
                         <!-- Display rating columns if selected -->
                         @if(in_array(8, $selectedColumns))
                         <td>{{ $sub_target['user_tasks']['q'] ?? '' }}</td>
@@ -406,15 +415,12 @@
                         <td>{{ $sub_target['user_tasks']['e'] ?? '' }}</td>
                         <td>{{ $sub_target['user_tasks'][8] ?? '' }}</td>
                         @endif
-
                         @if(in_array(9, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][9] ?? '' }}</td>
                         @endif
-
                         @if(in_array(10, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][10] ?? '' }}</td>
                         @endif
-
                         @if(in_array(11, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][11] ?? '' }}</td>
                         @endif
@@ -423,27 +429,38 @@
                     @endforeach
                     @endif
 
-                    <!-- Subrating row for Strategic Functions ('strategic'%) -->
+                    <!-- Subrating row for Strategic Functions -->
                     @if(in_array(8, $selectedColumns))
                     <tr class="subrating-row">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">SUBRATING: </td>
+                        <td colspan="4">SUBRATING: {{ $strategicSubrating }}</td>
                         @if($visibleColsAfterRating > 0)
                         <td colspan="{{ $visibleColsAfterRating }}"></td>
                         @endif
                     </tr>
                     @endif
-
-                    <!-- Section: STRATEGIC FUNCTIONS (10%) -->
+                    <!-- Section: SUPPORT FUNCTIONS -->
                     <tr class="section-header">
                         <th colspan="{{ $totalVisibleCols }}">SUPPORT</th>
                     </tr>
+                    <!-- Support Functions Targets -->
+                    @php
+                    // Initialize variables for calculations
+                    $supportColumnsCount = 0;
+                    $supportTotalRating = 0;
 
-                    <!-- Strategic Functions Targets (10%) -->
+                    @endphp
                     @if(isset($targets['support']) && count($targets['support']) > 0)
                     @foreach($targets['support'] as $target)
                     @php $firstSubTarget = true; @endphp
                     @foreach($target['sub_targets'] as $sub_target)
+                    @php
+                    // Count tasks with ratings for subrating calculation
+                    if (isset($sub_target['user_tasks']['ave']) && $sub_target['user_tasks']['ave']) {
+                    $supportColumnsCount++;
+                    $supportTotalRating += floatval($sub_target['user_tasks']['ave']);
+                    }
+                    @endphp
                     <tr>
                         @if($firstSubTarget)
                         <td rowspan="{{ count($target['sub_targets']) }}">
@@ -452,28 +469,22 @@
                         @php $firstSubTarget = false; @endphp
                         @endif
                         <td>{{ $sub_target['description'] }}</td>
-
                         <!-- Display standard columns based on selection -->
                         @if(in_array(3, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][3] ?? '' }}</td>
                         @endif
-
                         @if(in_array(4, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][4] ?? '' }}</td>
                         @endif
-
                         @if(in_array(5, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][5] ?? '' }}</td>
                         @endif
-
                         @if(in_array(6, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][6] ?? '' }}</td>
                         @endif
-
                         @if(in_array(7, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][7] ?? '' }}</td>
                         @endif
-
                         <!-- Display rating columns if selected -->
                         @if(in_array(8, $selectedColumns))
                         <td>{{ $sub_target['user_tasks']['q'] ?? '' }}</td>
@@ -481,15 +492,12 @@
                         <td>{{ $sub_target['user_tasks']['e'] ?? '' }}</td>
                         <td>{{ $sub_target['user_tasks'][8] ?? '' }}</td>
                         @endif
-
                         @if(in_array(9, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][9] ?? '' }}</td>
                         @endif
-
                         @if(in_array(10, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][10] ?? '' }}</td>
                         @endif
-
                         @if(in_array(11, $selectedColumns))
                         <td>{{ $sub_target['user_tasks'][11] ?? '' }}</td>
                         @endif
@@ -497,45 +505,46 @@
                     @endforeach
                     @endforeach
                     @endif
+                    @php
 
-                    <!-- Subrating row for Strategic Functions (10%) -->
+                    @endphp
+                    <!-- Subrating row for Support Functions -->
                     @if(in_array(8, $selectedColumns))
                     <tr class="subrating-row">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">SUBRATING: </td>
+                        <td colspan="4">SUBRATING: {{ $supportSubrating }}</td>
                         @if($visibleColsAfterRating > 0)
                         <td colspan="{{ $visibleColsAfterRating }}"></td>
                         @endif
                     </tr>
-
                     <!-- Final Rating rows -->
                     <tr class="final-ratings">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">Core: </td>
+                        <td colspan="4">Core: {{ $coreOnPercent }}</td>
                         @if($visibleColsAfterRating > 0)
-                        <td colspan="{{ $visibleColsAfterRating }}"></td>
+                        <td colspan="{{ $visibleColsAfterRating - 1 }}">Core Percentage: {{ $corePercentage }}%</td>
+                        <td></td>
                         @endif
                     </tr>
-
                     <tr class="final-ratings">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">Strategic: </td>
+                        <td colspan="4">Strategic: {{ $strategicOnPercent }}</td>
                         @if($visibleColsAfterRating > 0)
-                        <td colspan="{{ $visibleColsAfterRating }}"></td>
+                        <td colspan="{{ $visibleColsAfterRating - 1 }}">Strategic Percentage: {{ $strategicPercentage }}%</td>
+                        <td></td>
                         @endif
                     </tr>
-
                     <tr class="final-ratings">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">Support: </td>
+                        <td colspan="4">Support: {{ $supportOnPercent }}</td>
                         @if($visibleColsAfterRating > 0)
-                        <td colspan="{{ $visibleColsAfterRating }}"></td>
+                        <td colspan="{{ $visibleColsAfterRating - 1 }}">Support Percentage: {{ $supportPercentage }}%</td>
+                        <td></td>
                         @endif
                     </tr>
-
                     <tr class="final-ratings">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
-                        <td colspan="4">Final Ave: </td>
+                        <td colspan="4">Final Ave: {{ $finalAverage }}</td>
                         @if($visibleColsAfterRating > 0)
                         <td colspan="{{ $visibleColsAfterRating }}"></td>
                         @endif
@@ -544,7 +553,6 @@
                 </tbody>
             </table>
         </div>
-
         <!-- Signature section footer -->
         <table class="footer-table">
             <tr>

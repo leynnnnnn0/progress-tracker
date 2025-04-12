@@ -80,6 +80,7 @@ class TaskController extends Controller
             $subrating = 0;
 
             foreach ($sub_targets as $subTarget) {
+                if (!isset($subTarget['user_tasks']['ave'])) continue;
                 $subrating += floatval($subTarget['user_tasks']['ave']);
             }
 
