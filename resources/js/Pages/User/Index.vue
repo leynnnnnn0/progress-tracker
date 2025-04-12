@@ -51,11 +51,11 @@ const { deleteModel } = useDelete("User");
                                 :isLink="true"
                                 :href="route('users.edit', user.id)"
                             />
-                            <DeleteButton
+                            <!-- <DeleteButton
                                 @click="
                                     deleteModel(route('users.destroy', user.id))
                                 "
-                            />
+                            /> -->
                         </TD>
                     </tr>
                 </TableBody>
