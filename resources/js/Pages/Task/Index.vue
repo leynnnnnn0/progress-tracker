@@ -546,7 +546,11 @@ const getSubrating = (group) => {
         >
             <Input v-model="form.link_to_evidence" />
         </FormInput>
-        <FormInput label="PMT REMARK" :errorMessage="form.errors.pmt_remark">
+        <FormInput
+            v-if="auth.is_admin"
+            label="PMT REMARK"
+            :errorMessage="form.errors.pmt_remark"
+        >
             <Input v-model="form.pmt_remark" />
         </FormInput>
         <DivFlexCenter class="justify-end">
