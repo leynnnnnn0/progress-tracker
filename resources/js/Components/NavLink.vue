@@ -3,7 +3,18 @@ import { Link } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 
 const isActive = (route) => {
-    return usePage().url.startsWith(route);
+    const currentUrl = usePage().url;
+    
+    if (currentUrl === route) {
+        return true;
+    }
+
+    if (currentUrl.startsWith(route + '/')) {
+        const remainingPath = currentUrl.substring(route.length + 1);
+        return !remainingPath.includes('/');
+    }
+    
+    return false;
 };
 
 defineProps({
