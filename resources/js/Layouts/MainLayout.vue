@@ -10,6 +10,13 @@ import {
     UsersRound,
     Warehouse,
     LogOut,
+    ScrollText,
+    Percent,
+    Crosshair,
+    Target,
+    Shield,
+    Users,
+    Settings,
 } from "lucide-vue-next";
 import { router } from "@inertiajs/vue3";
 import MainContainer from "@/Components/MainContainer.vue";
@@ -75,36 +82,36 @@ const is_admin = usePage().props.auth.is_admin;
                             >
                                 Offices
                             </NavLink>
-                            <NavLink href="/tasks" :icon="ListCheck">
+                            <NavLink href="/tasks" :icon="ScrollText">
                                 Tasks
                             </NavLink>
                             <NavLink
                                 href="/offices-final-average"
-                                :icon="ListCheck"
+                                :icon="Percent"
                                 v-if="is_admin"
                             >
                                 Offices Final Average
                             </NavLink>
                             <NavLink
                                 href="/offices-target"
-                                :icon="ListCheck"
+                                :icon="Crosshair"
                                 v-if="is_admin"
                             >
                                 Offices Target
                             </NavLink>
-                            <NavLink href="/targets" :icon="ListCheck">
+                            <NavLink href="/targets" :icon="Target">
                                 Targets
                             </NavLink>
                             <NavLink
                                 href="/audits"
-                                :icon="ListCheck"
+                                :icon="Shield"
                                 v-if="is_admin"
                             >
                                 Audits
                             </NavLink>
                             <NavLink
                                 href="/employees"
-                                :icon="ListCheck"
+                                :icon="Users"
                                 v-if="is_admin"
                             >
                                 Employees
@@ -116,7 +123,7 @@ const is_admin = usePage().props.auth.is_admin;
                             >
                                 Target Accomplished
                             </NavLink>
-                            <NavLink href="/settings" :icon="ListCheck">
+                            <NavLink href="/settings" :icon="Settings">
                                 Settings
                             </NavLink>
                         </nav>
