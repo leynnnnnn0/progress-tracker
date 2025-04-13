@@ -285,6 +285,7 @@ const updateGroup = () => {
                 life: 5000,
             });
             isGroupModalVisible.value = false;
+            groupForm.reset();
         },
         onError: (e) => {
             console.log(e);
@@ -294,7 +295,6 @@ const updateGroup = () => {
                 detail: `An error occured while trying to update.`,
                 life: 5000,
             });
-            isGroupModalVisible.value = false;
         },
     });
 };
