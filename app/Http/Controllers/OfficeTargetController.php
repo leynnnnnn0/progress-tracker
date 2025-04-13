@@ -6,6 +6,7 @@ use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\Target;
 use App\Models\UserTask;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -60,5 +61,41 @@ class OfficeTargetController extends Controller
             ]);
 
         return back();
+    }
+
+    public function downloadPdf()
+    {
+        $offices = Office::with('user_tasks')
+            ->select(['office_code', 'id'])
+            ->orderBy('id', 'asc')
+            ->pluck('office_code', 'id');
+
+        $query = Target::query()->with(['sub_targets.user_tasks']);
+
+        $targets = $query->get()->map(function ($item) {
+            $sub_targets = $item->sub_targets->map(function ($item) {
+                return [
+                    'sub_target_id' => $item->id,
+                    'description' => $item->description,
+                    'offices_target' => $item->user_tasks()->orderBy('office_id', 'asc')->get()->map(function ($item) {
+                        return [
+                            'office_id' => $item->office_id,
+                            'target_number' => $item->target_number
+                        ];
+                    })
+                ];
+            });
+            return [
+                'description' => $item->description,
+                'sub_targets' => $sub_targets
+            ];
+        });
+
+        $pdf = Pdf::loadView('pdf.offices-target-report', [
+            'offices' => $offices,
+            'targets' => $targets
+        ]);
+
+        return $pdf->setPaper('legal', 'landscape')->download('offices-target-report.pdf');
     }
 }

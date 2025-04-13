@@ -45,11 +45,22 @@ watch(visible, (value) => {
     if (!value) form.target_number = null;
     console.log(value);
 });
+
+const exportToPdf = () => {
+    window.open(route("offices-target-report"), "_blank");
+};
 </script>
 
 <template>
     <MainLayout>
-        <Heading>Offices Target</Heading>
+        <DivFlexCenter class="justify-between">
+            <Heading>Offices Target</Heading>
+            <Button
+                @click="exportToPdf"
+                class="text-white bg-slate-900 px-4 py-2 rounded-lg text-sm"
+                >Export to PDF</Button
+            >
+        </DivFlexCenter>
 
         <DivFlexCol
             class="w-full h-auto rounded-lg border border-gray/20 space-y-5 overflow-auto overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"

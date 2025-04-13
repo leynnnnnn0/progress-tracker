@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Target Accomplished</title>
+    <title>Offices Target</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,7 +50,7 @@
 
 <body>
     <div class="container">
-        <h1>Target accomplished as of {{ now()->format('F d, Y') }}</h1>
+        <h1>Offices target as of {{ now()->format('F d, Y') }}</h1>
 
         <table>
             <thead>
@@ -73,7 +73,7 @@
                     @if(count($target['sub_targets']) > 0)
                     <td>{{ $target['sub_targets'][0]['description'] }}</td>
                     @foreach($target['sub_targets'][0]['offices_target'] as $target_number)
-                    <td>{{ $target_number['actual_accomplishments_number'] }}</td>
+                    <td>{{ $target_number['target_number'] }}</td>
                     @endforeach
                     @endif
                 </tr>
@@ -82,7 +82,7 @@
                     <tr>
                     <td>{{ $target['sub_targets'][$i]['description'] }}</td>
                     @foreach($target['sub_targets'][$i]['offices_target'] as $target_number)
-                    <td>{{ $target_number['actual_accomplishments_number'] }}</td>
+                    <td>{{ $target_number['target_number'] }}</td>
                     @endforeach
                     </tr>
                     @endfor
