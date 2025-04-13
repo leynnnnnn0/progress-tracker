@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/offices-target/update-target-number', [OfficeTargetController::class, 'updateTargetNumber'])->name('offices-target.update-target-number');
 
+    Route::get('/target-accomplished-report', [TargetAccomplishedController::class, 'downloadPDF'])->name('target-accomplished-report');
+
     Route::resource('settings', SettingController::class);
     Route::resource('users', UserController::class);
     Route::resource('offices', OfficeController::class);
