@@ -260,6 +260,39 @@ const exportRoute = computed(() =>
 );
 
 const exportToPdf = () => {
+    const {
+        selectedColumns,
+        full_name,
+        office_name,
+        name_of_employee,
+        approved_by,
+        ratee,
+        final_rating_by,
+        date_range,
+    } = pdfForm;
+
+    console.log(name_of_employee);
+    console.log(approved_by);
+    console.log(ratee);
+    console.log(final_rating_by);
+    console.log(date_range);
+
+    if (
+        !selectedColumns ||
+        !name_of_employee ||
+        !approved_by ||
+        !ratee ||
+        !final_rating_by ||
+        date_range == null
+    ) {
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: `Please fill all the fields.`,
+            life: 5000,
+        });
+        return;
+    }
     window.open(exportRoute.value, "_blank");
 };
 

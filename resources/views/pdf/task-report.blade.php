@@ -522,15 +522,15 @@
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
                         <td colspan="4">Core: {{ $coreOnPercent }}</td>
                         @if($visibleColsAfterRating > 0)
-                        <td colspan="{{ $visibleColsAfterRating - 1 }}">Core Percentage: {{ $corePercentage }}%</td>
-                        <td></td>
-                        @endif
+                        < colspan="{{ $visibleColsAfterRating - 1 }}">
+                            <td></td>
+                            @endif
                     </tr>
                     <tr class="final-ratings">
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
                         <td colspan="4">Strategic: {{ $strategicOnPercent }}</td>
                         @if($visibleColsAfterRating > 0)
-                        <td colspan="{{ $visibleColsAfterRating - 1 }}">Strategic Percentage: {{ $strategicPercentage }}%</td>
+                        <td colspan="{{ $visibleColsAfterRating - 1 }}"></td>
                         <td></td>
                         @endif
                     </tr>
@@ -538,7 +538,7 @@
                         <td colspan="{{ $visibleColsBeforeRating }}"></td>
                         <td colspan="4">Support: {{ $supportOnPercent }}</td>
                         @if($visibleColsAfterRating > 0)
-                        <td colspan="{{ $visibleColsAfterRating - 1 }}">Support Percentage: {{ $supportPercentage }}%</td>
+                        <td colspan="{{ $visibleColsAfterRating - 1 }}"></td>
                         <td></td>
                         @endif
                     </tr>
