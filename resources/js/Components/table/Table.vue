@@ -1,5 +1,5 @@
 <template>
-    <table class="divide-y w-full sm:table hidden">
+    <table class="divide-y w-full">
         <slot />
     </table>
 </template>
