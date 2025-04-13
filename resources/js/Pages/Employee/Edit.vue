@@ -59,15 +59,7 @@ console.log(positionsOptions);
                 <Input v-model="form.last_name" />
             </FormInput>
             <FormInput label="Position" :errorMessage="form.errors.position">
-                <Select
-                    v-model="form.position"
-                    :options="positionsOptions"
-                    optionLabel="label"
-                    optionValue="value"
-                    placeholder="Select a Position"
-                    class="w-full"
-                    filter
-                />
+                <Input v-model="form.position" />
             </FormInput>
 
             <FormFooter>
