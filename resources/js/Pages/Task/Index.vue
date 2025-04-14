@@ -335,7 +335,7 @@ const updateGroup = () => {
 const getColumnsCount = (group) => {
     let columnsCount = 0;
     targets[group]?.map((item) => {
-        item.sub_targets.map((item) => {
+        item.sub_targets?.map((item) => {
             if (item.user_tasks.ave) columnsCount++;
         });
     });
