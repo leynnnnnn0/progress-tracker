@@ -60,12 +60,12 @@
                     @foreach($offices as $office)
                     <th>{{ $office }}</th>
                     @endforeach
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($targets as $target)
                 <tr>
-
                     <td rowspan="{{ count($target['sub_targets']) }}">
                         {{ $target['description'] }}
                     </td>
@@ -75,6 +75,14 @@
                     @foreach($target['sub_targets'][0]['offices_target'] as $target_number)
                     <td>{{ $target_number['actual_accomplishments_number'] }}</td>
                     @endforeach
+
+                    @php
+                    $total = 0;
+                    foreach($target['sub_targets'][0]['offices_target'] as $target_number) {
+                    $total += floatval($target_number['actual_accomplishments_number'] ?? 0);
+                    }
+                    @endphp
+                    <td>{{ $total }}</td>
                     @endif
                 </tr>
 
@@ -84,6 +92,14 @@
                     @foreach($target['sub_targets'][$i]['offices_target'] as $target_number)
                     <td>{{ $target_number['actual_accomplishments_number'] }}</td>
                     @endforeach
+
+                    @php
+                    $total = 0;
+                    foreach($target['sub_targets'][$i]['offices_target'] as $target_number) {
+                    $total += floatval($target_number['actual_accomplishments_number'] ?? 0);
+                    }
+                    @endphp
+                    <td>{{ $total }}</td>
                     </tr>
                     @endfor
                     @endforeach
