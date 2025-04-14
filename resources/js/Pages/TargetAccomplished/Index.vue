@@ -13,6 +13,14 @@ defineProps({
 const exportToPdf = () => {
     window.open(route("target-accomplished-report"), "_blank");
 };
+
+const calculateAccomplishmentsTotal = (officesTarget) => {
+    return officesTarget.reduce((total, item) => {
+        const accomplishmentNumber =
+            Number(item.actual_accomplishments_number) || 0;
+        return total + accomplishmentNumber;
+    }, 0);
+};
 </script>
 
 <template>
@@ -36,6 +44,7 @@ const exportToPdf = () => {
                     <TH v-for="office in offices">
                         {{ office }}
                     </TH>
+                    <TH>Total</TH>
                 </TableHead>
                 <TableBody v-for="target in targets">
                     <tr>
@@ -55,6 +64,11 @@ const exportToPdf = () => {
                         <TD v-for="target_number in sub_target.offices_target">
                             {{ target_number.actual_accomplishments_number }}
                         </TD>
+                        <TD>{{
+                            calculateAccomplishmentsTotal(
+                                sub_target.offices_target
+                            )
+                        }}</TD>
                     </tr>
                 </TableBody>
             </Table>
