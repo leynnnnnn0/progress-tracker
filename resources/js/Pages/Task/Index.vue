@@ -298,13 +298,13 @@ const exportToPdf = () => {
 
 const groupForm = useForm({
     office_id: null,
-    percentage: null,
-    group_name: "N/a",
+    core_percentage: null,
+    strategic_percentage: null,
+    support_percentage: null,
 });
 const isGroupModalVisible = ref(false);
-const openGroupModal = (group_name) => {
+const openGroupModal = () => {
     isGroupModalVisible.value = true;
-    groupForm.group_name = group_name;
     groupForm.office_id = office.value;
 };
 
@@ -321,11 +321,10 @@ const updateGroup = () => {
             groupForm.reset();
         },
         onError: (e) => {
-            console.log(e);
             toast.add({
                 severity: "error",
                 summary: "Error",
-                detail: `An error occured while trying to update.`,
+                detail: e.percentage ?? "Failed to update.",
                 life: 5000,
             });
         },
@@ -367,15 +366,35 @@ const getSubrating = (group) => {
         :style="{ width: '25rem' }"
     >
         <FormInput
-            label="Percentage"
-            :errorMessage="groupForm.errors.percentage"
+            label="Core Percentage"
+            :errorMessage="groupForm.errors.core_percentage"
         >
-            <Input type="number" required v-model="groupForm.percentage" />
+            <Input type="number" required v-model="groupForm.core_percentage" />
+        </FormInput>
+        <FormInput
+            label="Strategic Percentage"
+            :errorMessage="groupForm.errors.strategic_percentage"
+        >
+            <Input
+                type="number"
+                required
+                v-model="groupForm.strategic_percentage"
+            />
+        </FormInput>
+        <FormInput
+            label="Support Percentage"
+            :errorMessage="groupForm.errors.support_percentage"
+        >
+            <Input
+                type="number"
+                required
+                v-model="groupForm.support_percentage"
+            />
         </FormInput>
         <div class="flex justify-end">
             <Button @click="updateGroup" class="text-white">Save</Button>
         </div>
-        <template #header> Edit {{ groupForm.group_name }} </template>
+        <template #header> Edit Percentage </template>
     </Dialog>
     <!-- Pdf Modal -->
     <Dialog
@@ -824,7 +843,7 @@ const getSubrating = (group) => {
                         <TD colspan="3">Core Percentage: {{ group.core }}</TD>
 
                         <TD colspan="1">
-                            <EditButton @click="openGroupModal('core')" />
+                            <EditButton @click="openGroupModal()" />
                         </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
@@ -839,9 +858,7 @@ const getSubrating = (group) => {
                             >Strategic Percentage: {{ group.strategic }}</TD
                         >
 
-                        <TD colspan="1">
-                            <EditButton @click="openGroupModal('strategic')" />
-                        </TD>
+                        <TD colspan="1"> </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>
@@ -853,9 +870,7 @@ const getSubrating = (group) => {
                             >Support Percentage: {{ group.support }}</TD
                         >
 
-                        <TD colspan="1">
-                            <EditButton @click="openGroupModal('support')" />
-                        </TD>
+                        <TD colspan="1"> </TD>
                     </tr>
                     <tr class="divide-x divide-gray-300">
                         <TD colspan="7"></TD>

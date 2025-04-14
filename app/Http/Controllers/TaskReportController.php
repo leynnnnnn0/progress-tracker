@@ -102,6 +102,9 @@ class TaskReportController extends Controller
             request('name_of_employee')
         ])->get();
 
+
+
+
         $approved_by = $employees->where('id', request('approved_by'))->first();
 
         $approved_by_name = $approved_by->full_name;
@@ -117,9 +120,9 @@ class TaskReportController extends Controller
 
         $date = now()->format('F d, Y');
 
-        $coreSubrating = number_format(isset($targets['core']) ? collect($targets['core'])->sum('subrating') / (collect($targets['core'])->count()) : 0, '2');
-        $strategicSubrating = number_format(isset($targets['strategic']) ? collect($targets['strategic'])->sum('subrating') / (collect($targets['strategic'])->count()) : 0, 2);
-        $supportSubrating = number_format(isset($targets['support']) ? collect($targets['support'])->sum('subrating') / (collect($targets['support'])->count()) : 0, 2);
+        $coreSubrating = number_format(isset($targets['core']) ? collect($targets['core'])->sum('subrating') / (collect($targets['core'])->where('subrating', '>', 0)->count()) : 0, '2');
+        $strategicSubrating = number_format(isset($targets['strategic']) ? collect($targets['strategic'])->sum('subrating') / (collect($targets['strategic'])->where('subrating', '>', 0)->count()) : 0, 2);
+        $supportSubrating = number_format(isset($targets['support']) ? collect($targets['support'])->sum('subrating') / (collect($targets['support'])->where('subrating', '>', 0)->count()) : 0, 2);
 
         $group = Group::where('office_id', $office)->first();
 
@@ -148,7 +151,7 @@ class TaskReportController extends Controller
             'strategicSubrating' => $strategicSubrating,
             'supportSubrating' => $supportSubrating,
             'finalAverage' => number_format(($coreOnPercentage + $strategicOnPercentage +
-            $supportOnPercentage), 2),
+                $supportOnPercentage), 2),
             'coreOnPercent' => $coreOnPercentage,
             'strategicOnPercent' => $strategicOnPercentage,
             'supportOnPercent' => $supportOnPercentage
