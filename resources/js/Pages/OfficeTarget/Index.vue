@@ -49,6 +49,13 @@ watch(visible, (value) => {
 const exportToPdf = () => {
     window.open(route("offices-target-report"), "_blank");
 };
+
+const calculateSubTargetTotal = (officesTarget) => {
+    return officesTarget.reduce((total, item) => {
+        const targetNumber = Number(item.target_number) || 0;
+        return total + targetNumber;
+    }, 0);
+};
 </script>
 
 <template>
@@ -72,6 +79,7 @@ const exportToPdf = () => {
                     <TH v-for="office in offices">
                         {{ office }}
                     </TH>
+                    <TH>Total</TH>
                 </TableHead>
                 <TableBody v-for="target in targets">
                     <tr>
@@ -99,6 +107,9 @@ const exportToPdf = () => {
                         >
                             {{ target_number.target_number }}
                         </TD>
+                        <TD>{{
+                            calculateSubTargetTotal(sub_target.offices_target)
+                        }}</TD>
                     </tr>
                 </TableBody>
             </Table>
