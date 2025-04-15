@@ -210,6 +210,26 @@ const toggleMobileSidebar = () => {
                                     >
                                 </NavLink>
                                 <NavLink
+                                    href="/goals"
+                                    :icon="ListCheck"
+                                    :collapsed="isSidebarCollapsed"
+                                    v-if="is_admin"
+                                >
+                                    <span v-if="!isSidebarCollapsed"
+                                        >Goals</span
+                                    >
+                                </NavLink>
+                                <NavLink
+                                    href="/objectives"
+                                    :icon="ListCheck"
+                                    :collapsed="isSidebarCollapsed"
+                                    v-if="is_admin"
+                                >
+                                    <span v-if="!isSidebarCollapsed"
+                                        >Objectives</span
+                                    >
+                                </NavLink>
+                                <NavLink
                                     href="/settings"
                                     :icon="Settings"
                                     :collapsed="isSidebarCollapsed"

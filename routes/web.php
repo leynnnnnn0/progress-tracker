@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeFinalAverageController;
 use App\Http\Controllers\OfficeTargetController;
@@ -45,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('audits', AuditController::class);
     Route::resource('employees', EmployeeController::class);
     Route::resource('target-accomplished', TargetAccomplishedController::class);
+
+    Route::resource('goals', GoalController::class);
+    Route::resource('objectives', ObjectiveController::class);
 });
 
 Route::middleware('auth')->group(function () {
