@@ -33,7 +33,7 @@ const { update } = useUpdate(
     "Employee"
 );
 
-console.log(positionsOptions);
+
 </script>
 
 <template>

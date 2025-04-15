@@ -38,7 +38,6 @@ const { targets, offices, filters, users, auth, employees } = defineProps({
     },
 });
 
-console.log(auth);
 const office = ref(
     offices.length > 0 ? filters.office ?? offices[0].value.toString() : null
 );
@@ -122,8 +121,6 @@ const dateRange = [
         label: "July - December " + new Date().getFullYear(),
     },
 ];
-
-console.log(employeeOptions);
 
 const pdfForm = useForm({
     selectedColumns: [],
@@ -271,12 +268,6 @@ const exportToPdf = () => {
         date_range,
     } = pdfForm;
 
-    console.log(name_of_employee);
-    console.log(approved_by);
-    console.log(ratee);
-    console.log(final_rating_by);
-    console.log(date_range);
-
     if (
         !selectedColumns ||
         !name_of_employee ||
@@ -333,12 +324,22 @@ const updateGroup = () => {
 
 const getColumnsCount = (group) => {
     let columnsCount = 0;
-    targets[group]?.map((item) => {
-        item.sub_targets?.map((item) => {
-            if (item.user_tasks.ave) columnsCount++;
-        });
-    });
-
+    if (targets[group]) {
+        for (const item of targets[group]) {
+            if (item.sub_targets) {
+                if (Array.isArray(item.sub_targets)) {
+                    for (const subItem of item.sub_targets) {
+                        if (subItem.user_tasks.ave) columnsCount++;
+                    }
+                } else if (typeof item.sub_targets === "object") {
+                    for (const key in item.sub_targets) {
+                        const subItem = item.sub_targets[key];
+                        if (subItem.user_tasks.ave) columnsCount++;
+                    }
+                }
+            }
+        }
+    }
     return columnsCount;
 };
 

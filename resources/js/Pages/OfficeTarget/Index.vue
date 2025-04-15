@@ -17,8 +17,6 @@ import { useForm } from "@inertiajs/vue3";
 
 const visible = ref(false);
 const updateTarget = (office_id, sub_target_id) => {
-    console.log(office_id);
-    console.log(sub_target_id);
     form.office_id = office_id;
     form.sub_target_id = sub_target_id;
     visible.value = true;
@@ -43,7 +41,7 @@ const updateTargetNumber = async () => {
 
 watch(visible, (value) => {
     if (!value) form.target_number = null;
-    console.log(value);
+
 });
 
 const exportToPdf = () => {

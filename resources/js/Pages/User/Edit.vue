@@ -34,7 +34,7 @@ const statuses = [
     { value: 0, label: "No" },
 ];
 
-console.log(form.assignedOffices);
+
 
 const { update } = useUpdate(form, route("users.update", user.id), "User");
 </script>

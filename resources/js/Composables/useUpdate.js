@@ -34,7 +34,6 @@ export default function useUpdate(form, getRoute, model) {
                             return true;
                         },
                         onError: (e) => {
-                            console.log(e);
                             toast.add({
                                 severity: "error",
                                 summary: "Error",

@@ -27,7 +27,6 @@ export default function useStore(form, route, model) {
                         });
                     },
                     onError: (e) => {
-                        console.log(e);
                         toast.add({
                             severity: "error",
                             summary: "Error",
