@@ -37,4 +37,10 @@ class ObjectiveController extends Controller
             'objective' => $objective
         ]);
     }
+
+    public function destroy($id)
+    {
+        Objective::findOrFail($id)->delete();
+        return to_route('objectives.index');
+    }
 }

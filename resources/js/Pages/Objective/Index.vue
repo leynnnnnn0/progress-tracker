@@ -5,7 +5,7 @@ const { objectives } = defineProps({
         required: true,
     },
 });
-
+import useDelete from "@/Composables/useDelete.js";
 import Textarea from "@/Components/ui/textarea/Textarea.vue";
 import useStore from "@/Composables/useStore";
 import useUpdate from "@/Composables/useUpdate";
@@ -13,7 +13,7 @@ import { useForm } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 import useAlert from "@/Composables/useAlert.js";
 const { confirm, toast } = useAlert();
-
+const { deleteModel } = useDelete("Objective");
 // Create modal controls
 const isCreateModalVisible = ref(false);
 
@@ -66,32 +66,35 @@ const updateModel = async () => {
                 severity: "success",
             },
             accept: () => {
-                updateForm.put(route("objectives.update", currentObjectiveId.value), {
-                    onSuccess: () => {
-                        toast.add({
-                            severity: "success",
-                            summary: "Success",
-                            detail: `Objective Updated Successfully.`,
-                            life: 5000,
-                        });
-                        resolve(true);
+                updateForm.put(
+                    route("objectives.update", currentObjectiveId.value),
+                    {
+                        onSuccess: () => {
+                            toast.add({
+                                severity: "success",
+                                summary: "Success",
+                                detail: `Objective Updated Successfully.`,
+                                life: 5000,
+                            });
+                            resolve(true);
 
-                        isUpdateModalVisible.value = false;
-                        updateForm.reset();
-                        currentObjectiveId.value = null;
-                        return true;
-                    },
-                    onError: (e) => {
-                        toast.add({
-                            severity: "error",
-                            summary: "Error",
-                            detail: `An error occured while trying to update the objective details.`,
-                            life: 5000,
-                        });
-                        resolve(false);
-                        return false;
-                    },
-                });
+                            isUpdateModalVisible.value = false;
+                            updateForm.reset();
+                            currentObjectiveId.value = null;
+                            return true;
+                        },
+                        onError: (e) => {
+                            toast.add({
+                                severity: "error",
+                                summary: "Error",
+                                detail: `An error occured while trying to update the objective details.`,
+                                life: 5000,
+                            });
+                            resolve(false);
+                            return false;
+                        },
+                    }
+                );
             },
             reject: () => {
                 resolve(false);
@@ -120,7 +123,21 @@ const updateModel = async () => {
                         <TD>{{ objective.id }}</TD>
                         <TD>{{ objective.description }}</TD>
                         <TD>
-                            <EditButton @click="openUpdateModal(objective)" />
+                            <DivFlexCenter class="gap-1">
+                                <EditButton
+                                    @click="openUpdateModal(objective)"
+                                />
+                                <DeleteButton
+                                    @click="
+                                        deleteModel(
+                                            route(
+                                                'objectives.destroy',
+                                                objective.id
+                                            )
+                                        )
+                                    "
+                                />
+                            </DivFlexCenter>
                         </TD>
                     </tr>
                 </TableBody>
