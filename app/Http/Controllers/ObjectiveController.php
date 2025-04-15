@@ -15,4 +15,14 @@ class ObjectiveController extends Controller
             'objectives' => $objectives
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'description' => ['required']
+        ]);
+
+        Objective::create($validated);
+        return to_route('objectives.index');
+    }
 }
