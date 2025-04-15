@@ -105,7 +105,11 @@ const updateModel = async () => {
     <MainLayout>
         <DivFlexCenter class="justify-between">
             <Heading>Goals</Heading>
-            <Button @click="openCreateModal" class="text-white">Create</Button>
+            <Link
+                :href="route('goals.create')"
+                class="text-white bg-slate-900 px-4 py-2 rounded-lg text-sm"
+                >Create New Goal</Link
+            >
         </DivFlexCenter>
 
         <TableContainer>
@@ -121,7 +125,14 @@ const updateModel = async () => {
                         <TD>{{ goal.description }}</TD>
                         <TD>
                             <DivFlexCenter class="gap-1">
-                                <EditButton @click="openUpdateModal(goal)" />
+                                <ShowButton
+                                    :isLink="true"
+                                    :href="route('goals.show', goal.id)"
+                                />
+                                <EditButton
+                                    :isLink="true"
+                                    :href="route('goals.edit', goal.id)"
+                                />
                                 <DeleteButton
                                     @click="
                                         deleteModel(

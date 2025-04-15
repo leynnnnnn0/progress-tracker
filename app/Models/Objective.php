@@ -11,6 +11,12 @@ class Objective extends Model
     use HasFactory;
 
     protected $fillable = [
+        'goal_id',
         'description'
     ];
+
+    public function goal()
+    {
+        return $this->hasMany(Goal::class);
+    }
 }

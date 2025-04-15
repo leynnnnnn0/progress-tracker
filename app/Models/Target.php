@@ -45,6 +45,11 @@ class Target extends Model implements Auditable
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
+    public function target_goal_and_objective()
+    {
+        
+    }
+
     public function user_tasks()
     {
         return $this->hasManyThrough(UserTask::class, SubTarget::class);

@@ -34,8 +34,8 @@ const form = useForm({
     group: null,
     sub_targets: [],
     assignedOffices: [],
-    goal: null,
-    objective: null,
+    goal_id: null,
+    objective_id: null,
 });
 
 const isAllSelected = ref(form.assignedOffices.length == offices.length);
@@ -128,9 +128,9 @@ const { store } = useStore(form, route("targets.store"), "Target");
                 v-if="form.group == 'core'"
                 class="col-span-2"
                 label="Goal"
-                :errorMessage="form.errors.goal"
+                :errorMessage="form.errors.goal_id"
             >
-                <Select v-model="form.goal">
+                <Select v-model="form.goal_id">
                     <SelectTrigger>
                         <SelectValue placeholder="Select from options" />
                     </SelectTrigger>
@@ -153,9 +153,9 @@ const { store } = useStore(form, route("targets.store"), "Target");
                 v-if="form.group == 'core'"
                 class="col-span-2"
                 label="Objective"
-                :errorMessage="form.errors.objective"
+                :errorMessage="form.errors.objective_id"
             >
-                <Select v-model="form.objective">
+                <Select v-model="form.objective_id">
                     <SelectTrigger>
                         <SelectValue placeholder="Select from options" />
                     </SelectTrigger>

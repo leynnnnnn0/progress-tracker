@@ -13,5 +13,11 @@ class Goal extends Model
     protected $fillable = [
         'description'
     ];
-    
+
+    public function objectives()
+    {
+        return $this->hasMany(Objective::class);
+    }
+
+
 }

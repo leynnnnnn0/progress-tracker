@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Goal;
 use App\Models\Group;
+use App\Models\Objective;
 use App\Models\Office;
 use App\Models\Target;
 use App\Models\User;
@@ -22,6 +24,9 @@ class TaskController extends Controller
 
         $query = Target::query()->with(['sub_targets.user_tasks', 'offices']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
+
+        $goals = Goal::all();
+        $objectives = Objective::all();
 
         $user = request('user') ?? $userId;
 
@@ -101,7 +106,9 @@ class TaskController extends Controller
             'filters' => request()->only(['office', 'user']),
             'users' => $users,
             'group' => $group,
-            'employees' => $employees
+            'employees' => $employees,
+            'goals' => $goals,
+            'objectives' => $objectives
         ]);
     }
 }

@@ -36,6 +36,14 @@ const { targets, offices, filters, users, auth, employees } = defineProps({
         type: Object,
         required: false,
     },
+    goals: {
+        type: Object,
+        required: false,
+    },
+    objectives: {
+        type: Object,
+        required: false,
+    },
 });
 
 const office = ref(
@@ -743,6 +751,8 @@ const getSubrating = (group) => {
                             </TD>
                         </tr>
                     </TableBody>
+
+                    
 
                     <TableBody>
                         <tr class="divide-x divide-gray-300">

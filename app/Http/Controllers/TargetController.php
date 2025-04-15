@@ -8,6 +8,7 @@ use App\Models\Objective;
 use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\Target;
+use App\Models\TargetGoalAndObjective;
 use App\Models\User;
 use App\Models\UserTask;
 use Illuminate\Http\Request;
@@ -61,7 +62,9 @@ class TargetController extends Controller
             'description' => ['required'],
             'group' => ['required'],
             'sub_targets' => ['required'],
-            'assignedOffices' => ['required', 'array']
+            'assignedOffices' => ['required', 'array'],
+            'goal_id' => ['required_if:group,core'],
+            'objective_id' => ['required_if:group,core']
         ]);
 
         DB::beginTransaction();
@@ -70,10 +73,19 @@ class TargetController extends Controller
             'group' => $validated['group'],
             'description' => $validated['description']
         ]);
+        
         foreach ($validated['sub_targets'] as $subTarget) {
             SubTarget::create([
                 'target_id' => $target->id,
                 'description' => $subTarget['description'],
+            ]);
+        }
+
+        if ($validated['group'] == 'core') {
+            TargetGoalAndObjective::create([
+                'target_id' => $target->id,
+                'goal_id' => $validated['goal_id'],
+                'objective_id' => $validated['objective_id']
             ]);
         }
 
