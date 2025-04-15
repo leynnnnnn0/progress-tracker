@@ -49,8 +49,57 @@ class GoalController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'description' => ['required'],
+            'objectives' => ['required', 'array']
+        ]);
 
-        return to_route('goals.index');
+        DB::beginTransaction();
+
+        try {
+
+            $goal = Goal::findOrFail($id);
+            $goal->update([
+                'description' => $validated['description']
+            ]);
+
+
+            $existingObjectiveIds = $goal->objectives()->pluck('id')->toArray();
+            $updatedObjectiveIds = [];
+
+
+            foreach ($validated['objectives'] as $objectiveData) {
+                if (isset($objectiveData['id']) && is_numeric($objectiveData['id'])) {
+
+                    $objective = Objective::find($objectiveData['id']);
+                    if ($objective && $objective->goal_id == $goal->id) {
+                        $objective->update([
+                            'description' => $objectiveData['description']
+                        ]);
+                        $updatedObjectiveIds[] = $objective->id;
+                    }
+                } else {
+
+                    $objective = Objective::create([
+                        'goal_id' => $goal->id,
+                        'description' => $objectiveData['description']
+                    ]);
+                    $updatedObjectiveIds[] = $objective->id;
+                }
+            }
+
+
+            $objectivesToDelete = array_diff($existingObjectiveIds, $updatedObjectiveIds);
+            if (!empty($objectivesToDelete)) {
+                Objective::whereIn('id', $objectivesToDelete)->delete();
+            }
+
+            DB::commit();
+            return to_route('goals.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'An error occurred while updating the goal.']);
+        }
     }
 
     public function destroy($id)

@@ -123,11 +123,6 @@ const { update } = useUpdate(form, route("goals.update", goal.id), "Goal");
         </TableContainer>
 
         <DivFlexCenter class="justify-end mt-4">
-            <Link :href="route('goals.show', goal.id)" class="mr-2">
-                <Button type="button" class="bg-gray-500 text-white"
-                    >Cancel</Button
-                >
-            </Link>
             <Button @click="update" class="text-white">Update Goal</Button>
         </DivFlexCenter>
 
