@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Goal;
+use App\Models\Group;
+use App\Models\Objective;
 use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\Target;
@@ -30,9 +33,25 @@ class TargetController extends Controller
 
     public function create()
     {
+        $goals = Goal::select('description', 'id')
+            ->get()->map(function ($item) {
+                return [
+                    'label' => $item->description,
+                    'value' => $item->id
+                ];
+            });
+        $objectives = Objective::select('description', 'id')
+            ->get()->map(function ($item) {
+                return [
+                    'label' => $item->description,
+                    'value' => $item->id
+                ];
+            });
         $offices = Office::getOptions();
         return Inertia::render('Target/Create', [
-            'offices' => $offices
+            'offices' => $offices,
+            'objectives' => $objectives,
+            'goals' => $goals
         ]);
     }
 

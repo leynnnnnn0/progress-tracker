@@ -14,8 +14,16 @@ import useStore from "@/Composables/useStore";
 import { ref, watch } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
-const { offices } = defineProps({
+const { offices, goals, objectives } = defineProps({
     offices: {
+        type: Array,
+        required: true,
+    },
+    goals: {
+        type: Array,
+        required: true,
+    },
+    objectives: {
         type: Array,
         required: true,
     },
@@ -26,6 +34,8 @@ const form = useForm({
     group: null,
     sub_targets: [],
     assignedOffices: [],
+    goal: null,
+    objective: null,
 });
 
 const isAllSelected = ref(form.assignedOffices.length == offices.length);
@@ -87,12 +97,14 @@ const { store } = useStore(form, route("targets.store"), "Target");
         <Heading>Create New Target</Heading>
         <FormContainer>
             <FormInput
+                class="col-span-2"
                 label="Description"
                 :errorMessage="form.errors.description"
             >
                 <Textarea v-model="form.description" />
             </FormInput>
             <FormInput
+                class="col-span-2"
                 label="Percentage Group"
                 :errorMessage="form.errors.group"
             >
@@ -108,6 +120,55 @@ const { store } = useStore(form, route("targets.store"), "Target");
                                 Strategic
                             </SelectItem>
                             <SelectItem value="support"> Support </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            </FormInput>
+            <FormInput
+                v-if="form.group == 'core'"
+                class="col-span-2"
+                label="Goal"
+                :errorMessage="form.errors.goal"
+            >
+                <Select v-model="form.goal">
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select from options" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Options</SelectLabel>
+
+                            <SelectItem
+                                v-for="goal in goals"
+                                :value="goal.value"
+                            >
+                                {{ goal.label }}
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            </FormInput>
+
+            <FormInput
+                v-if="form.group == 'core'"
+                class="col-span-2"
+                label="Objective"
+                :errorMessage="form.errors.objective"
+            >
+                <Select v-model="form.objective">
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select from options" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Options</SelectLabel>
+
+                            <SelectItem
+                                v-for="objective in objectives"
+                                :value="objective.value"
+                            >
+                                {{ objective.label }}
+                            </SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
