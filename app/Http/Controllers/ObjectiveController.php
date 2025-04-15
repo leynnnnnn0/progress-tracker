@@ -25,4 +25,16 @@ class ObjectiveController extends Controller
         Objective::create($validated);
         return to_route('objectives.index');
     }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'description' => ['required']
+        ]);
+        $objective = Objective::findOrFail($id);
+        $objective->update($validated);
+        return to_route('objectives.index', [
+            'objective' => $objective
+        ]);
+    }
 }
