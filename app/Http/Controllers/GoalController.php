@@ -25,4 +25,20 @@ class GoalController extends Controller
         Goal::create($validated);
         return to_route('goals.index');
     }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'description' => ['required']
+        ]);
+        $objective = Goal::findOrFail($id);
+        $objective->update($validated);
+        return to_route('goals.index');
+    }
+
+    public function destroy($id)
+    {
+        Goal::findOrFail($id)->delete();
+        return to_route('goals.index');
+    }
 }

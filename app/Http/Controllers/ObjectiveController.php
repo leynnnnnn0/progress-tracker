@@ -33,9 +33,7 @@ class ObjectiveController extends Controller
         ]);
         $objective = Objective::findOrFail($id);
         $objective->update($validated);
-        return to_route('objectives.index', [
-            'objective' => $objective
-        ]);
+        return to_route('objectives.index');
     }
 
     public function destroy($id)
