@@ -25,9 +25,15 @@ class TargetAccomplishedController extends Controller
                     'sub_target_id' => $item->id,
                     'description' => $item->description,
                     'offices_target' => $item->user_tasks()->orderBy('office_id', 'asc')->get()->map(function ($item) {
+                        $accomplished = $item->actual_accomplishments_number ?? 0;
+                        $target = $item->target_number ?? 0;
+                        $result = "{$accomplished}/{$target}";
+                        if (!$accomplished && !$target) {
+                            $result = null;
+                        }
                         return [
                             'office_id' => $item->office_id,
-                            'actual_accomplishments_number' => $item->actual_accomplishments_number
+                            'actual_accomplishments_number' => $result,
                         ];
                     })
                 ];
