@@ -22,10 +22,11 @@ class TaskController extends Controller
         $employees = Employee::getOptions();
         $users = User::getOptions();
 
-        $query = Target::query()->with(['sub_targets.user_tasks', 'offices']);
+        $query = Target::query()->with(['sub_targets.user_tasks', 'sub_targets.objective', 'offices']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
 
-        $goals = Goal::all();
+        $goals = Goal::with('objectives')->get();
+
         $objectives = Objective::all();
 
         $user = request('user') ?? $userId;
@@ -60,6 +61,7 @@ class TaskController extends Controller
                 if ($user_task->e > 0) $count++;
 
                 return [
+                    'objective_id' => $item->objective?->id ?? null,
                     'sub_target_id' => $item->id,
                     'description' => $item->description,
                     'user_task_id' => $user_task->id,
@@ -99,6 +101,8 @@ class TaskController extends Controller
             ];
         })
             ->groupBy('group');
+
+
 
         return Inertia::render('Task/Index', [
             'targets' => $targets,

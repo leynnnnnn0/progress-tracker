@@ -711,48 +711,79 @@ const getSubrating = (group) => {
                             CORE FUNCTIONS RESEARCH AND EXTENSION
                         </TH>
                     </TableHead>
-                    <TableHead>
-                        <TH colspan="12">
-                            Development Goal 1: Challenge Innovation by
-                            Expanding Academic and Research Programs
-                        </TH>
-                    </TableHead>
-                    <TableHead>
-                        <TH colspan="12">
-                            Objective 2. (Research). Objective 2. (Research) To
-                            Enchance Research Productivity Contributing To
-                            Sustaianable Development
-                        </TH>
-                    </TableHead>
-
-                    <TableBody v-for="target in targets['core']">
-                        <tr v-if="target.sub_targets.length > 0">
-                            <TD
-                                :rowspan="target.sub_targets.length + 1"
-                                class="border-r border-gray-300"
-                                >{{ target.description }}</TD
-                            >
+                    <TableBody v-for="goal in goals" :key="goal.id">
+                        <tr>
+                            <TD colspan="12"> {{ goal.description }}</TD>
                         </tr>
-                        <tr
-                            v-for="sub_target in target.sub_targets"
-                            class="divide-x divide-gray-300"
+
+                        <template
+                            v-for="objective in goal.objectives"
+                            :key="objective.id"
                         >
-                            <TD>{{ sub_target.description }}</TD>
-                            <TD v-for="user_task in sub_target.user_tasks">{{
-                                user_task
-                            }}</TD>
+                            <tr>
+                                <TD colspan="12" class="text-gray-400">
+                                    {{ objective.description }}
+                                </TD>
+                            </tr>
 
-                            <TD>
-                                <EditButton
-                                    @click="
-                                        openEditModal(sub_target.user_task_id)
+                            <!-- Loop through core targets that match this objective -->
+                            <template
+                                v-for="target in targets['core']"
+                                :key="target.id"
+                            >
+                                <!-- Only display if this target has sub-targets for this objective -->
+                                <template
+                                    v-if="
+                                        target.sub_targets &&
+                                        target.sub_targets.some(
+                                            (st) =>
+                                                st.objective_id === objective.id
+                                        )
                                     "
-                                />
-                            </TD>
-                        </tr>
-                    </TableBody>
+                                >
+                                    <tr>
+                                        <TD
+                                            :rowspan="
+                                                target.sub_targets.filter(
+                                                    (st) =>
+                                                        st.objective_id ===
+                                                        objective.id
+                                                ).length + 1
+                                            "
+                                            class="border-r border-gray-300"
+                                        >
+                                            {{ target.description }}
+                                        </TD>
+                                    </tr>
 
-                    
+                                    <tr
+                                        v-for="sub_target in target.sub_targets.filter(
+                                            (st) =>
+                                                st.objective_id === objective.id
+                                        )"
+                                        :key="sub_target.id"
+                                        class="divide-x divide-gray-300"
+                                    >
+                                        <TD>{{ sub_target.description }}</TD>
+                                        <TD
+                                            v-for="user_task in sub_target.user_tasks"
+                                        >
+                                            {{ user_task }}
+                                        </TD>
+                                        <TD>
+                                            <EditButton
+                                                @click="
+                                                    openEditModal(
+                                                        sub_target.user_task_id
+                                                    )
+                                                "
+                                            />
+                                        </TD>
+                                    </tr>
+                                </template>
+                            </template>
+                        </template>
+                    </TableBody>
 
                     <TableBody>
                         <tr class="divide-x divide-gray-300">

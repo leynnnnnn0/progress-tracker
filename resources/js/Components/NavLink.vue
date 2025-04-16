@@ -4,16 +4,16 @@ import { usePage } from "@inertiajs/vue3";
 
 const isActive = (route) => {
     const currentUrl = usePage().url;
-    
+
     if (currentUrl === route) {
         return true;
     }
 
-    if (currentUrl.startsWith(route + '/')) {
+    if (currentUrl.startsWith(route + "/")) {
         const remainingPath = currentUrl.substring(route.length + 1);
-        return !remainingPath.includes('/');
+        return !remainingPath.includes("/");
     }
-    
+
     return false;
 };
 

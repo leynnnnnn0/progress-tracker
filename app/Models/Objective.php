@@ -15,8 +15,8 @@ class Objective extends Model
         'description'
     ];
 
-    public function goal()
+    public function sub_targets()
     {
-        return $this->hasMany(Goal::class);
+        return $this->hasMany(SubTarget::class);  
     }
 }

@@ -63,7 +63,7 @@ class TargetController extends Controller
             'group' => ['required'],
             'sub_targets' => ['required'],
             'assignedOffices' => ['required', 'array'],
-            'goal_id' => ['required_if:group,core'],
+            // 'goal_id' => ['required_if:group,core'],
             'objective_id' => ['required_if:group,core']
         ]);
 
@@ -73,19 +73,12 @@ class TargetController extends Controller
             'group' => $validated['group'],
             'description' => $validated['description']
         ]);
-        
+
         foreach ($validated['sub_targets'] as $subTarget) {
             SubTarget::create([
+                'objective_id' => $validated['objective_id'],
                 'target_id' => $target->id,
                 'description' => $subTarget['description'],
-            ]);
-        }
-
-        if ($validated['group'] == 'core') {
-            TargetGoalAndObjective::create([
-                'target_id' => $target->id,
-                'goal_id' => $validated['goal_id'],
-                'objective_id' => $validated['objective_id']
             ]);
         }
 

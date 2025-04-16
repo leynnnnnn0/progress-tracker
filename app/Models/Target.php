@@ -45,9 +45,20 @@ class Target extends Model implements Auditable
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
-    public function target_goal_and_objective()
+    // In App\Models\Target.php
+    public function goals()
     {
-        
+        return $this->belongsToMany(Goal::class, 'target_goal_and_objectives');
+    }
+
+    public function objectives()
+    {
+        return $this->belongsToMany(Objective::class, 'target_goal_and_objectives');
+    }
+
+    public function targetGoalAndObjectives()
+    {
+        return $this->hasMany(TargetGoalAndObjective::class);
     }
 
     public function user_tasks()

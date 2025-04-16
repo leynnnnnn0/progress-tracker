@@ -124,7 +124,7 @@ const { store } = useStore(form, route("targets.store"), "Target");
                     </SelectContent>
                 </Select>
             </FormInput>
-            <FormInput
+            <!-- <FormInput
                 v-if="form.group == 'core'"
                 class="col-span-2"
                 label="Goal"
@@ -147,7 +147,7 @@ const { store } = useStore(form, route("targets.store"), "Target");
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-            </FormInput>
+            </FormInput> -->
 
             <FormInput
                 v-if="form.group == 'core'"

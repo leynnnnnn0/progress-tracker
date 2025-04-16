@@ -57,6 +57,7 @@ const logos = [
 
             <div class="flex flex-col text-center">
                 <h1
+                    aria-label="Benguet State University"
                     class="text-green-900 font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                     BENGUET STATE UNIVERSITY
@@ -73,6 +74,7 @@ const logos = [
 
         <!-- Logo grid -->
         <div
+            aria-label="Logos of research centers under the Vice President's office"
             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 lg:gap-10 mx-auto mt-8 md:mt-16 px-4"
         >
             <div

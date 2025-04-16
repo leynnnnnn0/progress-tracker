@@ -14,4 +14,20 @@ class TargetGoalAndObjective extends Model
         'goal_id',
         'objective_id'
     ];
+
+
+    public function target()
+    {
+        return $this->belongsTo(Target::class);
+    }
+
+    public function goal()
+    {
+        return $this->belongsTo(Goal::class);
+    }
+
+    public function objective()
+    {
+        return $this->belongsTo(Objective::class);
+    }
 }
