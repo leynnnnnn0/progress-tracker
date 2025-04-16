@@ -274,7 +274,7 @@
                     <tr class="section-header">
                         <th colspan="{{ $totalVisibleCols }}">CORE FUNCTIONS RESEARCH AND EXTENSION</th>
                     </tr>
-                    <tr class="section-header">
+                    <!-- <tr class="section-header">
                         <th colspan="{{ $totalVisibleCols }}">
                             Development Goal 1: Challenge Innovation by
                             Expanding Academic and Research Programs
@@ -286,7 +286,7 @@
                             Enhance Research Productivity Contributing To
                             Sustainable Development
                         </th>
-                    </tr>
+                    </tr> -->
                     <!-- Core Functions Targets -->
                     @php
                     // Initialize variables for calculations

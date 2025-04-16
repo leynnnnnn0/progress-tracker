@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Goal;
 use App\Models\Group;
 use App\Models\Office;
 use App\Models\Target;
@@ -22,12 +23,15 @@ class TaskReportController extends Controller
     {
         $users = User::getOptions();
 
-        $query = Target::query()->with(['sub_targets.user_tasks', 'offices']);
+        $query = Target::query()->with(['sub_targets.user_tasks', 'sub_targets.objective', 'offices']);
         $userId = $users->count() > 0 ? $users->first()['value'] : null;
         $user = request('user') ?? $userId;
 
         $offices = Office::getOptions($user);
         $office = request('office') ?? $offices->first()['value'];
+
+
+        $goals = Goal::with('objectives')->get();
 
         $query->whereHas('sub_targets.user_tasks', function (Builder $query) use ($office) {
             $query->where('office_id', $office);
@@ -154,7 +158,8 @@ class TaskReportController extends Controller
                 $supportOnPercentage), 2),
             'coreOnPercent' => $coreOnPercentage,
             'strategicOnPercent' => $strategicOnPercentage,
-            'supportOnPercent' => $supportOnPercentage
+            'supportOnPercent' => $supportOnPercentage,
+            'goals' => $goals
         ]);
         $pdf->setOption('repeatTableHeader', false);
 
