@@ -92,11 +92,18 @@ class TargetController extends Controller
     {
         $offices = Office::getOptions();
         $target->load(['sub_targets', 'offices']);
-
+        $objectives = Objective::select('description', 'id')
+            ->get()->map(function ($item) {
+                return [
+                    'label' => $item->description,
+                    'value' => $item->id
+                ];
+            });
 
         return Inertia::render('Target/Edit', [
             'target' => $target,
-            'offices' => $offices
+            'offices' => $offices,
+            'objectives' => $objectives
         ]);
     }
 
@@ -104,6 +111,7 @@ class TargetController extends Controller
     {
         $validated = $request->validate([
             'description' => ['required'],
+            'objective_id' => ['required_if:group,core'],
             'sub_targets' => ['required'],
             'assignedOffices' => ['required', 'array']
         ]);
@@ -126,6 +134,7 @@ class TargetController extends Controller
                     'id' => $subTarget['id']
                 ],
                 [
+                    'objective_id' => $validated['objective_id'],
                     'description' => $subTarget['description'],
                 ]
             );

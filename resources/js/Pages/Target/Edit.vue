@@ -4,7 +4,7 @@ import useUpdate from "@/Composables/useUpdate";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
-const { target, offices } = defineProps({
+const { target, offices, objectives } = defineProps({
     target: {
         type: Object,
         required: true,
@@ -13,16 +13,21 @@ const { target, offices } = defineProps({
         type: Array,
         required: true,
     },
+    objectives: {
+        type: Array,
+        required: true,
+    },
 });
 
 const form = useForm({
     description: target.description,
     sub_targets: [],
+    group: target.group,
     assignedOffices: target.offices_array,
+    objective_id: target.sub_targets[0].objective_id,
 });
 
 const isAllSelected = ref(form.assignedOffices.length == offices.length);
-
 
 const selectAll = () => {
     form.assignedOffices = offices.map((office) => office.value);
@@ -93,6 +98,53 @@ const { update } = useUpdate(
         <FormContainer>
             <FormInput label="Description" class="col-span-2">
                 <Input v-model="form.description" />
+            </FormInput>
+
+            <FormInput
+                class="col-span-2"
+                label="Percentage Group"
+                :errorMessage="form.errors.group"
+            >
+                <Select v-model="form.group">
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select from options" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Options</SelectLabel>
+                            <SelectItem value="core"> Core </SelectItem>
+                            <SelectItem value="strategic">
+                                Strategic
+                            </SelectItem>
+                            <SelectItem value="support"> Support </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            </FormInput>
+
+            <FormInput
+                v-if="form.group == 'core'"
+                class="col-span-2"
+                label="Objective"
+                :errorMessage="form.errors.objective_id"
+            >
+                <Select v-model="form.objective_id">
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select from options" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Options</SelectLabel>
+
+                            <SelectItem
+                                v-for="objective in objectives"
+                                :value="objective.value"
+                            >
+                                {{ objective.label }}
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </FormInput>
         </FormContainer>
         <TableContainer>
