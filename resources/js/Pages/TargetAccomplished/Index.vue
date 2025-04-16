@@ -21,6 +21,13 @@ const calculateAccomplishmentsTotal = (officesTarget) => {
         return total + accomplishmentNumber;
     }, 0);
 };
+
+const calculateTargetTotal = (targetNumber) => {
+    return targetNumber.reduce((total, item) => {
+        const accomplishmentNumber = Number(item.target_number) || 0;
+        return total + accomplishmentNumber;
+    }, 0);
+};
 </script>
 
 <template>
@@ -67,7 +74,9 @@ const calculateAccomplishmentsTotal = (officesTarget) => {
                         <TD>{{
                             calculateAccomplishmentsTotal(
                                 sub_target.offices_target
-                            )
+                            ) +
+                            "/" +
+                            calculateTargetTotal(sub_target.offices_target)
                         }}</TD>
                     </tr>
                 </TableBody>

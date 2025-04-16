@@ -81,8 +81,14 @@
                     foreach($target['sub_targets'][0]['offices_target'] as $target_number) {
                     $total += floatval($target_number['actual_accomplishments_number'] ?? 0);
                     }
+
+                    $totalTarget = 0;
+                    foreach($target['sub_targets'][0]['offices_target'] as $target_number) {
+                    $totalTarget += floatval($target_number['target_number'] ?? 0);
+                    }
+
                     @endphp
-                    <td>{{ $total }}</td>
+                    <td>{{ $total }}/{{ $totalTarget }}</td>
                     @endif
                 </tr>
 
@@ -98,8 +104,13 @@
                     foreach($target['sub_targets'][$i]['offices_target'] as $target_number) {
                     $total += floatval($target_number['actual_accomplishments_number'] ?? 0);
                     }
+
+                    $totalTarget = 0;
+                    foreach($target['sub_targets'][$i]['offices_target'] as $target_number) {
+                    $totalTarget += floatval($target_number['target_number'] ?? 0);
+                    }
                     @endphp
-                    <td>{{ $total }}</td>
+                    <td>{{ $total }}/{{ $totalTarget }}</td>
                     </tr>
                     @endfor
                     @endforeach

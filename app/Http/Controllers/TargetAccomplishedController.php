@@ -34,6 +34,7 @@ class TargetAccomplishedController extends Controller
                         return [
                             'office_id' => $item->office_id,
                             'actual_accomplishments_number' => $result,
+                            'target_number' => $item->target_number
                         ];
                     })
                 ];
@@ -73,6 +74,7 @@ class TargetAccomplishedController extends Controller
                         return [
                             'office_id' => $item->office_id,
                             'actual_accomplishments_number' => $result,
+                            'target_number' => $item->target_number
                         ];
                     })
                 ];
