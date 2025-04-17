@@ -711,7 +711,7 @@ const getSubrating = (group) => {
                             CORE FUNCTIONS RESEARCH AND EXTENSION
                         </TH>
                     </TableHead>
-       
+                    <!-- New goals sedtion -->
                     <TableBody v-for="goal in goals" :key="goal.id">
                         <tr>
                             <TD colspan="12"> {{ goal.description }}</TD>
