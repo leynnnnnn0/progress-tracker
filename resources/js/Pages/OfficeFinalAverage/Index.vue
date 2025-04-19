@@ -1,12 +1,13 @@
 <script setup>
 import Pagination from "@/Components/table/Pagination.vue";
-
+import { useSearch } from "@/Composables/useSearch";
 const { offices } = defineProps({
     offices: {
         type: Object,
         required: true,
     },
 });
+const { search } = useSearch("offices-final-average.index");
 </script>
 
 <template>
@@ -15,7 +16,11 @@ const { offices } = defineProps({
         <TableContainer>
             <TableHeader>
                 <SearchBar>
-                    <Input class="pl-10" placeholder="Search..." />
+                    <Input
+                        class="pl-10"
+                        placeholder="Search..."
+                        v-model="search"
+                    />
                 </SearchBar>
             </TableHeader>
             <Table>

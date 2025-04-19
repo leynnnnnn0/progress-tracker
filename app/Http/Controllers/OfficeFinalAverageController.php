@@ -11,8 +11,14 @@ class OfficeFinalAverageController extends Controller
 {
     public function index()
     {
-        $offices = Office::with(['user_tasks.sub_target.target', 'group_percentage'])
-            ->latest()
+        $search = request('search');
+        $query = Office::with(['user_tasks.sub_target.target', 'group_percentage']);
+
+        if ($search) {
+            $query->whereAny(['name', 'office_code'], 'like', "%$search%");
+        }
+
+        $offices = $query->latest()
             ->paginate(10)
             ->withQueryString()
             ->through(function ($office) {
@@ -54,6 +60,7 @@ class OfficeFinalAverageController extends Controller
 
         return Inertia::render('OfficeFinalAverage/Index', [
             'offices' => $offices,
+            'filters' => request()->only(['search'])
         ]);
     }
 
