@@ -165,7 +165,7 @@ const { store } = useStore(form, route("targets.store"), "Target");
 
                             <SelectItem
                                 v-for="objective in objectives"
-                                :value="objective.value"
+                                :value="objective.value.toString()"
                             >
                                 {{ objective.label }}
                             </SelectItem>
