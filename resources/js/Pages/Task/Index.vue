@@ -366,6 +366,24 @@ const getSubrating = (group) => {
     ).toFixed(2);
     return isNaN(result) ? null : result;
 };
+
+const hasSubTargetsForObjective = (target, objectiveId) => {
+    if (!target || !target.sub_targets || !Array.isArray(target.sub_targets)) {
+        return false;
+    }
+    return target.sub_targets.some(
+        (st) => st && st.objective_id === objectiveId
+    );
+};
+
+const filterSubTargetsForObjective = (target, objectiveId) => {
+    if (!target || !target.sub_targets || !Array.isArray(target.sub_targets)) {
+        return [];
+    }
+    return target.sub_targets.filter(
+        (st) => st && st.objective_id === objectiveId
+    );
+};
 </script>
 <template>
     <!-- Group Modal -->
@@ -735,20 +753,18 @@ const getSubrating = (group) => {
                                 <!-- Only display if this target has sub-targets for this objective -->
                                 <template
                                     v-if="
-                                        target.sub_targets &&
-                                        target.sub_targets.some(
-                                            (st) =>
-                                                st.objective_id === objective.id
+                                        hasSubTargetsForObjective(
+                                            target,
+                                            objective.id
                                         )
                                     "
                                 >
                                     <tr>
                                         <TD
                                             :rowspan="
-                                                target.sub_targets.filter(
-                                                    (st) =>
-                                                        st.objective_id ===
-                                                        objective.id
+                                                filterSubTargetsForObjective(
+                                                    target,
+                                                    objective.id
                                                 ).length + 1
                                             "
                                             class="border-r border-gray-300"
@@ -758,9 +774,9 @@ const getSubrating = (group) => {
                                     </tr>
 
                                     <tr
-                                        v-for="sub_target in target.sub_targets.filter(
-                                            (st) =>
-                                                st.objective_id === objective.id
+                                        v-for="sub_target in filterSubTargetsForObjective(
+                                            target,
+                                            objective.id
                                         )"
                                         :key="sub_target.id"
                                         class="divide-x divide-gray-300"
