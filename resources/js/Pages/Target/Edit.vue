@@ -24,7 +24,7 @@ const form = useForm({
     sub_targets: [],
     group: target.group,
     assignedOffices: target.offices_array,
-    objective_id: target.sub_targets[0].objective_id,
+    objective_id: target.sub_targets[0].objective_id.toString(),
 });
 
 const isAllSelected = ref(form.assignedOffices.length == offices.length);
@@ -138,7 +138,7 @@ const { update } = useUpdate(
 
                             <SelectItem
                                 v-for="objective in objectives"
-                                :value="objective.value"
+                                :value="objective.value.toString()"
                             >
                                 {{ objective.label }}
                             </SelectItem>
