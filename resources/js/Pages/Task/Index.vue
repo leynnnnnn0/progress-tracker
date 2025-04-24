@@ -378,12 +378,17 @@ const hasSubTargetsForObjective = (target, objectiveId) => {
 
 const filterSubTargetsForObjective = (target, objectiveId) => {
     if (!target || !target.sub_targets || !Array.isArray(target.sub_targets)) {
+        console.log("No sub targets found for this target.");
         return [];
     }
+    console.log(target.sub_targets.filter(
+        (st) => st && st.objective_id === objectiveId
+    ))  
     return target.sub_targets.filter(
         (st) => st && st.objective_id === objectiveId
     );
 };
+
 </script>
 <template>
     <!-- Group Modal -->
