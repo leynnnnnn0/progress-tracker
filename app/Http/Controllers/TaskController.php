@@ -81,7 +81,7 @@ class TaskController extends Controller
                         "pmt_remark" => $user_task->pmt_remark,
                     ],
                 ];
-            })->filter();
+            })->filter()->values();
 
 
             $subrating = 0;
@@ -101,7 +101,6 @@ class TaskController extends Controller
             ];
         })
             ->groupBy('group');
-
 
 
         return Inertia::render('Task/Index', [

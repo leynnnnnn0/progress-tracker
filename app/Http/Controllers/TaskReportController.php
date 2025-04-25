@@ -76,7 +76,7 @@ class TaskReportController extends Controller
                         11 => $user_task->pmt_remark
                     ],
                 ];
-            })->filter();
+            })->filter()->values();
 
             $subrating = 0;
 
