@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/task-report', [TaskReportController::class, 'index']);
     Route::get('/task-report-download', [TaskReportController::class, 'download'])->name('task-report.download');
+    Route::get('/task-report-download-excel', [TaskReportController::class, 'exportExcel'])->name('task-report-excel.download');
+
 
     Route::put('/offices-target/update-target-number', [OfficeTargetController::class, 'updateTargetNumber'])->name('offices-target.update-target-number');
 

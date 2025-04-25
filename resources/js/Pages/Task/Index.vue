@@ -264,6 +264,52 @@ const exportRoute = computed(() =>
     })
 );
 
+const exportRouteExcel = computed(() =>
+    route("task-report-excel.download", {
+        user: user.value,
+        office: office.value,
+        selectedColumns: pdfForm.selectedColumns,
+        full_name: pdfForm.full_name,
+        office_name: pdfForm.office_name,
+        name_of_employee: pdfForm.name_of_employee,
+        approved_by: pdfForm.approved_by,
+        ratee: pdfForm.ratee,
+        final_rating_by: pdfForm.final_rating_by,
+        date_range: pdfForm.date_range,
+    })
+);
+
+const exportToExcel = () => {
+    const {
+        selectedColumns,
+        full_name,
+        office_name,
+        name_of_employee,
+        approved_by,
+        ratee,
+        final_rating_by,
+        date_range,
+    } = pdfForm;
+
+    if (
+        !selectedColumns ||
+        !name_of_employee ||
+        !approved_by ||
+        !ratee ||
+        !final_rating_by ||
+        date_range == null
+    ) {
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: `Please fill all the fields.`,
+            life: 5000,
+        });
+        return;
+    }
+    window.open(exportRouteExcel.value, "_blank");
+};
+
 const exportToPdf = () => {
     const {
         selectedColumns,
@@ -369,7 +415,7 @@ const getSubrating = (group) => {
 
 const hasSubTargetsForObjective = (target, objectiveId) => {
     if (!target || !target.sub_targets || !Array.isArray(target.sub_targets)) {
-        console.log(target)
+        console.log(target);
         console.log("No sub targets found for this objective.");
         return false;
     }
@@ -546,8 +592,13 @@ const filterSubTargetsForObjective = (target, objectiveId) => {
                     </label>
                 </div>
             </FormContainer>
-            <div class="flex justify-end">
-                <Button class="text-white" @click="exportToPdf">Export</Button>
+            <div class="flex justify-end gap-3">
+                <Button class="text-white" @click="exportToExcel"
+                    >Export to Excel</Button
+                >
+                <Button class="text-white" @click="exportToPdf"
+                    >Export to PDF</Button
+                >
             </div>
         </div>
     </Dialog>
@@ -635,7 +686,7 @@ const filterSubTargetsForObjective = (target, objectiveId) => {
         </DivFlexCenter>
     </Dialog>
     <MainLayout>
-        <Button class="text-white" @click="openPdfModal">Export To PDF</Button>
+        <Button class="text-white" @click="openPdfModal">Export</Button>
         <DivFlexCenter class="gap-2">
             <!-- <Select v-if="users.length > 0" v-model="user">
                 <SelectTrigger>
