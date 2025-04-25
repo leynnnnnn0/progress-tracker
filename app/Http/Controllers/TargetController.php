@@ -21,7 +21,8 @@ class TargetController extends Controller
     public function index()
     {
         $search = request('search');
-        $query = Target::query();
+        $query = Target::query()
+            ->where('created_by_id', Auth::id());
         if ($search)
             $query->where('description', 'like', "%$search%");
         $targets = $query->latest()->paginate(10);
