@@ -90,6 +90,16 @@ const updateSubTarget = () => {
 };
 
 const { store } = useStore(form, route("targets.store"), "Target");
+
+watch(() => form.objective_id, value => {
+    const numValue = Number(value);
+    
+    goals.forEach((goal) => {
+        if(goal.value.includes(numValue)){
+            form.goal_id = goal.label;
+        }
+    });
+})
 </script>
 
 <template>
@@ -124,30 +134,14 @@ const { store } = useStore(form, route("targets.store"), "Target");
                     </SelectContent>
                 </Select>
             </FormInput>
-            <!-- <FormInput
+            <FormInput
                 v-if="form.group == 'core'"
                 class="col-span-2"
                 label="Goal"
                 :errorMessage="form.errors.goal_id"
             >
-                <Select v-model="form.goal_id">
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select from options" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>Options</SelectLabel>
-
-                            <SelectItem
-                                v-for="goal in goals"
-                                :value="goal.value"
-                            >
-                                {{ goal.label }}
-                            </SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-            </FormInput> -->
+                <Input v-model="form.goal_id" disabled placeholder="Select an objective to show the goal."/>
+            </FormInput>
 
             <FormInput
                 v-if="form.group == 'core'"

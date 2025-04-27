@@ -1,10 +1,10 @@
 <script setup>
 import Dialog from "primevue/dialog";
 import useUpdate from "@/Composables/useUpdate";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
-const { target, offices, objectives } = defineProps({
+const { target, offices, objectives, goals } = defineProps({
     target: {
         type: Object,
         required: true,
@@ -17,7 +17,13 @@ const { target, offices, objectives } = defineProps({
         type: Array,
         required: true,
     },
+    goals: {
+        type: Array,
+        required: true,
+    },
 });
+
+
 
 const form = useForm({
     description: target.description,
@@ -27,6 +33,15 @@ const form = useForm({
     objective_id: target.sub_targets[0].objective_id.toString(),
 });
 
+if(form.objective_id){
+    const numValue = Number(form.objective_id);
+    
+    goals.forEach((goal) => {
+        if(goal.value.includes(numValue)){
+            form.goal_id = goal.label;
+        }
+    });
+}
 const isAllSelected = ref(form.assignedOffices.length == offices.length);
 
 const selectAll = () => {
@@ -90,6 +105,16 @@ const { update } = useUpdate(
     route("targets.update", target.id),
     "Target"
 );
+
+watch(() => form.objective_id, value => {
+    const numValue = Number(value);
+    
+    goals.forEach((goal) => {
+        if(goal.value.includes(numValue)){
+            form.goal_id = goal.label;
+        }
+    });
+})
 </script>
 
 <template>
@@ -121,6 +146,15 @@ const { update } = useUpdate(
                     </SelectContent>
                 </Select>
             </FormInput>
+
+            <FormInput
+                v-if="form.group == 'core'"
+                class="col-span-2"
+                label="Goal"
+                :errorMessage="form.errors.goal_id"
+            >
+                <Input v-model="form.goal_id" disabled placeholder="Select an objective to show the goal."/>
+            </FormInput>    
 
             <FormInput
                 v-if="form.group == 'core'"

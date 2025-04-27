@@ -35,11 +35,11 @@ class TargetController extends Controller
 
     public function create()
     {
-        $goals = Goal::select('description', 'id')
+        $goals = Goal::with('objectives')
             ->get()->map(function ($item) {
                 return [
                     'label' => $item->description,
-                    'value' => $item->id
+                    'value' => $item->objectives()->pluck('id')
                 ];
             });
         $objectives = Objective::select('description', 'id')
@@ -49,6 +49,8 @@ class TargetController extends Controller
                     'value' => $item->id
                 ];
             });
+
+        
         $offices = Office::getOptions();
         return Inertia::render('Target/Create', [
             'offices' => $offices,
@@ -93,6 +95,14 @@ class TargetController extends Controller
     {
         $offices = Office::getOptions();
         $target->load(['sub_targets', 'offices']);
+
+        $goals = Goal::with('objectives')
+        ->get()->map(function ($item) {
+            return [
+                'label' => $item->description,
+                'value' => $item->objectives()->pluck('id')
+            ];
+        });
         $objectives = Objective::select('description', 'id')
             ->get()->map(function ($item) {
                 return [
@@ -103,6 +113,7 @@ class TargetController extends Controller
 
         return Inertia::render('Target/Edit', [
             'target' => $target,
+            'goals' => $goals,
             'offices' => $offices,
             'objectives' => $objectives
         ]);
