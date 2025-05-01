@@ -91,7 +91,7 @@ const updateSubTarget = () => {
 
 const { store } = useStore(form, route("targets.store"), "Target");
 
-watch(() => form.objective_id, value => {
+watch(() => form.objective_id, value => {x  
     const numValue = Number(value);
     
     goals.forEach((goal) => {

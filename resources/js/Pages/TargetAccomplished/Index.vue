@@ -10,6 +10,7 @@ defineProps({
     },
 });
 
+
 const exportToPdf = () => {
     window.open(route("target-accomplished-report"), "_blank");
 };

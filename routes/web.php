@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/target-accomplished-report', [TargetAccomplishedController::class, 'downloadPDF'])->name('target-accomplished-report');
 
+    Route::get('/offices-final-average-report', [OfficeFinalAverageController::class, 'downloadPDF'])->name('offices-final-average-report');
+
 
     Route::get('/offices-target-report', [OfficeTargetController::class, 'downloadPDF'])->name('offices-target-report');
     Route::resource('settings', SettingController::class);

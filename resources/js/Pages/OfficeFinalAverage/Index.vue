@@ -8,6 +8,10 @@ const { offices } = defineProps({
     },
 });
 const { search } = useSearch("offices-final-average.index");
+
+const exportToPdf = () => {
+    window.open(route("offices-final-average-report"), "_blank");
+};
 </script>
 
 <template>
@@ -22,6 +26,12 @@ const { search } = useSearch("offices-final-average.index");
                         v-model="search"
                     />
                 </SearchBar>
+
+                <DivFlexCenter class="gap-3">
+                    <Button @click="exportToPdf" class="text-white"
+                        >Export to PDF</Button
+                    >
+                </DivFlexCenter>
             </TableHeader>
             <Table>
                 <TableHead>
