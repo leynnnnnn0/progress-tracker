@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OfficeFinalAverageExport;
 use App\Models\Office;
 use App\Models\SubTarget;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OfficeFinalAverageController extends Controller
 {
@@ -95,6 +97,11 @@ class OfficeFinalAverageController extends Controller
         }
 
         return 0;
+    }
+
+    public function downloadExcel()
+    {
+        return Excel::download(new OfficeFinalAverageExport(), 'offices-target-final-average-' . now()->format('Y-m-d') . '.xlsx');
     }
 
     public function downloadPDF()

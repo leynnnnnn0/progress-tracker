@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OfficeFinalAverageExport;
 use App\Models\Office;
 use App\Models\SubTarget;
 use App\Models\Target;
@@ -9,6 +10,7 @@ use App\Models\UserTask;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OfficeTargetController extends Controller
 {
@@ -62,6 +64,8 @@ class OfficeTargetController extends Controller
 
         return back();
     }
+
+  
 
     public function downloadPdf()
     {

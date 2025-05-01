@@ -313,7 +313,6 @@ const exportToExcel = () => {
 const exportToPdf = () => {
     const {
         selectedColumns,
-        full_name,
         office_name,
         name_of_employee,
         approved_by,
@@ -484,20 +483,6 @@ const filterSubTargetsForObjective = (target, objectiveId) => {
     >
         <div class="space-y-3">
             <FormContainer>
-                <FormInput
-                    label="Your full name"
-                    :errorMessage="pdfForm.errors.full_name"
-                >
-                    <SelectPrime
-                        disabled
-                        v-model="pdfForm.full_name"
-                        :options="userOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        placeholder="Select from options"
-                        class="w-full"
-                    />
-                </FormInput>
                 <FormInput
                     label="Your office name"
                     :errorMessage="pdfForm.errors.office_name"

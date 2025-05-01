@@ -170,7 +170,7 @@
 <body>
     <div>
         <h1 class="text-center">DEPARTMENT PERFORMANCE COMMITMENT AND REVIEW</h1>
-        <p class="text-center">I, {{ $full_name }} of the
+        <p class="text-center">I, {{ $name_of_employee }} of the
             {{$office_name }}, commit to deliver and agree to be rated on the
             attainment of following targets in accordance with the
             indicated measure for the period ({{ $date_range }})

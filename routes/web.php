@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/offices-final-average-report', [OfficeFinalAverageController::class, 'downloadPDF'])->name('offices-final-average-report');
 
+    Route::get('/offices-final-average-report-excel', [OfficeFinalAverageController::class, 'downloadExcel'])->name('offices-final-average-report-excel');
+
 
     Route::get('/offices-target-report', [OfficeTargetController::class, 'downloadPDF'])->name('offices-target-report');
     Route::resource('settings', SettingController::class);

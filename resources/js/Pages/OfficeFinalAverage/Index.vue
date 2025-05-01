@@ -12,6 +12,10 @@ const { search } = useSearch("offices-final-average.index");
 const exportToPdf = () => {
     window.open(route("offices-final-average-report"), "_blank");
 };
+
+const exportToExcel = () => {
+    window.open(route("offices-final-average-report-excel"), "_blank");
+};
 </script>
 
 <template>
@@ -28,6 +32,9 @@ const exportToPdf = () => {
                 </SearchBar>
 
                 <DivFlexCenter class="gap-3">
+                    <Button @click="exportToExcel" class="text-white"
+                        >Export to Excel</Button
+                    >
                     <Button @click="exportToPdf" class="text-white"
                         >Export to PDF</Button
                     >
